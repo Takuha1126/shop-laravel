@@ -14,7 +14,7 @@
     <div class="header__group">
         <div class="header__ttl">
             <p class="header__title">
-                <img src="{{ asset('storage/images/logo.svg') }}" alt="Logo">
+                <img src="https://s3-ap-northeast-1.amazonaws.com/shop-laravel/images/logo.svg" alt="Logo">
             </p>
         </div>
         <nav class="nav">
