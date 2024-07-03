@@ -10,7 +10,7 @@
     <div class="main">
         <div class="main__ttl">
             <div class="main__item">
-                <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->productName }}">
+                <img src="https://s3-ap-northeast-1.amazonaws.com/shop-laravel/{{ $product->image }}" alt="{{ $product->productName }}">
             </div>
             <div class="main__about">
                 <div class="about__group">

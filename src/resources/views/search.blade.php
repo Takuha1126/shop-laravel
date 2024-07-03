@@ -15,7 +15,7 @@
                         @foreach ($products as $product)
                             <div class="container__about">
                                 <div class="group__card">
-                                    <a href="{{ route('item.detail', ['id' => $product->id]) }}"><img class="card__img" src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->productName }}"></a>
+                                    <a href="{{ route('item.detail', ['id' => $product->id]) }}"><img src="https://s3-ap-northeast-1.amazonaws.com/shop-laravel/{{ $product->image }}" alt="{{ $product->productName }}"></a>
                                 </div>
                             </div>
                         @endforeach

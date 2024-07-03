@@ -30,6 +30,11 @@ class ProductController extends Controller
         $product->status = $request->status;
         $product->save();
 
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images', 's3');
+            $product->image = $imagePath;
+        }
+
         $categoryNames = $request->input('categories', []);
         foreach ($categoryNames as $categoryName) {
             $trimmedCategoryName = trim($categoryName);

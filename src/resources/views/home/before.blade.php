@@ -12,8 +12,7 @@
     <header class="header">
         <div class="header__group">
             <div class="header__ttl">
-                <p class="header__title"><img src="{{ asset('storage/images/logo.svg') }}" alt="Logo">
-</p>
+                <p class="header__title"><img src="https://s3-ap-northeast-1.amazonaws.com/shop-laravel/images/logo.svg" alt="Logo"></p>
             </div>
             <nav class="nav">
                 <div class="nav__item">
@@ -51,7 +50,7 @@
                     @else
                         @foreach($products as $product)
                             <a class="item__button" href="{{ route('item.detail', ['id' => $product->id]) }}">
-                                <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->productName }}">
+                                <img src="https://s3-ap-northeast-1.amazonaws.com/shop-laravel/{{ $product->image }}" alt="{{ $product->productName }}">
                             </a>
                         @endforeach
                     @endif

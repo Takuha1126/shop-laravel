@@ -11,9 +11,9 @@
                 <div class="main__title">
                     @if ($profile)
                         @if ($profile->profile_image && $profile->profile_image !== 'default.jpg')
-                            <img id="preview" src="{{ asset('storage/' . $profile->profile_image) }}">
+                            <img id="preview" src="https://s3-ap-northeast-1.amazonaws.com/shop-laravel/{{ $profile->profile_image }}" alt="Profile Image">
                         @else
-                            <img id="preview" src="{{ asset('storage/profile_images/default.jpg') }}">
+                            <img id="preview" src='https://s3-ap-northeast-1.amazonaws.com/shop-laravel/profile_images/default.jpg'>
                         @endif
                         @if ($profile->name)
                             <p class="title__user">{{ $profile->name }}</p>
@@ -21,8 +21,7 @@
                             <p class="title__user">未設定</p>
                         @endif
                     @else
-                        <img id="preview" src="{{ asset('storage/profile_images/default.jpg') }}">
-                        <p class="title__user">未設定</p>
+                        <img id="preview" src='https://s3-ap-northeast-1.amazonaws.com/shop-laravel/profile_images/default.jpg'>
                     @endif
                 </div>
                 <div class="button">
@@ -40,12 +39,12 @@
                     <div class="item__ttl">
                         @foreach($productsForSale as $product)
                             <a class="item__button listing" href="{{ route('item.detail', ['id' => $product->id]) }}">
-                                <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->productName }}の写真">
+                                <img src="https://s3-ap-northeast-1.amazonaws.com/shop-laravel/{{ $product->image }}" alt="{{ $product->productName }}の写真">
                             </a>
                         @endforeach
                         @foreach($purchasedProducts as $product)
                             <a class="item__button buy" href="{{ route('item.detail', ['id' => $product->product->id]) }}">
-                                <img src="{{ asset('storage/' . $product->product->image) }}" alt="{{ $product->product->productName }}の写真">
+                                <img src="https://s3-ap-northeast-1.amazonaws.com/shop-laravel/{{ $product->product->image }}" alt="{{ $product->product->productName }}の写真">
                             </a>
                         @endforeach
                     </div>

@@ -21,7 +21,7 @@
                         @foreach ($recommendedProducts as $product)
                             <div class="recommended-product">
                                 <a class="item__button" href="{{ route('item.detail', ['id' => $product->id]) }}">
-                                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->productName }}">
+                                    <img src="https://s3-ap-northeast-1.amazonaws.com/shop-laravel/{{ $product->image }}" alt="{{ $product->productName }}">
                                 </a>
                             </div>
                         @endforeach
@@ -34,7 +34,7 @@
                         @foreach ($favoriteProducts as $product)
                             <div class="favorite-product" data-product-id="{{ $product->id }}">
                                 <a class="item__button" href="{{ route('item.detail', ['id' => $product->id]) }}">
-                                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->productName }}">
+                                    <img src="https://s3-ap-northeast-1.amazonaws.com/shop-laravel/{{ $product->image }}" alt="{{ $product->productName }}">
                                 </a>
                             </div>
                         @endforeach
