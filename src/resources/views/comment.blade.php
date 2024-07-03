@@ -45,9 +45,9 @@
                                         <div class="user__info">
                                             <div class="user__icon-wrapper">
                                                 @if ($comment->user->profile->profile_image && $comment->user->profile->profile_image !== 'default.jpg')
-                                                    <img class="user__icon" src="{{ asset('storage/' . $comment->user->profile->profile_image) }}">
+                                                    <img id="preview" src="https://s3-ap-northeast-1.amazonaws.com/shop-laravel/{{ $profile->profile_image }}" alt="Profile Image">
                                                 @else
-                                                    <img class="user__icon" src="{{ asset('storage/profile_images/default.jpg') }}">
+                                                    <img id="preview" src='https://s3-ap-northeast-1.amazonaws.com/shop-laravel/profile_images/default.jpg'>
                                                 @endif
                                             </div>
                                             <div class="user__name">
