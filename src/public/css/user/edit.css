@@ -1,0 +1,117 @@
+.main {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.main__ttl {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.main__title {
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.main__group {
+    margin-top: 50px;
+}
+
+.photo__about {
+    display: flex;
+    align-items: center;
+    margin-left: 30px;
+}
+
+
+.photo__about img {
+    width: 130px;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 20px;
+}
+
+.custom__button {
+    width: 200px;
+    background-color: #fff;
+    color: #FF6666;
+    border: 1px solid #FF6666;
+    border-radius: 5px;
+    padding: 5px 0;
+    margin-left: 50px;
+}
+
+.photo__border input {
+    display: none;
+}
+
+.edit__item {
+    margin: 40px;
+}
+
+.label {
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.edit__item input {
+    width: 100%;
+    padding: 5px;
+}
+
+.edit__button {
+    text-align: center;
+    width: 100%;
+    margin: 70px 0;
+}
+
+.update__button {
+    width: 87%;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    background-color: #FF6666;
+    color: #fff;
+    padding: 5px 0;
+}
+
+.error {
+    text-align: center;
+    color: red;
+}
+
+@media (max-width: 768px) {
+    .main {
+        padding: 15px;
+        margin: 0 10px;
+    }
+
+    .main__title {
+        font-size: 20px;
+    }
+
+    .photo__about img {
+        width: 20%;
+        height: 20%;
+    }
+
+    .label {
+        font-size: 12px;
+    }
+
+    .custom__button,
+    .update__button {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+
+    .update__button {
+        width: 85%;
+    }
+
+    .edit__item input {
+        padding: 6px;
+    }
+}

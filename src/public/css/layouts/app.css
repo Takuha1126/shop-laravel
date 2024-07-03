@@ -1,0 +1,21 @@
+.header {
+    background-color: black;
+    padding: 10px 0;
+
+}
+
+.header__ttl {
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 8px 0;
+    }
+
+    .header__title img {
+        height: 30px;
+        width: 150px;
+    }
+}

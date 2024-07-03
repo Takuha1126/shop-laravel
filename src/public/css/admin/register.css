@@ -1,0 +1,100 @@
+.main__ttl {
+    max-width: 500px;
+    margin: 50px auto;
+}
+
+.main__item {
+    text-align: center;
+}
+
+.main__title {
+    font-weight: 700;
+    font-size: 25px;
+}
+
+.main__about {
+    margin-top: 30px;
+}
+
+
+.label {
+    font-weight: 700;
+    font-size: 18px;
+
+}
+
+.main__name {
+    margin-bottom: 30px;
+}
+
+.main__name input {
+    width: 100%;
+    padding: 5px;
+    font-size: 18px;
+}
+
+.main__email {
+    margin-bottom: 30px;
+}
+
+.main__email input {
+    width: 100%;
+    padding: 5px;
+    font-size: 18px;
+}
+
+.main__password input {
+    width: 100%;
+    padding: 5px;
+    font-size: 18px;
+}
+
+.button {
+    margin-top: 70px;
+}
+
+.button__ttl {
+    width: 100%;
+    padding: 5px 0;
+    background-color: #FF6666;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    font-size: 18px;
+}
+
+.main__link {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.link__title {
+    color: #2C7CFF;
+    text-decoration: none;
+}
+
+.error {
+    text-align: center;
+    margin-top: 10px;
+    color: #ff0000;
+}
+
+@media (max-width: 768px) {
+    .main__ttl {
+        padding: 15px;
+    }
+
+    .main__email input,
+    .main__password input {
+        font-size: 14px;
+    }
+
+    .button__ttl {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+
+    .link__title {
+        font-size: 12px;
+    }
+}

@@ -1,0 +1,141 @@
+.header {
+    background-color: black;
+    padding: 5px;
+}
+
+.header__ttl {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+}
+
+.nav__email {
+    color: #fff;
+    font-size: 20px;
+    text-decoration: none;
+    margin-right: 40px;
+}
+
+.logout__button {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    font-size: 20px;
+}
+
+.main {
+    max-width: 1000px;
+    margin: 50px auto;
+}
+
+.main__title {
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.main__about {
+    max-width: 1000px;
+    margin: 50px auto;
+}
+
+.about__table {
+    border: 1px solid #aaaaaa;
+    width: 100%;
+}
+
+.about__tr {
+    border-bottom: 1px solid #aaaaaa;
+}
+
+
+.about__th {
+    background-color: black;
+    color: #fff;
+    font-size: 20px;
+    border: 1px solid #fff;
+    width: 20%;
+    padding: 20px 0;
+}
+
+.about__td {
+    border: 1px solid #aaaaaa;
+    text-align: center;
+    padding: 15px 0;
+}
+
+.about__link {
+    background-color: #000;
+    color: #fff;
+    padding: 5px;
+    border-radius: 3px;
+    text-decoration: none;
+}
+
+.button__delete {
+    border: none;
+    border-bottom: 2px solid #ff0000;
+    background-color: #fff;
+    color: #ff0000;
+    font-size: 15px;
+}
+
+@media (max-width: 768px) {
+    .header__ttl {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
+    }
+
+    .header__title img {
+        height: 30px;
+    }
+
+    .nav__email {
+        font-size: 16px;
+        margin-right: 20px;
+    }
+
+    .logout__button {
+        font-size: 16px;
+    }
+
+    .main {
+        padding: 20px;
+        margin: 20px auto;
+    }
+
+    .main__title {
+        font-size: 20px;
+    }
+
+    .main__about {
+        margin: 20px auto;
+    }
+
+    .about__table {
+        width: 100%;
+        font-size: 14px;
+    }
+
+    .about__th,
+    .about__td {
+        font-size: 8px;
+        padding: 10px;
+    }
+
+    .about__link {
+        font-size: 8px;
+        padding: 3px;
+    }
+
+    .button__delete {
+        font-size: 8px;
+    }
+}

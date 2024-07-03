@@ -1,0 +1,160 @@
+.header {
+    background-color: black;
+    height: 70px;
+    width: 100%;
+
+}
+
+.header__ttl {
+    height: 100%;
+    width: 100%;
+}
+
+.main {
+    max-width: 600px;
+    margin: 30px auto;
+}
+
+.main__group {
+    text-align: center;
+}
+
+.main__title {
+    font-size: 25px;
+    font-weight: 800;
+}
+
+.main__photo {
+    margin-bottom: 50px;
+}
+
+.label {
+    font-weight: 700;
+}
+
+.photo__border {
+    border: 1px dotted #cccccc;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.custom__button {
+    border: 1px solid #FF6666;
+    background-color: #fff;
+    color: #FF6666;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.photo__border input {
+    display: none;
+}
+
+.detail__border {
+    border-bottom: 1px solid #cccccc;
+    margin-bottom: 20px;
+}
+
+.detail__title {
+    font-size: 20px;
+    color: #aaaaaa;
+    font-weight: 700;
+}
+
+.detail__text {
+    margin-bottom: 20px;
+}
+
+.detail__text input {
+    width: 100%;
+    padding: 5px;
+}
+
+.detail__text select {
+    width: 100%;
+    padding: 5px;
+}
+
+.detail__text textarea {
+    width: 100%;
+    height: 100px;
+}
+
+
+.input__container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.input__prefix {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    font-weight: 700;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #555;
+}
+
+.input__container input {
+    padding-left: 20px;
+}
+
+.button {
+    text-align: center;
+    margin-top: 80px;
+}
+
+.button__ttl {
+    width: 100%;
+    padding: 5px 0;
+    background-color: #FF6666;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    color: #fff;
+}
+
+.error {
+    text-align: center;
+    color: red;
+}
+
+@media (max-width: 768px) {
+    .main {
+        padding: 10px;
+    }
+
+    .main__group,
+    .main__item,
+    .main__photo,
+    .main__detail,
+    .button {
+        padding: 10px;
+    }
+
+
+    .main__title,
+    .detail__title {
+        font-size: 20px;
+    }
+
+    .custom__button,
+    .button__ttl {
+        font-size: 16px;
+        padding: 8px 12px;
+    }
+
+    .input__container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .input__prefix {
+        margin-bottom: 5px;
+    }
+}

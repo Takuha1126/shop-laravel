@@ -1,0 +1,54 @@
+.main {
+    text-align: center;
+    margin-top: 100px;
+}
+
+.main__title {
+    font-weight: 700;
+    font-size: 25px;
+}
+
+.main__group {
+    margin-top: 50px;
+}
+
+.label {
+    font-size: 20px;
+}
+
+.main__item {
+    padding: 3px 30px;
+    text-align: center;
+}
+
+.btn-primary {
+    margin-top: 50px;
+    padding: 10px 30px;
+    color: #fff;
+    background-color: #000;
+    border: none;
+    border-radius: 3px;
+}
+
+@media (max-width: 768px) {
+    .main {
+        padding: 10px;
+    }
+
+    .main__title {
+        font-size: 20px;
+    }
+
+    .label {
+        font-size: 16px;
+    }
+
+    .main__item {
+        font-size: 14px;
+    }
+
+    .btn-primary {
+        font-size: 16px;
+        padding: 8px;
+    }
+}

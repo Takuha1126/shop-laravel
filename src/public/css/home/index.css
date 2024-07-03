@@ -1,0 +1,126 @@
+.main {
+    margin-top: 30px;
+}
+
+.main__border {
+    border-bottom: 1px solid #000;
+}
+
+.main__title {
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+
+.main__button {
+    margin-right: 50px;
+    font-weight: 900;
+}
+
+.main__button--my {
+    font-weight: 900;
+}
+
+.main__item {
+    max-width: 1200px;
+    margin: 30px auto;
+    display: grid;
+    gap: 20px;
+
+}
+
+.item__ttl {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 30px;
+    width: 100%;
+}
+
+.item {
+    text-align: center;
+}
+
+.item__button {
+    display: block;
+    text-decoration: none;
+
+}
+
+.item__button img {
+    width: 100%;
+    max-width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.active-button {
+    color: red;
+}
+
+
+.search__title {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.search__container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 30px;
+}
+
+.search__item {
+    margin-top: 20px;
+    text-align: center;
+}
+
+
+.search__button {
+    padding: 10px 30px;
+    background-color: #000;
+    border: none;
+    color: #fff;
+    border-radius: 3px;
+
+}
+
+@media (max-width: 768px) {
+    .item__ttl,
+    .search__container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+        text-align: center;
+    }
+
+    .recommended-product .favorite-product,
+    .search__product {
+        width: 100%;
+    }
+
+    .recommended-product a,
+    .favorite-product a,
+    .search__product a {
+        display: block;
+        text-align: center;
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .recommended-product img,
+    .favorite-product img,
+    .search__product img {
+        width: 100%;
+        max-width: 150px;
+        height: 150px;
+        object-fit: cover;
+    }
+
+    .search__button {
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+}

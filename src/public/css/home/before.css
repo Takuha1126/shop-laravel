@@ -1,0 +1,167 @@
+.header {
+    background-color: black;
+}
+
+.header__group {
+    display: flex;
+    max-width: 1300px;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.nav__item {
+    margin-right: 50px;
+}
+
+.nav__item a {
+    text-decoration: none;
+}
+
+.nav__item input {
+    width: 500px;
+    padding: 10px 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+.button__ttl {
+    color: #fff;
+    font-size: 20px;
+}
+
+.button__title {
+    padding: 5px 15px;
+    font-size: 20px;
+    color: #000;
+    border: 1px solid #fff;
+    background-color: #fff;
+    border-radius: 3px;
+
+}
+
+.main {
+    margin-top: 30px;
+}
+
+.main__border {
+    border-bottom: 1px solid #000;
+}
+
+.main__title {
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+
+.main__button {
+    margin-right: 50px;
+    font-weight: 900;
+    color: #ff0000;
+}
+
+.main__button--my {
+    font-weight: 900;
+    text-decoration: none;
+    color: #000;
+}
+
+.main__item {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.item__ttl {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.item__button {
+    width: 20%;
+    box-sizing: border-box;
+    padding: 20px;
+    position: relative;
+}
+
+.item__button::before {
+    content: "";
+    display: block;
+    padding-top: 120%;
+}
+
+.item__button img {
+    position: absolute;
+    top: 20%;
+    left: 15%;
+    width: 70%;
+    height: 60%;
+    object-fit: cover;
+}
+
+.login-required-message {
+    display: none;
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+@media (max-width: 768px) {
+    .header__group {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
+    }
+
+    .header__title img {
+        height: 30px;
+    }
+
+    .nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav__item {
+        margin-left: 0;
+        margin-top: 10px;
+        width: 100%;
+    }
+
+    .nav__item input {
+        width: 250px;
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+    }
+
+    .login-required-message {
+        width: 250px;
+        font-size: 12px;
+    }
+
+    .nav__item a {
+        width: 100%;
+    }
+
+    .button__ttl {
+        margin-top: 10px;
+    }
+
+    .item__button {
+        flex: 0 0 calc(50% - 10px);
+        max-width: calc(50% - 10px);
+    }
+}

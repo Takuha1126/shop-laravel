@@ -1,0 +1,82 @@
+.header {
+    background-color: black;
+    height: 70px;
+    width: 100%;
+
+}
+
+.header__ttl {
+    height: 100%;
+    width: 100%;
+}
+
+.main {
+    max-width: 500px;
+    margin: 50px auto;
+}
+
+.main__ttl {
+    text-align: center;
+}
+
+.main__title {
+    font-size: 25px;
+    font-weight: 900;
+}
+
+.main__item {
+    margin-top: 80px;
+}
+
+.main__about {
+    margin-bottom: 40px;
+}
+
+.main__about label {
+    font-weight: 600;
+}
+
+.main__about input {
+    width: 100%;
+    padding: 5px 0;
+}
+
+.button {
+    padding-top: 20px;
+}
+
+.button__ttl {
+    width: 100%;
+    background-color: #FF6666;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    color: #fff;
+    font-size: 20px;
+}
+
+.error {
+    color: #ff0000;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .main {
+        padding: 15px;
+        margin: 0 10px;
+    }
+
+    .main__title {
+        font-size: 20px;
+    }
+
+    input[type="text"] {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .button__ttl {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}

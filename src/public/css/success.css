@@ -1,0 +1,55 @@
+.main {
+    max-width: 500px;
+    margin: 70px auto;
+}
+
+.main__group {
+    background-color: #dddddd;
+    padding: 20px;
+    text-align: center;
+}
+
+.group__title {
+    font-size: 30px;
+    font-weight: 800;
+}
+
+.group__item {
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.group__item-about {
+    margin-bottom: 50px;
+}
+
+.group__link a {
+    text-decoration: none;
+    border: 1px solid #000;
+    background-color: #fff;
+    border-radius: 3px;
+    color: #000;
+    padding: 5px 20px;
+}
+
+@media (max-width: 768px) {
+    .main {
+        padding: 10px;
+    }
+
+    .main__group {
+        padding: 15px;
+    }
+
+    .group__title {
+        font-size: 20px;
+    }
+
+    .group__item-about {
+        font-size: 16px;
+    }
+
+    .group__link a {
+        font-size: 16px;
+    }
+}
