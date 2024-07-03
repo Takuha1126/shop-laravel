@@ -26,7 +26,7 @@ class ProductController extends Controller
         $product->brand = $request->brand;
         $product->description = $request->description;
         $product->price = $request->price;
-        $product->image = $request->file('image')->store('images', 'public');
+        $product->image = $request->file('image')->store('images', 's3');
         $product->status = $request->status;
         $product->save();
 
