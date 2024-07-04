@@ -69,11 +69,8 @@ class OrderController extends Controller
             $creditCard = auth()->user()->creditCard;
 
             if (!$creditCard) {
-                Log::error('Credit card info is missing.');
                 return redirect()->back()->with('error', 'クレジットカード情報が登録されていません。');
             }
-
-            Log::info('Credit card info: ' . json_encode($creditCard));
         }
 
         $profile = auth()->user()->profile;
