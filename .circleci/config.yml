@@ -4,12 +4,21 @@ jobs:
   build:
     docker:
       - image: circleci/php:7.4-node
-    working_directory: /var/www/shop-laravel/src  # プロジェクトの実際のパスに修正
+    working_directory: /var/www/shop-laravel  # プロジェクトのルートディレクトリに修正
     steps:
+      - run:
+          name: Create directory and set permissions
+          command: |
+            sudo mkdir -p /var/www/shop-laravel
+            sudo chown -R circleci:circleci /var/www/shop-laravel
+            sudo chmod -R 777 /var/www/shop-laravel
+
       - checkout
+
       - run:
           name: Install dependencies
           command: |
+            cd /var/www/shop-laravel
             composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
       - run:
