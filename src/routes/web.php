@@ -52,12 +52,6 @@ Route::middleware('auth')->group(function () {
     Route::put('/orders/{order}/updatePayment', [OrderController::class, 'update'])->name('payment.update');
     Route::get('/credit',[PaymentController::class, 'showRegistrationForm'])->name('credit.show');
     Route::post('/credit/save', [PaymentController::class, 'saveCreditCard'])->name('credit.save');
-    Route::get('/payment/preparation/convenience-store', [PaymentController::class, 'showPreparationForm'])
-    ->name('convenience_store.show');
-    Route::post('/convenience-store/process', [PaymentController::class, 'processConvenienceStore'])->name('convenience-store.process');
-    Route::get('/payment/preparation/bank-transfer', [PaymentController::class, 'showBankTransferForm'])
-    ->name('bank_transfer.show');
-    Route::post('/bank-transfer/process', [PaymentController::class, 'processBankTransfer'])->name('bank-transfer.process');
 });
 Route::get('/', [ItemController::class, 'index'])->name('home.index');
 Route::get('/item/{id}', [ItemController::class, 'detail'])->name('item.detail');

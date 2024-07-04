@@ -8,8 +8,7 @@ use App\Models\Favorite;
 
 class FavoriteController extends Controller
 {
-    public function getFavorite(Request $request)
-    {
+    public function getFavorite(Request $request) {
         $userId = Auth::id();
 
         if (!$userId) {
@@ -30,8 +29,7 @@ class FavoriteController extends Controller
         return response()->json($favorites);
     }
 
-    public function toggleFavorite(Request $request)
-    {
+    public function toggleFavorite(Request $request) {
         $userId = Auth::id();
         $productId = $request->input('product_id');
 
@@ -60,8 +58,7 @@ class FavoriteController extends Controller
         }
     }
 
-    private function checkFavoriteExists($userId, $productId)
-    {
+    private function checkFavoriteExists($userId, $productId) {
         return Favorite::where('user_id', $userId)
                        ->where('product_id', $productId)
                        ->exists();

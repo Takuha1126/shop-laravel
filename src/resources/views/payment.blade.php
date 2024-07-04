@@ -28,19 +28,10 @@
 
         var paymentMethod = document.getElementById('payment_method').value;
         
-        switch (paymentMethod) {
-            case 'credit_card':
-                window.location.href = '{{ route('credit.show') }}';
-                break;
-            case 'convenience_store':
-                window.location.href = '{{ route('convenience_store.show') }}';
-                break;
-            case 'bank_transfer':
-                window.location.href = '{{ route('bank_transfer.show') }}';
-                break;
-            default:
-                document.getElementById('payment-selection-form').submit();
-                break;
+        if (paymentMethod === 'credit_card') {
+            window.location.href = '{{ route('credit.show') }}';
+        } else {
+            document.getElementById('payment-selection-form').submit();
         }
     }
 

@@ -49,6 +49,14 @@
     padding: 5px 10px;
 }
 
+.custom__button.selected {
+    color: #fff;
+    border: none;
+    background-color:#FF6666;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
 .photo__border input {
     display: none;
 }
@@ -74,8 +82,15 @@
 }
 
 .detail__text select {
-    width: 100%;
     padding: 5px;
+}
+
+.select2-container {
+    width: 100% !important;
+}
+
+.select2-selection {
+    width: 100% !important;
 }
 
 .detail__text textarea {

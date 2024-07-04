@@ -22,7 +22,7 @@
                     <div class="main__photo">
                         <label class="label">商品画像</label>
                         <div class="photo__border">
-                            <label for="fileInput" class="custom__button">画像を選択する</label>
+                            <label for="fileInput" class="custom__button" id="fileLabel">画像を選択する</label>
                             <input type="file" accept="image/*" id="fileInput" name="image">
                         </div>
                         @error('image')
@@ -107,16 +107,24 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#categories').select2();
+
+            const fileInput = document.getElementById('fileInput');
+            const label = document.getElementById('fileLabel');
+
+            // ファイルが選択されたときにラベルの色を変更
+            fileInput.addEventListener('change', function () {
+                if (fileInput.files.length > 0) {
+                    label.classList.add('selected');
+                } else {
+                    label.classList.remove('selected');
+                }
+            });
         });
-        function openFilePicker() {
-            document.getElementById('fileInput').click();
-        }
-        $(document).ready(function() {
-        $('#categories').select2();
-    });
     </script>
 </body>
 </html>
