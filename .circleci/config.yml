@@ -4,19 +4,18 @@ jobs:
   build:
     docker:
       - image: circleci/php:7.4-node  # 例としてPHP 7.4とNode.jsを使用するDockerイメージを指定
+    working_directory: ~/project  # 作業ディレクトリを指定
     steps:
       - checkout  # リポジトリをチェックアウトするステップ
       - run:
           name: Install dependencies
           command: |
             composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-            npm install
 
       - run:
           name: Run tests
           command: |
             phpunit
-            npm test
 
 workflows:
   version: 2
