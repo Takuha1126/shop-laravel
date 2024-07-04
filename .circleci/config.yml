@@ -3,10 +3,10 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/php:7.4-node
-    working_directory: ~/project/second-laravel/src  # プロジェクトのパスに修正
+      - image: circleci/php:7.4-node  # PHP 7.4とNode.jsを使用するDockerイメージ
+    working_directory: /home/circleci/project  # 作業ディレクトリを修正
     steps:
-      - checkout
+      - checkout  # リポジトリをチェックアウトするステップ
       - run:
           name: Install dependencies
           command: |
