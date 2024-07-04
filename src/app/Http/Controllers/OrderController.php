@@ -6,12 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Log;
 use Stripe\Stripe;
 use App\Models\Product;
 use App\Models\Order;
 use App\Models\Category;
 use App\Http\Requests\SubmitOrderRequest;
+use Stripe\Charge;
 
 class OrderController extends Controller
 {
