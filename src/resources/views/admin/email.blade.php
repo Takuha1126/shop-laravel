@@ -49,10 +49,10 @@
                         <div class="form-group">
                             <label for="message_content" class="label">メッセージ内容</label>
                             <textarea class="form-control" name="message_content" rows="3"></textarea>
-                            @error('message_content')
-                                <p class="error">{{$message}}</p>
-                            @enderror
                         </div>
+                        @error('message_content')
+                            <p class="error">{{$message}}</p>
+                        @enderror
                         <div class="button">
                             <button type="submit" class="first-mail">メール送信</button>
                         </div>
@@ -66,11 +66,11 @@
                         @csrf
                         <div class="form-group">
                             <label for="message_content" class="label">メッセージ内容</label>
-                            <textarea class="form-control" name="message_content" rows="3"></textarea>
-                            @error('message_all')
-                                <p class="error">{{$message}}</p>
-                            @enderror
+                            <textarea class="form-control" name="message_all" rows="3"></textarea>
                         </div>
+                        @error('message_all')
+                            <p class="error">{{$message}}</p>
+                        @enderror
                         <div class="button">
                             <button type="submit" class="second-mail">全員にメール送信</button>
                         </div>
