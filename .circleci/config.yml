@@ -48,6 +48,17 @@ jobs:
           fingerprints:
             - "YOUR_SSH_KEY_FINGERPRINT" # Replace with your SSH key fingerprint
 
+      # Add Google Chrome repository key
+      - run:
+          name: Add Google Chrome repository key
+          command: |
+            sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E88979FB9B30ACF2
+
+      # Update repository information
+      - run:
+          name: Update repositories
+          command: sudo apt-get update
+
       # Deploy to EC2
       - run:
           name: Deploy to EC2
