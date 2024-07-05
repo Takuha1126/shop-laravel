@@ -49,7 +49,7 @@ jobs:
       - run:
           name: 環境を準備する
           command: |
-            cd ~/shop-laravel/src  # 正しい作業ディレクトリに移動
+            cd ~/src  # 正しい作業ディレクトリに移動
             if [ ! -f .env.example ]; then
               echo ".env.exampleファイルが存在しません。作成します..."
               echo "APP_ENV=local" > .env.example
