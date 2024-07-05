@@ -40,6 +40,10 @@ jobs:
           name: Install additional PHP extension
           command: |
             sudo make install
+
+      - run:
+          name: Copy PHP extension to directory
+          command: |
             sudo cp ./.libs/zip.so /usr/local/lib/php/extensions/no-debug-non-zts-20190902/
 
       - run:
