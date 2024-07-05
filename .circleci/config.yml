@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/php:8.0-node-browsers
+      - image: circleci/php:7.4-node-browsers
     working_directory: ~/shop-laravel/src
 
     steps:
@@ -26,8 +26,8 @@ jobs:
           name: Ensure composer.json exists
           command: |
             if [ ! -f composer.json ]; then
-              echo "composer.json file does not exist. Creating one..."
-              composer init --name="your-vendor-name/your-package-name" --stability=dev --license=MIT --no-interaction
+              echo "composer.json file does not exist. Please create one."
+              exit 1
             fi
 
       - run:
@@ -36,33 +36,9 @@ jobs:
             composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
       - run:
-          name: List files in the working directory
-          command: |
-            echo "Listing files in the current directory to verify 'artisan' and '.env.example' existence..."
-            ls -al
-            echo "Current directory: $(pwd)"
-
-      - run:
           name: Prepare environment
           command: |
-            cd ~/shop-laravel/src  # Move to the correct working directory
-            if [ ! -f .env.example ]; then
-              echo ".env.example file does not exist. Creating one..."
-              echo "APP_ENV=local" > .env.example
-              echo "APP_KEY=" >> .env.example
-              # Add other environment variables as needed
-            fi
-            cp .env.example .env  # Copy .env.example to .env if it exists
-
-            # Ensure artisan exists and has execute permission
-            if [ ! -f artisan ]; then
-              echo "artisan file does not exist. Creating one..."
-              touch artisan
-              # Alternatively, copy the artisan file from a known location
-              # cp /path/to/source/artisan .
-            fi
-            chmod +x artisan
-
+            cp .env.example .env
             php artisan key:generate
             php artisan migrate --seed
 
@@ -70,9 +46,8 @@ jobs:
           name: Build and install zip extension
           command: |
             sudo apt-get install -y libzip-dev
-            sudo pecl channel-update pecl.php.net
             sudo pecl install zip
-            echo "extension=zip.so" | sudo tee -a /usr/local/etc/php/conf.d/docker-php-ext-zip.ini
+            echo "extension=zip.so" | sudo tee -a /etc/php/7.4/cli/php.ini
 
       - run:
           name: Copy PHP extension to directory
@@ -82,7 +57,6 @@ jobs:
       - run:
           name: Run tests
           command: |
-            cd ~/shop-laravel/src  # Ensure we are in the correct directory
             vendor/bin/phpunit --coverage-text --colors=never
 
 workflows:
