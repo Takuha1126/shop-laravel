@@ -53,13 +53,13 @@ jobs:
           name: Add Google Chrome repository key
           command: |
             curl -fsSL https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-            sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E88979FB9B30ACF2
+            curl -fsSL https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor -o /usr/share/keyrings/google-linux-keyring.gpg
 
       # Set up Google Chrome repository
       - run:
           name: Set up Google Chrome repository
           command: |
-            echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
+            echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google-linux-keyring.gpg] https://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
 
       # Update repository information
       - run:
