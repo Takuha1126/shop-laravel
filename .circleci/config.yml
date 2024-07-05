@@ -1,36 +1,51 @@
 version: 2.1
+
 jobs:
   build:
     docker:
       - image: circleci/php:7.4-node-browsers
     steps:
       - checkout
-      - run: sudo composer self-update --1
+      
+      # Composerのアップグレードと設定
+      - run:
+          name: Upgrade to Composer 2
+          command: |
+            sudo composer self-update --2
+      
+      # Composerのキャッシュを復元
       - restore_cache:
           key: composer-v1-{{ checksum "composer.lock" }}
+      
+      # Composerの依存関係をインストール
       - run: composer install -n --prefer-dist
+      
+      # Composerのキャッシュを保存
       - save_cache:
           key: composer-v1-{{ checksum "composer.lock" }}
           paths:
             - vendor
-      #==========追加==========
+      
+      # npmのキャッシュを復元
       - restore_cache:
           key: npm-v1-{{ checksum "package-lock.json" }}
-      #=======================
-      - run: npm ci #==========この1行は削除==========
-      #==========追加==========
+      
+      # npmの依存関係をインストール
       - run:
-          name: npm ci
+          name: Install npm dependencies
           command: |
-            if [ ! -d node_modules ]; then
-              npm ci
-            fi 
+            npm ci
+            
+      # npmのキャッシュを保存
       - save_cache:
           key: npm-v1-{{ checksum "package-lock.json" }}
           paths:
             - node_modules
-      #=======================
+      
+      # npmのビルド
       - run: npm run dev
+      
+      # PHPUnitの実行
       - run:
-          name: php test
+          name: Run PHPUnit tests
           command: vendor/bin/phpunit
