@@ -1,5 +1,4 @@
 version: 2.1
-
 jobs:
   build:
     docker:
@@ -38,7 +37,7 @@ jobs:
       - run:
           name: Prepare environment
           command: |
-            cp ~/shop-laravel/src/.env.example .env
+            cp .env.example ~/shop-laravel/src/.env  # assuming .env.example is in the root of the project
             php artisan key:generate
             php artisan migrate --seed
 
