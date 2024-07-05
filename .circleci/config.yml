@@ -11,16 +11,18 @@ jobs:
       - run:
           name: Install dependencies and PHP extensions
           command: |
-            sudo apt-get update
-            sudo apt-get install -y libzip-dev zip unzip
-            sudo mkdir -p /usr/src/php
-            sudo chown -R $(whoami) /usr/src/php
+            apt-get update
+            apt-get install -y libzip-dev zip unzip
             docker-php-ext-configure zip
             docker-php-ext-install zip
 
       - run:
           name: Install Composer dependencies
           command: |
+            if [ ! -f composer.json ]; then
+              echo "composer.json not found"
+              exit 1
+            fi
             composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
       - run:
