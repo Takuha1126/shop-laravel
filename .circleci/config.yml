@@ -5,32 +5,40 @@ jobs:
       - image: circleci/php:7.4-node-browsers
     steps:
       - checkout
-      - run: sudo composer self-update --1
+
+      # Composerのバージョンアップデート
+      - run: sudo composer self-update --2
+
+      # composer.jsonが存在しない場合にのみ実行
+      - run:
+          name: Initialize composer.json
+          command: |
+            if [ ! -f composer.json ]; then
+              composer init
+            fi
+
+      # Composerの依存関係をインストール
       - restore_cache:
-          key: composer-v1-{{ checksum "composer.lock" }}
+          key: composer-v2-{{ checksum "composer.json" }}
       - run: composer install -n --prefer-dist
       - save_cache:
-          key: composer-v1-{{ checksum "composer.lock" }}
+          key: composer-v2-{{ checksum "composer.json" }}
           paths:
             - vendor
-      #==========追加==========
+
+      # npmの依存関係をインストール
       - restore_cache:
           key: npm-v1-{{ checksum "package-lock.json" }}
-      #=======================
-      - run: npm ci #==========この1行は削除==========
-      #==========追加==========
-      - run:
-          name: npm ci
-          command: |
-            if [ ! -d node_modules ]; then
-              npm ci
-            fi 
+      - run: npm ci
       - save_cache:
           key: npm-v1-{{ checksum "package-lock.json" }}
           paths:
             - node_modules
-      #=======================
+
+      # npm run devを実行
       - run: npm run dev
+
+      # PHPUnitでテストを実行
       - run:
           name: php test
           command: vendor/bin/phpunit
