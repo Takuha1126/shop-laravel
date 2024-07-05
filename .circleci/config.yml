@@ -4,18 +4,25 @@ jobs:
   build:
     docker:
       - image: circleci/php:7.4-node
-    working_directory: /var/www/shop-laravel  # プロジェクトの実際のパスに修正
+    working_directory: ~/shop-laravel  # CircleCIのデフォルトのホームディレクトリを使用
     steps:
       - checkout
+
       - run:
           name: Install dependencies
           command: |
+            sudo apt-get update
+            sudo apt-get install -y libzip-dev zip unzip
+            docker-php-ext-install zip
             composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
       - run:
           name: Run tests
           command: |
-            phpunit
+            cp .env.example .env
+            php artisan key:generate
+            php artisan migrate --seed
+            vendor/bin/phpunit --coverage-text --colors=never
 
 workflows:
   version: 2
