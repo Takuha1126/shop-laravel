@@ -37,7 +37,14 @@ jobs:
       - run:
           name: Prepare environment
           command: |
-            cp .env.example ~/shop-laravel/src/.env  # assuming .env.example is in the root of the project
+            if [ ! -f .env.example ]; then
+              echo ".env.example file does not exist. Creating one..."
+              echo "APP_ENV=local" > .env.example
+              echo "APP_KEY=" >> .env.example
+              # Add other environment variables as needed
+            fi
+            cp .env.example .env  # Copy .env.example to .env if it exists
+
             php artisan key:generate
             php artisan migrate --seed
 
