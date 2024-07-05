@@ -42,7 +42,6 @@ jobs:
             sudo make install
             sudo cp ./.libs/zip.so /usr/local/lib/php/extensions/no-debug-non-zts-20190902/
 
-
       - run:
           name: Run tests
           command: |
