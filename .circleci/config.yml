@@ -15,20 +15,20 @@ jobs:
       
       # Composerのキャッシュを復元
       - restore_cache:
-          key: composer-v1-{{ checksum "composer.json" }}
+          key: composer-v1-{{ checksum "src/composer.json" }}
       
       # Composerの依存関係をインストール
       - run: composer install -n --prefer-dist
       
       # Composerのキャッシュを保存
       - save_cache:
-          key: composer-v1-{{ checksum "composer.json" }}
+          key: composer-v1-{{ checksum "src/composer.json" }}
           paths:
             - vendor
       
       # npmのキャッシュを復元
       - restore_cache:
-          key: npm-v1-{{ checksum "package-lock.json" }}
+          key: npm-v1-{{ checksum "src/package-lock.json" }}
       
       # npmの依存関係をインストール
       - run:
@@ -38,7 +38,7 @@ jobs:
             
       # npmのキャッシュを保存
       - save_cache:
-          key: npm-v1-{{ checksum "package-lock.json" }}
+          key: npm-v1-{{ checksum "src/package-lock.json" }}
           paths:
             - node_modules
       
