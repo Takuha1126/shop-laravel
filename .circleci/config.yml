@@ -12,12 +12,8 @@ jobs:
       - run:
           name: Install PHP extensions
           command: |
-            if [ "$(uname)" = "Darwin" ]; then
-              brew install libzip
-            else
-              sudo apt-get update
-              sudo apt-get install -y libzip-dev zip unzip
-            fi
+            sudo apt-get update
+            sudo apt-get install -y libzip-dev zip unzip
             sudo docker-php-ext-install pdo_mysql zip
 
       # Install composer dependencies
@@ -52,17 +48,17 @@ jobs:
           fingerprints:
             - "YOUR_SSH_KEY_FINGERPRINT" # Replace with your SSH key fingerprint
 
-      # Add Google Chrome repository key
+      # Add Google Chrome repository key using gpg
       - run:
           name: Add Google Chrome repository key
           command: |
-            curl -fsSL https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor -o /usr/share/keyrings/google-linux-keyring.gpg
+            curl -fsSL https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor -o /usr/share/keyrings/google-linux-signing-key.gpg
 
       # Set up Google Chrome repository
       - run:
           name: Set up Google Chrome repository
           command: |
-            echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google-linux-keyring.gpg] https://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
+            echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google-linux-signing-key.gpg] https://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
 
       # Update repository information
       - run:
