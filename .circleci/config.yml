@@ -1,4 +1,5 @@
 version: 2.1
+
 jobs:
   build:
     docker:
@@ -69,7 +70,8 @@ jobs:
           name: Build and install zip extension
           command: |
             sudo apt-get install -y libzip-dev
-            pecl install zip
+            sudo pecl channel-update pecl.php.net
+            sudo pecl install zip
             echo "extension=zip.so" | sudo tee -a /usr/local/etc/php/conf.d/docker-php-ext-zip.ini
 
       - run:
