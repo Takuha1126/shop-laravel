@@ -37,14 +37,16 @@ jobs:
             php artisan migrate --seed
 
       - run:
-          name: Install additional PHP extension
+          name: Build and install zip extension
           command: |
-            sudo make install
+            sudo apt-get install -y libzip-dev
+            sudo pecl install zip
+            echo "extension=zip.so" | sudo tee -a /etc/php/7.4/cli/php.ini
 
       - run:
           name: Copy PHP extension to directory
           command: |
-            sudo cp ./.libs/zip.so /usr/local/lib/php/extensions/no-debug-non-zts-20190902/
+            sudo cp /usr/lib/php/20190902/zip.so /usr/local/lib/php/extensions/no-debug-non-zts-20190902/
 
       - run:
           name: Run tests
