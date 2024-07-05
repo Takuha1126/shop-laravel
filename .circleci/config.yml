@@ -4,7 +4,7 @@ jobs:
   build:
     docker:
       - image: circleci/php:7.4-node-browsers
-    working_directory: ~/project
+    working_directory: /var/www/shop-laravel/src
 
     steps:
       - checkout
