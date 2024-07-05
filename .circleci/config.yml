@@ -1,92 +1,79 @@
 version: 2.1
-jobs:
-  build:
+executors:
+  default:
+    working_directory: ~/workspace
     docker:
-      - image: circleci/php:7.4-node-browsers
-    working_directory: ~/src
+      - image: node:12
 
+commands:
+  restore_npm:
+    steps:
+      - restore_cache:
+          name: Restore npm dependencies
+          key: npm-{{ checksum "package.json" }}
+
+  save_npm:
+    steps:
+      - save_cache:
+          name: Cache npm dependencies
+          key: npm-{{ checksum "package.json" }}
+          paths:
+            - ~/workspace/node_modules
+
+jobs:
+  setup:
+    executor:
+      name: default
     steps:
       - checkout
-
       - run:
-          name: Google ChromeのGPGキーを追加
-          command: |
-            curl -sSL https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+          name: Install dependencies
+          command: npm install
+      - save_npm
 
-      - run:
-          name: 依存関係とPHP拡張機能のインストール
-          command: |
-            sudo apt-get update
-            sudo apt-get install -y libzip-dev zip unzip
-            sudo docker-php-ext-configure zip
-            sudo docker-php-ext-install zip
+  lint:
+    executor:
+      name: default
+    steps:
+      - checkout
+      - restore_npm
+      - run: 
+          name: Lint
+          command: npm run lint
+      - save_npm
 
-      - run:
-          name: composer.jsonの存在確認
-          command: |
-            if [ ! -f composer.json ]; then
-              echo "composer.jsonファイルが存在しません。作成します..."
-              composer init --name="your-vendor-name/your-package-name" --stability=dev --license=MIT --no-interaction
-            fi
+  build:
+    executor:
+      name: default
+    steps:
+      - checkout
+      - restore_npm
+      - run: 
+          name: Build
+          command: npm run build
+      - save_npm
 
-      - run:
-          name: Composerの依存関係をインストール
-          command: |
-            composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-
-      - run:
-          name: Composerの依存関係を確認
-          command: |
-            ls -al vendor/bin  # vendor/binにPHPUnitが存在するか確認
-
-      - run:
-          name: 現在のディレクトリのファイル一覧を表示
-          command: |
-            echo "'artisan'と'.env.example'の存在を確認するため、現在のディレクトリのファイル一覧を表示します..."
-            ls -al
-            ls -al vendor/bin  # vendor/binディレクトリを確認
-
-      - run:
-          name: 環境を準備する
-          command: |
-            cd ~/src  # 正しい作業ディレクトリに移動
-            if [ ! -f .env.example ]; then
-              echo ".env.exampleファイルが存在しません。作成します..."
-              echo "APP_ENV=local" > .env.example
-              echo "APP_KEY=" >> .env.example
-              # 必要に応じて他の環境変数を追加します
-            fi
-            cp .env.example .env  # .env.exampleが存在する場合は.envにコピーします
-
-            # artisanが存在し、実行許可があることを確認
-            if [ ! -f artisan ]; then
-              echo "artisanファイルが存在しません。作成します..."
-              touch artisan
-              # 別の場所からartisanファイルをコピーする場合は以下を使用します
-              # cp /path/to/source/artisan .
-            fi
-            chmod +x artisan
-
-            php artisan key:generate
-            php artisan migrate --seed
-
-      - run:
-          name: zip拡張機能をビルドしてインストール
-          command: |
-            sudo apt-get install -y libzip-dev
-            sudo pecl channel-update pecl.php.net
-            sudo pecl install zip
-            echo "extension=zip.so" | sudo tee -a /usr/local/etc/php/conf.d/docker-php-ext-zip.ini
-
-      - run:
-          name: テストを実行
-          command: |
-            cd ~/src  # 正しいディレクトリにいることを確認
-            vendor/bin/phpunit --coverage-text --colors=never
-
+  test:
+    executor:
+      name: default
+    steps:
+      - checkout
+      - restore_npm
+      - run: 
+          name: Test
+          command: npm run test:unit
+      - save_npm
 
 workflows:
-  version: 2
-  build_and_test:
+  pull-request:
     jobs:
-      - build
+      - setup
+      - lint:
+          requires:
+            - setup
+      - build:
+          requires:
+            - lint
+      - test:
+          requires:
+            - build
