@@ -4,25 +4,29 @@ jobs:
   build:
     docker:
       - image: circleci/php:7.4-node-browsers
-    working_directory: /home/circleci/shop-laravel/src
+    working_directory: ~/shop-laravel/src
+
     steps:
       - checkout
 
       - run:
+          name: Add Google Chrome GPG Key
+          command: |
+            curl -sSL https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+
+      - run:
           name: Install dependencies and PHP extensions
           command: |
-            apt-get update
-            apt-get install -y libzip-dev zip unzip
-            docker-php-ext-configure zip
-            docker-php-ext-install zip
+            sudo apt-get update
+            sudo apt-get install -y libzip-dev zip unzip
+            sudo mkdir -p /usr/src/php
+            sudo chown -R $(whoami) /usr/src/php
+            sudo docker-php-ext-configure zip
+            sudo docker-php-ext-install zip
 
       - run:
           name: Install Composer dependencies
           command: |
-            if [ ! -f composer.json ]; then
-              echo "composer.json not found"
-              exit 1
-            fi
             composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
       - run:
@@ -31,6 +35,18 @@ jobs:
             cp .env.example .env
             php artisan key:generate
             php artisan migrate --seed
+
+      - run:
+          name: Build and install zip extension
+          command: |
+            sudo apt-get install -y libzip-dev
+            sudo pecl install zip
+            echo "extension=zip.so" | sudo tee -a /etc/php/7.4/cli/php.ini
+
+      - run:
+          name: Copy PHP extension to directory
+          command: |
+            sudo cp /usr/lib/php/20190902/zip.so /usr/local/lib/php/extensions/no-debug-non-zts-20190902/
 
       - run:
           name: Run tests
