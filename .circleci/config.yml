@@ -4,7 +4,8 @@ jobs:
   build:
     docker:
       - image: circleci/php:7.4-node-browsers
-    working_directory: src
+    working_directory: /home/circleci/shop-laravel/src
+                      command: composer install -n --prefer-dist
 
     steps:
       - checkout
