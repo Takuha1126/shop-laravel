@@ -28,15 +28,12 @@ jobs:
             sudo apt-get install -y libzip-dev zip unzip
             sudo docker-php-ext-install pdo_mysql zip
 
-      # Ensure the working directory is correct
-      - run:
-          name: Ensure correct working directory
-          command: cd /home/circleci/project
-
       # Install composer dependencies
       - run:
           name: Install Composer dependencies
-          command: composer install --no-dev --optimize-autoloader --no-interaction
+          command: |
+            cd /home/circleci/project # 確実にcomposer.jsonがあるディレクトリに移動
+            composer install --no-dev --optimize-autoloader --no-interaction
 
       # Environment setup
       - run:
@@ -86,4 +83,13 @@ jobs:
       - run:
           name: Deploy to EC2
           command: |
-            ssh -o StrictHostKeyChecking=no ec2-user@ec2-18-177-136-195.ap-northeast-1.compute.amazonaws.com "cd /
+            ssh -o StrictHostKeyChecking=no ec2-user@ec2-18-177-136-195.ap-northeast-1.compute.amazonaws.com "cd /var/www/html && git pull origin master && composer install --no-dev --optimize-autoloader --no-interaction && php artisan migrate --force"
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
