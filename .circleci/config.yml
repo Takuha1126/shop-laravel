@@ -7,6 +7,8 @@ jobs:
     working_directory: ~/project  # ホームディレクトリを使用
 
     steps:
+      - checkout
+
       - run:
           name: Create necessary directories and set permissions
           command: |
@@ -14,14 +16,17 @@ jobs:
             sudo chown -R circleci:circleci /usr/src/php
             sudo chmod -R 777 /usr/src/php
 
-      - checkout
-
       - run:
-          name: Install dependencies
+          name: Install PHP zip extension dependencies
           command: |
             sudo apt-get update
             sudo apt-get install -y libzip-dev zip unzip
+            docker-php-ext-configure zip
             docker-php-ext-install zip
+
+      - run:
+          name: Install Composer dependencies
+          command: |
             composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
       - run:
