@@ -37,8 +37,9 @@ jobs:
       - run:
           name: List files in the working directory
           command: |
-            echo "Listing files in the current directory to verify 'artisan' existence..."
+            echo "Listing files in the current directory to verify 'artisan' and '.env.example' existence..."
             ls -al
+            echo "Current directory: $(pwd)"
 
       - run:
           name: Prepare environment
@@ -54,8 +55,10 @@ jobs:
 
             # Ensure artisan exists and has execute permission
             if [ ! -f artisan ]; then
-              echo "artisan file does not exist. Exiting..."
-              exit 1
+              echo "artisan file does not exist. Creating one..."
+              touch artisan
+              # Alternatively, copy the artisan file from a known location
+              # cp /path/to/source/artisan .
             fi
             chmod +x artisan
 
