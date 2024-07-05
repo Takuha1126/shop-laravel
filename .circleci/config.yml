@@ -5,7 +5,6 @@ jobs:
     docker:
       - image: circleci/php:7.4-node-browsers
     working_directory: /home/circleci/shop-laravel/src
-                      command: composer install -n --prefer-dist
 
     steps:
       - checkout
@@ -20,8 +19,6 @@ jobs:
           command: |
             sudo apt-get update
             sudo apt-get install -y libzip-dev zip unzip
-            sudo mkdir -p /usr/src/php
-            sudo chown -R $(whoami) /usr/src/php
             sudo docker-php-ext-configure zip
             sudo docker-php-ext-install zip
 
