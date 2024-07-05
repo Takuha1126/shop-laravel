@@ -28,12 +28,15 @@ jobs:
             sudo apt-get install -y libzip-dev zip unzip
             sudo docker-php-ext-install pdo_mysql zip
 
+      # Move to project directory where composer.json exists
+      - run:
+          name: Move to project directory
+          command: cd /home/circleci/project/src
+
       # Install composer dependencies
       - run:
           name: Install Composer dependencies
-          command: |
-            cd /home/circleci/project/src # 確実にcomposer.jsonがあるディレクトリに移動
-            composer install --no-dev --optimize-autoloader --no-interaction
+          command: composer install --no-dev --optimize-autoloader --no-interaction
 
       # Environment setup
       - run:
@@ -56,11 +59,6 @@ jobs:
 
     steps:
       - checkout
-
-      # SSH key setup
-      - add_ssh_keys:
-          fingerprints:
-            - "YOUR_SSH_KEY_FINGERPRINT" # Replace with your SSH key fingerprint
 
       # Add Google Chrome repository key using gpg
       - run:
