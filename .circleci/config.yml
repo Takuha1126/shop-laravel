@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/php:8.0-node-browsers
+      - image: circleci/php:7.4-node-browsers
     working_directory: ~/shop-laravel/src
 
     steps:
@@ -69,13 +69,9 @@ jobs:
           name: Build and install zip extension
           command: |
             sudo apt-get install -y libzip-dev
-            pecl install zip
+            sudo pecl channel-update pecl.php.net
+            sudo pecl install zip
             echo "extension=zip.so" | sudo tee -a /usr/local/etc/php/conf.d/docker-php-ext-zip.ini
-
-      - run:
-          name: Copy PHP extension to directory
-          command: |
-            sudo cp /usr/lib/php/20190902/zip.so /usr/local/lib/php/extensions/no-debug-non-zts-20190902/
 
       - run:
           name: Run tests
