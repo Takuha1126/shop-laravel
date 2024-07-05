@@ -35,6 +35,12 @@ jobs:
             composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
       - run:
+          name: List files in the working directory
+          command: |
+            echo "Listing files in the current directory to verify 'artisan' existence..."
+            ls -al
+
+      - run:
           name: Prepare environment
           command: |
             cd ~/shop-laravel/src  # Move to the correct working directory
