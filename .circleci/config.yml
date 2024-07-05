@@ -81,7 +81,7 @@ jobs:
       - run:
           name: テストを実行
           command: |
-            cd ~/shop-laravel/src  # 正しいディレクトリにいることを確認
+            cd ~/src  # 正しいディレクトリにいることを確認
             vendor/bin/phpunit --coverage-text --colors=never
 
 
