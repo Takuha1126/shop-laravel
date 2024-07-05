@@ -26,8 +26,8 @@ jobs:
           name: Ensure composer.json exists
           command: |
             if [ ! -f composer.json ]; then
-              echo "composer.json file does not exist. Please create one."
-              exit 1
+              echo "composer.json file does not exist. Creating one..."
+              composer init --name="your-vendor-name/your-package-name" --stability=dev --license=MIT --no-interaction
             fi
 
       - run:
