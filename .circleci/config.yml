@@ -4,7 +4,7 @@ jobs:
   build:
     docker:
       - image: circleci/php:7.4-node-browsers
-    working_directory: /home/circleci/shop-laravel/src
+    working_directory: ~/shop-laravel/src
 
     steps:
       - checkout
@@ -21,6 +21,14 @@ jobs:
             sudo apt-get install -y libzip-dev zip unzip
             sudo docker-php-ext-configure zip
             sudo docker-php-ext-install zip
+
+      - run:
+          name: Ensure composer.json exists
+          command: |
+            if [ ! -f composer.json ]; then
+              echo "composer.json file does not exist. Please create one."
+              exit 1
+            fi
 
       - run:
           name: Install Composer dependencies
