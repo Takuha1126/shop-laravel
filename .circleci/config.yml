@@ -31,7 +31,8 @@ jobs:
       # Ensure the working directory is correct
       - run:
           name: Ensure correct working directory
-          command: cd /home/circleci/shop-laravel
+          command: cd /home/circleci/project
+
       # Install composer dependencies
       - run:
           name: Install Composer dependencies
