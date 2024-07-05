@@ -1,66 +1,36 @@
 version: 2.1
-
 jobs:
   build:
     docker:
       - image: circleci/php:7.4-node-browsers
-    working_directory: ~/shop-laravel/src
-
     steps:
       - checkout
-
+      - run: sudo composer self-update --1
+      - restore_cache:
+          key: composer-v1-{{ checksum "composer.lock" }}
+      - run: composer install -n --prefer-dist
+      - save_cache:
+          key: composer-v1-{{ checksum "composer.lock" }}
+          paths:
+            - vendor
+      #==========追加==========
+      - restore_cache:
+          key: npm-v1-{{ checksum "package-lock.json" }}
+      #=======================
+      - run: npm ci #==========この1行は削除==========
+      #==========追加==========
       - run:
-          name: Add Google Chrome GPG Key
+          name: npm ci
           command: |
-            curl -sSL https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-
+            if [ ! -d node_modules ]; then
+              npm ci
+            fi 
+      - save_cache:
+          key: npm-v1-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+      #=======================
+      - run: npm run dev
       - run:
-          name: Install dependencies and PHP extensions
-          command: |
-            sudo apt-get update
-            sudo apt-get install -y libzip-dev zip unzip
-            sudo docker-php-ext-configure zip
-            sudo docker-php-ext-install zip
-
-      - run:
-          name: Ensure composer.json exists
-          command: |
-            if [ ! -f composer.json ]; then
-              echo "composer.json file does not exist. Creating one..."
-              composer init --name="your-vendor-name/your-package-name" --stability=dev --license=MIT --no-interaction
-            fi
-
-      - run:
-          name: Install Composer dependencies
-          command: |
-            composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-
-      - run:
-          name: Prepare environment
-          command: |
-            cp ~/shop-laravel/src/.env.example .env
-            php artisan key:generate
-            php artisan migrate --seed
-
-      - run:
-          name: Build and install zip extension
-          command: |
-            sudo apt-get install -y libzip-dev
-            sudo pecl install zip
-            echo "extension=zip.so" | sudo tee -a /etc/php/7.4/cli/php.ini
-
-      - run:
-          name: Copy PHP extension to directory
-          command: |
-            sudo cp /usr/lib/php/20190902/zip.so /usr/local/lib/php/extensions/no-debug-non-zts-20190902/
-
-      - run:
-          name: Run tests
-          command: |
-            vendor/bin/phpunit --coverage-text --colors=never
-
-workflows:
-  version: 2
-  build_and_test:
-    jobs:
-      - build
+          name: php test
+          command: vendor/bin/phpunit
