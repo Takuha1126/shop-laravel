@@ -38,7 +38,7 @@ jobs:
       - run:
           name: Prepare environment
           command: |
-            cp /shop-laravel/src/.env.example .env
+            cp ~/shop-laravel/src/.env.example .env
             php artisan key:generate
             php artisan migrate --seed
 
