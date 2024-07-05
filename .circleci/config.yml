@@ -4,7 +4,7 @@ jobs:
   build:
     docker:
       - image: circleci/php:7.4-node-browsers
-    working_directory: /var/www/shop-laravel/src
+    working_directory: /home/circleci/shop-laravel/src
 
     steps:
       - checkout
@@ -19,13 +19,12 @@ jobs:
           command: |
             sudo apt-get update
             sudo apt-get install -y libzip-dev zip unzip
-            sudo docker-php-ext-configure zip
-            sudo docker-php-ext-install zip
+            docker-php-ext-configure zip --with-libzip
+            docker-php-ext-install zip
 
       - run:
           name: Install Composer dependencies
-          command: |
-            composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+          command: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
       - run:
           name: Prepare environment
@@ -48,8 +47,7 @@ jobs:
 
       - run:
           name: Run tests
-          command: |
-            vendor/bin/phpunit --coverage-text --colors=never
+          command: vendor/bin/phpunit --coverage-text --colors=never
 
 workflows:
   version: 2
