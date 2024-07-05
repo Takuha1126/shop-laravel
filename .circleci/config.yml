@@ -42,15 +42,18 @@ jobs:
             cd /home/circleci/project/src
             cp .env.example .env
           
-      # Generate application key
       - run:
-          name: Generate application key
-          command: php artisan key:generate
+    name: Generate application key
+    command: |
+      cd /home/circleci/project/src
+      php artisan key:generate
 
-      # Run database migrations
-      - run:
-          name: Database migrations
-          command: php artisan migrate --force
+# Run database migrations
+- run:
+    name: Database migrations
+    command: |
+      cd /home/circleci/project/src
+      php artisan migrate --force
 
   deploy:
     docker:
