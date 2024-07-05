@@ -39,7 +39,7 @@ jobs:
       - run:
           name: Environment setup
           command: 
-            cd /home/circleci/project/sr
+            cd /home/circleci/project/src
             cp .env.example .env
           
       # Generate application key
