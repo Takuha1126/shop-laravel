@@ -28,7 +28,7 @@ jobs:
       
       # npmのキャッシュを復元
       - restore_cache:
-          key: npm-v1-{{ checksum "package-lock.json" }}
+          key: npm-v1-{{ checksum "src/composer.json" }}
       
       # npmの依存関係をインストール
       - run:
