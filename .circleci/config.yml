@@ -44,10 +44,16 @@ jobs:
               echo "APP_KEY=" >> .env.example
               # Add other environment variables as needed
             fi
-            cp .env.example .env  # Copy .env.example to .env if it exists
+            if [ -f .env.example ]; then
+  cp .env.example .env  # Copy .env.example to .env
+else
+  echo ".env.example file still does not exist. Please create it manually or check your setup."
+fi
 
-            php artisan key:generate
-            php artisan migrate --seed
+php artisan key:generate
+php artisan migrate --seed
+
+
 
       - run:
           name: Build and install zip extension
