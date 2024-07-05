@@ -3,7 +3,7 @@ jobs:
   build:
     docker:
       - image: circleci/php:7.4-node-browsers
-    working_directory: ~/src
+    working_directory: ~/shop-laravel/src
 
     steps:
       - checkout
@@ -49,7 +49,7 @@ jobs:
       - run:
           name: 環境を準備する
           command: |
-            cd ~/src  # 正しい作業ディレクトリに移動
+            cd ~/shop-laravel/src  # 正しい作業ディレクトリに移動
             if [ ! -f .env.example ]; then
               echo ".env.exampleファイルが存在しません。作成します..."
               echo "APP_ENV=local" > .env.example
@@ -81,9 +81,8 @@ jobs:
       - run:
           name: テストを実行
           command: |
-            cd ~/src  # 正しいディレクトリにいることを確認
+            cd ~/shop-laravel/src  # 正しいディレクトリにいることを確認
             vendor/bin/phpunit --coverage-text --colors=never
-
 
 workflows:
   version: 2
