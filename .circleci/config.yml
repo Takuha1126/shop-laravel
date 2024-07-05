@@ -4,7 +4,8 @@ jobs:
   build:
     docker:
       - image: circleci/php:7.4-node
-    working_directory: ~/shop-laravel  # CircleCIのデフォルトのホームディレクトリを使用
+    working_directory: ~/project  # ホームディレクトリを使用
+
     steps:
       - checkout
 
@@ -17,11 +18,15 @@ jobs:
             composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
       - run:
-          name: Run tests
+          name: Prepare environment
           command: |
             cp .env.example .env
             php artisan key:generate
             php artisan migrate --seed
+
+      - run:
+          name: Run tests
+          command: |
             vendor/bin/phpunit --coverage-text --colors=never
 
 workflows:
