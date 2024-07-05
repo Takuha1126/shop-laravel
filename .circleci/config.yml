@@ -79,10 +79,10 @@ jobs:
             echo "extension=zip.so" | sudo tee -a /usr/local/etc/php/conf.d/docker-php-ext-zip.ini
 
       - run:
-    name: テストを実行
-    command: |
-      cd ~/shop-laravel/src  # 正しいディレクトリにいることを確認
-      vendor/bin/phpunit --coverage-text --colors=never
+          name: テストを実行
+          command: |
+            cd ~/shop-laravel/src  # 正しいディレクトリにいることを確認
+            vendor/bin/phpunit --coverage-text --colors=never
 
 
 workflows:
