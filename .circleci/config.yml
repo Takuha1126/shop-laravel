@@ -10,6 +10,11 @@ jobs:
       - checkout
 
       - run:
+          name: Add Google Chrome GPG Key
+          command: |
+            curl -sSL https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+
+      - run:
           name: Install dependencies and PHP extensions
           command: |
             sudo apt-get update
@@ -39,3 +44,4 @@ workflows:
   build_and_test:
     jobs:
       - build
+
