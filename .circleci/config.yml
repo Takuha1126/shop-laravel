@@ -9,12 +9,12 @@ jobs:
       - checkout
 
       - run:
-          name: Add Google Chrome GPG Key
+          name: Google ChromeのGPGキーを追加
           command: |
             curl -sSL https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 
       - run:
-          name: Install dependencies and PHP extensions
+          name: 依存関係とPHP拡張機能のインストール
           command: |
             sudo apt-get update
             sudo apt-get install -y libzip-dev zip unzip
@@ -22,42 +22,47 @@ jobs:
             sudo docker-php-ext-install zip
 
       - run:
-          name: Ensure composer.json exists
+          name: composer.jsonの存在確認
           command: |
             if [ ! -f composer.json ]; then
-              echo "composer.json file does not exist. Creating one..."
+              echo "composer.jsonファイルが存在しません。作成します..."
               composer init --name="your-vendor-name/your-package-name" --stability=dev --license=MIT --no-interaction
             fi
 
       - run:
-          name: Install Composer dependencies
+          name: Composerの依存関係をインストール
           command: |
             composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
       - run:
-          name: List files in the working directory
+          name: Composerの依存関係を確認
           command: |
-            echo "Listing files in the current directory to verify 'artisan' and '.env.example' existence..."
-            ls -al
-            ls -al vendor/bin  # Check vendor/bin directory
+            ls -al vendor/bin  # vendor/binにPHPUnitが存在するか確認
 
       - run:
-          name: Prepare environment
+          name: 現在のディレクトリのファイル一覧を表示
           command: |
-            cd ~/shop-laravel/src  # Move to the correct working directory
+            echo "'artisan'と'.env.example'の存在を確認するため、現在のディレクトリのファイル一覧を表示します..."
+            ls -al
+            ls -al vendor/bin  # vendor/binディレクトリを確認
+
+      - run:
+          name: 環境を準備する
+          command: |
+            cd ~/shop-laravel/src  # 正しい作業ディレクトリに移動
             if [ ! -f .env.example ]; then
-              echo ".env.example file does not exist. Creating one..."
+              echo ".env.exampleファイルが存在しません。作成します..."
               echo "APP_ENV=local" > .env.example
               echo "APP_KEY=" >> .env.example
-              # Add other environment variables as needed
+              # 必要に応じて他の環境変数を追加します
             fi
-            cp .env.example .env  # Copy .env.example to .env if it exists
+            cp .env.example .env  # .env.exampleが存在する場合は.envにコピーします
 
-            # Ensure artisan exists and has execute permission
+            # artisanが存在し、実行許可があることを確認
             if [ ! -f artisan ]; then
-              echo "artisan file does not exist. Creating one..."
+              echo "artisanファイルが存在しません。作成します..."
               touch artisan
-              # Alternatively, copy the artisan file from a known location
+              # 別の場所からartisanファイルをコピーする場合は以下を使用します
               # cp /path/to/source/artisan .
             fi
             chmod +x artisan
@@ -66,7 +71,7 @@ jobs:
             php artisan migrate --seed
 
       - run:
-          name: Build and install zip extension
+          name: zip拡張機能をビルドしてインストール
           command: |
             sudo apt-get install -y libzip-dev
             sudo pecl channel-update pecl.php.net
@@ -74,9 +79,9 @@ jobs:
             echo "extension=zip.so" | sudo tee -a /usr/local/etc/php/conf.d/docker-php-ext-zip.ini
 
       - run:
-          name: Run tests
+          name: テストを実行
           command: |
-            cd ~/shop-laravel/src  # Ensure we are in the correct directory
+            cd ~/shop-laravel/src  # 正しいディレクトリにいることを確認
             vendor/bin/phpunit --coverage-text --colors=never
 
 workflows:
