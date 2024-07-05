@@ -19,6 +19,8 @@ jobs:
           command: |
             sudo apt-get update
             sudo apt-get install -y libzip-dev zip unzip
+            sudo mkdir -p /usr/src/php
+            sudo chown -R $(whoami) /usr/src/php
             docker-php-ext-configure zip
             docker-php-ext-install zip
 
@@ -44,4 +46,3 @@ workflows:
   build_and_test:
     jobs:
       - build
-
