@@ -32,7 +32,7 @@ jobs:
       - run:
           name: Install Composer dependencies
           command: |
-            cd /home/user/shop-laravel/ # 確実にcomposer.jsonがあるディレクトリに移動
+            cd /home/circleci/project # 確実にcomposer.jsonがあるディレクトリに移動
             composer install --no-dev --optimize-autoloader --no-interaction
 
       # Environment setup
