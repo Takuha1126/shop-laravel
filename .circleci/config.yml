@@ -37,6 +37,7 @@ jobs:
       - run:
           name: Prepare environment
           command: |
+            cd ~/shop-laravel/src  # Move to the correct working directory
             if [ ! -f .env.example ]; then
               echo ".env.example file does not exist. Creating one..."
               echo "APP_ENV=local" > .env.example
@@ -44,6 +45,13 @@ jobs:
               # Add other environment variables as needed
             fi
             cp .env.example .env  # Copy .env.example to .env if it exists
+
+            # Ensure artisan exists and has execute permission
+            if [ ! -f artisan ]; then
+              echo "artisan file does not exist. Exiting..."
+              exit 1
+            fi
+            chmod +x artisan
 
             php artisan key:generate
             php artisan migrate --seed
@@ -63,6 +71,7 @@ jobs:
       - run:
           name: Run tests
           command: |
+            cd ~/shop-laravel/src  # Ensure we are in the correct directory
             vendor/bin/phpunit --coverage-text --colors=never
 
 workflows:
