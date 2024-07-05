@@ -52,7 +52,7 @@ jobs:
       - run:
           name: Add Google Chrome repository key
           command: |
-            sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E88979FB9B30ACF2
+            curl -fsSL https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 
       # Update repository information
       - run:
