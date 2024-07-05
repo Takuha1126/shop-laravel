@@ -82,7 +82,7 @@ jobs:
           name: テストを実行
           command: |
             cd ~/shop-laravel/src  # 正しいディレクトリにいることを確認
-            test/phpunit --coverage-text --colors=never
+            shop-laravel/src/test/phpunit --coverage-text --colors=never
 
 workflows:
   version: 2
