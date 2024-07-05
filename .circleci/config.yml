@@ -46,4 +46,15 @@ jobs:
       - run:
           name: Copy PHP extension to directory
           command: |
-            sudo cp /usr/l
+            sudo cp /usr/lib/php/20190902/zip.so /usr/local/lib/php/extensions/no-debug-non-zts-20190902/
+
+      - run:
+          name: Run tests
+          command: |
+            vendor/bin/phpunit --coverage-text --colors=never
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
