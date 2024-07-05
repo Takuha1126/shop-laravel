@@ -37,6 +37,11 @@ jobs:
             php artisan migrate --seed
 
       - run:
+          name: Install additional PHP extension (example)
+          command: |
+            sudo make install
+
+      - run:
           name: Run tests
           command: |
             vendor/bin/phpunit --coverage-text --colors=never
