@@ -40,16 +40,20 @@ jobs:
           name: Environment setup
           command: |
             cd /home/circleci/project/src
-            cp .env.testing .env
-            php artisan key:generate
-
-      # Setup SQLite database
+            cp .env.example .env
+          
       - run:
-          name: Setup SQLite database
+          name: Generate application key
           command: |
             cd /home/circleci/project/src
-            touch database/database.sqlite
-            php artisan migrate --force --env=testing
+            php artisan key:generate
+
+# Run database migrations
+      - run:
+          name: Database migrations
+          command: |
+            cd /home/circleci/project/src
+            php artisan migrate --force
 
   deploy:
     docker:
