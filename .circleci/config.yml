@@ -52,15 +52,15 @@ jobs:
       - run:
           name: Wait for MySQL
           command: |
-            for i in `seq 1 60`; do nc -z database-1.cjua0qayaefc.ap-northeast-1.rds.amazonaws.com 3306 && break; sleep 1; done
+            for i in `seq 1 30`; do nc -z mysql 3306 && break; sleep 1; done
 
       # Setup MySQL user and permissions
       - run:
           name: Setup MySQL user and permissions
           command: |
-            mysql -h database-1.cjua0qayaefc.ap-northeast-1.rds.amazonaws.com -u admin -psegnIg-cukqih-koqpi9 -e "CREATE USER 'laravel_user'@'%' IDENTIFIED BY 'laravel_pass';"
-            mysql -h database-1.cjua0qayaefc.ap-northeast-1.rds.amazonaws.com -u admin -psegnIg-cukqih-koqpi9 -e "GRANT ALL PRIVILEGES ON laravel_db.* TO 'laravel_user'@'%';"
-            mysql -h database-1.cjua0qayaefc.ap-northeast-1.rds.amazonaws.com -u admin -psegnIg-cukqih-koqpi9 -e "FLUSH PRIVILEGES;"
+            mysql -h database-1.cjua0qayaefc.ap-northeast-1.rds.amazonaws.com -u admin -p segnIg-cukqih-koqpi9 -e "CREATE USER 'laravel_user'@'%' IDENTIFIED BY 'laravel_pass';"
+            mysql -h database-1.cjua0qayaefc.ap-northeast-1.rds.amazonaws.com -u admin -p segnIg-cukqih-koqpi9 -e "GRANT ALL PRIVILEGES ON laravel_db.* TO 'laravel_user'@'%';"
+            mysql -h database-1.cjua0qayaefc.ap-northeast-1.rds.amazonaws.com -u admin -p segnIg-cukqih-koqpi9 -e "FLUSH PRIVILEGES;"
 
       # Database setup
       - run:
@@ -86,7 +86,7 @@ jobs:
       # SSH key setup
       - add_ssh_keys:
           fingerprints:
-            - "YOUR_SSH_KEY_FINGERPRINT" # Replace with your SSH key fingerprint
+            - "SHA256:TO+Duj/pL4QtNcadDHvGzcttWG8nB462D5+GzIzlC+Y" # Replace with your SSH key fingerprint
 
       # Add Google Chrome repository key using gpg
       - run:
@@ -109,7 +109,7 @@ jobs:
       - run:
           name: Deploy to EC2
           command: |
-            ssh -o StrictHostKeyChecking=no ec2-user@ec2-57-180-65-218.ap-northeast-1.compute.amazonaws.com "cd /var/www/html && git pull origin master && cp .env.deploy .env && composer install --no-dev --optimize-autoloader --no-interaction && php artisan migrate --force"
+            ssh -o StrictHostKeyChecking=no ec2-user@ec2-57-180-65-218.ap-northeast-1.compute.amazonaws.com "cd /var/www/shop-laravel/arc && git pull origin master && cp .env.example .env && composer install --no-dev --optimize-autoloader --no-interaction && php artisan migrate --force"
 
 workflows:
   version: 2
