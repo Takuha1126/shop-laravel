@@ -4,6 +4,10 @@ jobs:
   build:
     docker:
       - image: circleci/php:8.0-node-browsers
+      - image: circleci/mysql:5.7
+        environment:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: laravel_test
 
     steps:
       - checkout
@@ -35,25 +39,33 @@ jobs:
             cd /home/circleci/project/src
             composer install --no-dev --optimize-autoloader --no-interaction
 
-      # Environment setup
+      # Environment setup for testing
       - run:
-          name: Environment setup
+          name: Environment setup for testing
           command: |
             cd /home/circleci/project/src
             cp .env.example .env
-          
-      - run:
-          name: Generate application key
-          command: |
-            cd /home/circleci/project/src
             php artisan key:generate
 
-# Run database migrations
+      # Wait for MySQL to be ready
       - run:
-          name: Database migrations
+          name: Wait for MySQL
+          command: |
+            for i in `seq 1 30`; do nc -z localhost 3306 && break; sleep 1; done
+
+      # Database setup
+      - run:
+          name: Database setup
           command: |
             cd /home/circleci/project/src
             php artisan migrate --force
+
+      # Run tests
+      - run:
+          name: Run tests
+          command: |
+            cd /home/circleci/project/src
+            php artisan test
 
   deploy:
     docker:
@@ -88,7 +100,7 @@ jobs:
       - run:
           name: Deploy to EC2
           command: |
-            ssh -o StrictHostKeyChecking=no ec2-user@ec2-57-180-65-218.ap-northeast-1.compute.amazonaws.com "cd /var/www/html && git pull origin master && composer install --no-dev --optimize-autoloader --no-interaction && php artisan migrate --force"
+            ssh -o StrictHostKeyChecking=no ec2-user@ec2-57-180-65-218.ap-northeast-1.compute.amazonaws.com "cd /var/www/html && git pull origin master && cp .env.deploy .env && composer install --no-dev --optimize-autoloader --no-interaction && php artisan migrate --force"
 
 workflows:
   version: 2
