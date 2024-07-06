@@ -7,7 +7,7 @@ jobs:
       - image: circleci/mysql:5.7
         name: mysql
         environment:
-          MYSQL_ROOT_PASSWORD: root
+          MYSQL_ROOT_PASSWORD: segnIg-cukqih-koqpi9
           MYSQL_DATABASE: laravel_db
 
     steps:
