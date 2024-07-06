@@ -88,7 +88,7 @@ jobs:
       - run:
           name: Deploy to EC2
           command: |
-            ssh -o StrictHostKeyChecking=no ec2-user@ec2-18-177-136-195.ap-northeast-1.compute.amazonaws.com "cd /var/www/html && git pull origin master && composer install --no-dev --optimize-autoloader --no-interaction && php artisan migrate --force"
+            ssh -o StrictHostKeyChecking=no ec2-user@ec2-57-180-65-218.ap-northeast-1.compute.amazonaws.com "cd /var/www/html && git pull origin master && composer install --no-dev --optimize-autoloader --no-interaction && php artisan migrate --force"
 
 workflows:
   version: 2
