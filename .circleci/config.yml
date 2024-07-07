@@ -6,30 +6,24 @@ jobs:
       - image: circleci/php:8.0-apache
     environment:
       MYSQL_DATABASE: laravel_db
-      MYSQL_HOST: mysql
+      MYSQL_HOST: database-1.cjua0qayaefc.ap-northeast-1.rds.amazonaws.com
       MYSQL_PORT: 3306
-      MYSQL_USERNAME: root
-      MYSQL_PASSWORD: root
+      MYSQL_USERNAME: admin
+      MYSQL_PASSWORD: segnIg-cukqih-koqpi9
     steps:
       - checkout
 
-      # Install MySQL client
+      # Install MySQL client and PHP PDO MySQL extension
       - run:
-          name: Install MySQL client
+          name: Install MySQL and PHP extensions
           command: |
             sudo apt-get update
-            sudo apt-get install default-mysql-client
-
-      # Install PHP PDO MySQL extension
-      - run:
-          name: Install PHP MySQL extension
-          command: |
-            sudo apt-get install -y libmariadb-dev
+            sudo apt-get install -y default-mysql-client libmariadb-dev
             sudo docker-php-ext-install pdo_mysql
 
-      # Install dependencies and run tests
+      # Install dependencies, configure environment, and run tests
       - run:
-          name: Install dependencies and run tests
+          name: Install dependencies, configure environment, and run tests
           command: |
             cd src
             composer install --no-interaction --prefer-dist --optimize-autoloader
@@ -46,14 +40,8 @@ jobs:
             echo "Current environment settings:"
             cat .env
 
-            # Clear configuration cache
+            # Clear configuration cache, test MySQL connection, run migrations and tests
             php artisan config:clear
-
-            # Test MySQL connection
-            echo "Testing MySQL connection..."
-            mysql -h $MYSQL_HOST -P $MYSQL_PORT -u $MYSQL_USERNAME -p$MYSQL_PASSWORD -e "SHOW DATABASES;" || (echo "Failed to connect to MySQL"; exit 1)
-
-            # Run migrations and tests
             php artisan migrate:fresh --seed --force
             vendor/bin/phpunit
 
