@@ -10,6 +10,9 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
+use Illuminate\Http\Testing;
+
+
 
 class ProductControllerTest extends TestCase
 {

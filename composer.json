@@ -1,0 +1,5 @@
+{
+    "require": {
+        "illuminate/http": "^11.14"
+    }
+}
