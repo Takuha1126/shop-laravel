@@ -64,7 +64,6 @@ jobs:
   deploy:
     docker:
       - image: circleci/php:8.0
-
     steps:
       - checkout
 
@@ -73,17 +72,12 @@ jobs:
           fingerprints:
             - "TO+Duj/pL4QtNcadDHvGzcttWG8nB462D5+GzIzlC+Y"
 
-      # SSHキーの場所を環境変数にセット
-      - run:
-          name: Setup SSH key path
-          command: echo 'export SSH_KEY_PATH=/home/circleci/.ssh/shop-caravel.pem' >> $BASH_ENV
-
       # SSH経由でデプロイ
       - run:
           name: Deploy over SSH
           command: |
-            ssh -i $SSH_KEY_PATH \
-                ec2-user@ec2-43-207-83-43.ap-northeast-1.compute.amazonaws.com "\
+            ssh -i /home/circleci/.ssh/id_rsa \
+                ec2-43-207-83-43.ap-northeast-1.compute.amazonaws.com "\
                 cd /var/www/shop-laravel && \
                 git pull origin master && \
                 cd src && \
