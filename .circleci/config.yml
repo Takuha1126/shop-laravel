@@ -67,7 +67,7 @@ jobs:
     steps:
       - checkout
 
-      # SSHキーを設定するステップ
+      # SSHキーを手動で追加
       - run:
           name: Add SSH key
           command: |
@@ -76,13 +76,12 @@ jobs:
             chmod 600 ~/.ssh/id_rsa
             ssh-keyscan -H ec2-43-207-83-43.ap-northeast-1.compute.amazonaws.com >> ~/.ssh/known_hosts
 
-      # SSH経由でデプロイするステップ
       - run:
           name: Deploy over SSH
           command: |
             ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@ec2-43-207-83-43.ap-northeast-1.compute.amazonaws.com "\
               cd /var/www/shop-laravel && \
-              git pull origin main && \
+              git pull origin master && \
               cd src && \
               composer install --no-interaction --prefer-dist --optimize-autoloader && \
               php artisan migrate --force"
