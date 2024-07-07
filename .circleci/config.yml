@@ -67,12 +67,12 @@ jobs:
     steps:
       - checkout
 
-      # Add SSH keys for deployment
+      # SSHキーを追加
       - add_ssh_keys:
           fingerprints:
             - "TO+Duj/pL4QtNcadDHvGzcttWG8nB462D5+GzIzlC+Y"
 
-      # Deploy over SSH
+      # SSH経由でデプロイ
       - run:
           name: Deploy over SSH
           command: |
