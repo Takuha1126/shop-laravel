@@ -4,13 +4,18 @@ jobs:
   build:
     docker:
       - image: circleci/php:8.0-apache
-    environment:
-      DB_CONNECTION=mysql
-      DB_HOST=mysql
-      DB_PORT=3306
-      DB_DATABASE=laravel_db
-      DB_USERNAME=root
-      DB_PASSWORD=root
+        environment:
+          DB_CONNECTION: mysql
+          DB_HOST: mysql
+          DB_PORT: 3306
+          DB_DATABASE: demo_test
+          DB_USERNAME: root
+          DB_PASSWORD: root
+      - image: circleci/mysql:5.7
+        environment:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: demo_test
+
     steps:
       - checkout
 
@@ -22,20 +27,27 @@ jobs:
             sudo apt-get install -y default-mysql-client libmariadb-dev
             sudo docker-php-ext-install pdo_mysql
 
+      # Wait for MySQL to be ready
+      - run:
+          name: Wait for MySQL
+          command: |
+            dockerize -wait tcp://mysql:3306 -timeout 1m
+
       # Install dependencies, configure environment, and run tests
       - run:
           name: Install dependencies, configure environment, and run tests
           command: |
             cd src
             composer install --no-interaction --prefer-dist --optimize-autoloader
-            cp .env.example .env
+            cp .env.example .env.testing
             php artisan key:generate --ansi
 
             # Update database configuration in .env
-            sed -i "s/DB_HOST=.*/DB_HOST=$MYSQL_HOST/" .env
-            sed -i "s/DB_DATABASE=.*/DB_DATABASE=$MYSQL_DATABASE/" .env
-            sed -i "s/DB_USERNAME=.*/DB_USERNAME=$MYSQL_USERNAME/" .env
-            sed -i "s/DB_PASSWORD=.*/DB_PASSWORD=$MYSQL_PASSWORD/" .env
+            sed -i "s/DB_CONNECTION=.*/DB_CONNECTION=mysql/" .env
+            sed -i "s/DB_HOST=.*/DB_HOST=mysql/" .env
+            sed -i "s/DB_DATABASE=.*/DB_DATABASE=demo_test/" .env
+            sed -i "s/DB_USERNAME=.*/DB_USERNAME=root/" .env
+            sed -i "s/DB_PASSWORD=.*/DB_PASSWORD=root/" .env
 
             # Output current environment settings for debug
             echo "Current environment settings:"
