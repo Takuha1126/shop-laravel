@@ -5,28 +5,37 @@ jobs:
     docker:
       - image: circleci/php:8.0-apache
         environment:
-          PHP_EXTENSIONS: gd
+          PHP_EXTENSIONS: gd # GD拡張機能を有効にする
           DB_CONNECTION: mysql
           DB_HOST: 127.0.0.1
           DB_PORT: 3306
           DB_DATABASE: demo_test
           DB_USERNAME: root
           DB_PASSWORD: root
-      - image: circleci/mysql:5.7
-        environment:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: demo_test
 
     steps:
       - checkout
 
-      # Install MySQL client and PHP PDO MySQL extension
+      # Install dependencies including libpng
       - run:
-          name: Install MySQL and PHP extensions
+          name: Install dependencies including libpng
           command: |
             sudo apt-get update
-            sudo apt-get install -y default-mysql-client libmariadb-dev
-            sudo docker-php-ext-install pdo_mysql gd
+            sudo apt-get install -y default-mysql-client libmariadb-dev libpng-dev # libpng-devを追加
+
+      # Install PHP extensions including GD
+      - run:
+          name: Install PHP extensions including GD
+          command: |
+            sudo docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp --with-xpm --with-png-dir=/usr/include/
+            sudo docker-php-ext-install -j$(nproc) gd
+
+      # Install PHP PDO MySQL extension
+      - run:
+          name: Install PHP PDO MySQL extension
+          command: |
+            sudo docker-php-ext-install pdo_mysql
+
 
       # Install dependencies, configure environment, and run tests
       - run:
