@@ -5,43 +5,36 @@ jobs:
     docker:
       - image: circleci/php:8.0-apache
         environment:
-          PHP_EXTENSIONS: gd # GD拡張機能を有効にする
+          PHP_EXTENSIONS: gd
           DB_CONNECTION: mysql
           DB_HOST: 127.0.0.1
           DB_PORT: 3306
           DB_DATABASE: demo_test
           DB_USERNAME: root
           DB_PASSWORD: root
+      - image: circleci/mysql:5.7
+        environment:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: demo_test
 
     steps:
       - checkout
 
-      # Install dependencies including libpng and libwebp
+      # Install MySQL client and PHP PDO MySQL extension
       - run:
-          name: Install dependencies including libpng and libwebp
+          name: Install MySQL and PHP extensions
           command: |
             sudo apt-get update
-            sudo apt-get install -y default-mysql-client libmariadb-dev libpng-dev libwebp-dev # libpng-devとlibwebp-devを追加
-
-      # Install PHP extensions including GD
-      - run:
-          name: Install PHP extensions including GD
-          command: |
-            sudo docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp --with-xpm --with-libdir=/usr/include/
-            sudo docker-php-ext-install -j$(nproc) gd
-
-      # Install PHP PDO MySQL extension
-      - run:
-          name: Install PHP PDO MySQL extension
-          command: |
+            sudo apt-get install -y default-mysql-client libmariadb-dev
             sudo docker-php-ext-install pdo_mysql
 
-      # Install PHP WebP extension
+      # Install gd extension
       - run:
-          name: Install PHP WebP extension
+          name: Install gd extension
           command: |
-            sudo docker-php-ext-configure gd --with-webp=/usr/include/webp
-            sudo docker-php-ext-install -j$(nproc) gd
+            sudo apt-get install -y libpng-dev
+            sudo docker-php-ext-configure gd --with-jpeg --with-freetype
+            sudo docker-php-ext-install gd
 
       # Install dependencies, configure environment, and run tests
       - run:
