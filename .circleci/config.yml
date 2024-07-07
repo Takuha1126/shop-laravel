@@ -5,7 +5,10 @@ jobs:
     docker:
       - image: circleci/php:8.0
     steps:
-      - checkout
+      - run:
+          name: Restart PHP-FPM
+          command: sudo service php8.0-fpm restart
+
 
       # Install dependencies and run tests
       - run:
