@@ -8,8 +8,8 @@ jobs:
       MYSQL_DATABASE: laravel_db
       MYSQL_HOST: database-1.cjua0qayaefc.ap-northeast-1.rds.amazonaws.com
       MYSQL_PORT: 3306
-      MYSQL_USERNAME: laravel_user
-      MYSQL_PASSWORD: laravel_pass
+      MYSQL_USERNAME: admin
+      MYSQL_PASSWORD: segnIg-cukqih-koqpi9
     steps:
       - checkout
 
