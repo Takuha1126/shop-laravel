@@ -20,21 +20,25 @@ class ProductController extends Controller
     {
         $user = Auth::user();
 
+        // Create a new product instance
         $product = new Product();
         $product->user_id = $user->id;
         $product->productName = $request->productName;
         $product->brand = $request->brand;
         $product->description = $request->description;
         $product->price = $request->price;
-        $product->image = $request->file('image')->store('images', 's3');
         $product->status = $request->status;
-        $product->save();
 
+        // Handle image upload to AWS S3
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('images', 's3');
             $product->image = $imagePath;
         }
 
+        // Save the product instance
+        $product->save();
+
+        // Attach categories to the product
         $categoryNames = $request->input('categories', []);
         foreach ($categoryNames as $categoryName) {
             $trimmedCategoryName = trim($categoryName);
@@ -42,7 +46,7 @@ class ProductController extends Controller
             $product->categories()->attach($category->id);
         }
 
+        // Redirect back with success message
         return redirect()->route('home.index')->with('success', '商品を登録しました。');
     }
 }
-
