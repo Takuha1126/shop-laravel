@@ -67,7 +67,7 @@ jobs:
     steps:
       - checkout
 
-      # SSHキーを追加
+      # SSHキーを追加（手動で追加）
       - add_ssh_keys:
           fingerprints:
             - "TO+Duj/pL4QtNcadDHvGzcttWG8nB462D5+GzIzlC+Y"
@@ -76,8 +76,7 @@ jobs:
       - run:
           name: Deploy over SSH
           command: |
-            ssh -o StrictHostKeyChecking=no \
-                -i ~/.ssh/shop-caravel.pem \
+            ssh -i ~/.ssh/shop-caravel.pem \
                 ec2-user@ec2-43-207-83-43 "\
                 cd /var/www/shop-laravel && \
                 git pull origin master && \
