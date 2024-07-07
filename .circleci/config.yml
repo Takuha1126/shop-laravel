@@ -4,7 +4,9 @@ jobs:
   build:
     docker:
       - image: circleci/php:8.0-apache
-
+        environment:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: demo_test
     steps:
       - checkout
 
