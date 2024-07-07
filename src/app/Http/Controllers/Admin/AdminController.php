@@ -33,7 +33,7 @@ class AdminController extends Controller
     {
         $comment = Comment::findOrFail($id);
         $comment->delete();
-        
+
         return redirect()->back()->with('success', 'コメントを削除しました。');
     }
 }
