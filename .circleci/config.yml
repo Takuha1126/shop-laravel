@@ -19,6 +19,7 @@ jobs:
           command: |
             sudo apt-get update
             sudo apt-get install default-mysql-client
+
       # Install PHP PDO MySQL extension
       - run:
           name: Install PHP MySQL extension
@@ -34,17 +35,19 @@ jobs:
             composer install --no-interaction --prefer-dist --optimize-autoloader
             cp .env.example .env
             php artisan key:generate --ansi
-            php artisan config:cache
 
-            # Ensure database configuration is correct
-            sed -i "s/DB_HOST=127.0.0.1/DB_HOST=$MYSQL_HOST/" .env
-            sed -i "s/DB_DATABASE=homestead/DB_DATABASE=$MYSQL_DATABASE/" .env
-            sed -i "s/DB_USERNAME=homestead/DB_USERNAME=$MYSQL_USERNAME/" .env
-            sed -i "s/DB_PASSWORD=secret/DB_PASSWORD=$MYSQL_PASSWORD/" .env
+            # Update database configuration in .env
+            sed -i "s/DB_HOST=.*/DB_HOST=$MYSQL_HOST/" .env
+            sed -i "s/DB_DATABASE=.*/DB_DATABASE=$MYSQL_DATABASE/" .env
+            sed -i "s/DB_USERNAME=.*/DB_USERNAME=$MYSQL_USERNAME/" .env
+            sed -i "s/DB_PASSWORD=.*/DB_PASSWORD=$MYSQL_PASSWORD/" .env
 
-            # Debug: Output current environment settings
+            # Output current environment settings for debug
             echo "Current environment settings:"
             cat .env
+
+            # Clear configuration cache
+            php artisan config:clear
 
             # Test MySQL connection
             echo "Testing MySQL connection..."
