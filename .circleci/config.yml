@@ -31,6 +31,8 @@ jobs:
           command: vendor/bin/phpunit
 
   deploy:
+    docker:
+      - image: circleci/php:8.0-node
     steps:
       - checkout
 
