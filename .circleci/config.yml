@@ -62,10 +62,10 @@ jobs:
             vendor/bin/phpunit
 
   deploy:
-  docker:
-    - image: circleci/php:8.0
-  steps:
-    - checkout
+    docker:
+      - image: circleci/php:8.0
+    steps:
+      - checkout
 
     # SSHキーを追加（手動で追加）
     - add_ssh_keys:
