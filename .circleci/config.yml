@@ -10,13 +10,12 @@ jobs:
     steps:
       - checkout
 
-      # Install MySQL PDO driver
+      # Install PHP PDO MySQL driver
       - run:
-          name: Install MySQL PDO driver
+          name: Install PHP PDO MySQL driver
           command: |
             sudo apt-get update
-            sudo apt-get install -y php8.0-mysql
-
+            sudo apt-get install -y php8.0-common php8.0-mysql
 
       # Install dependencies and run tests
       - run:
