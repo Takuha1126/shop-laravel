@@ -1,13 +1,15 @@
+version: 2.1
+
 jobs:
   build:
     docker:
       - image: circleci/php:8.0-apache
-        environment:
-          MYSQL_DATABASE: laravel_db
-          MYSQL_HOST: 127.0.0.1
-          MYSQL_PORT: 3306
-          MYSQL_USERNAME: admin
-          MYSQL_PASSWORD: segnIg-cukqih-koqpi9
+    environment:
+      MYSQL_DATABASE: laravel_db
+      MYSQL_HOST: database-1.cjua0qayaefc.ap-northeast-1.rds.amazonaws.com
+      MYSQL_PORT: 3306
+      MYSQL_USERNAME: admin
+      MYSQL_PASSWORD: segnIg-cukqih-koqpi9
     steps:
       - checkout
 
@@ -26,11 +28,16 @@ jobs:
             cd src
             composer install --no-interaction --prefer-dist --optimize-autoloader
             cp .env.example .env
-
             php artisan key:generate --ansi
             php artisan config:cache
-            php artisan migrate:fresh --seed --force
 
+            # Ensure database configuration is correct
+            sed -i "s/DB_HOST=127.0.0.1/DB_HOST=$MYSQL_HOST/" .env
+            sed -i "s/DB_DATABASE=homestead/DB_DATABASE=$MYSQL_DATABASE/" .env
+            sed -i "s/DB_USERNAME=homestead/DB_USERNAME=$MYSQL_USERNAME/" .env
+            sed -i "s/DB_PASSWORD=secret/DB_PASSWORD=$MYSQL_PASSWORD/" .env
+
+            php artisan migrate:fresh --seed --force
             vendor/bin/phpunit
 
   deploy:
