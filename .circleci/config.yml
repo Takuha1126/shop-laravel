@@ -27,7 +27,7 @@ jobs:
       - run:
           name: Install PHP extensions including GD
           command: |
-            sudo docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp --with-xpm --with-png-dir=/usr/include/
+            sudo docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp --with-xpm --with-libdir=/usr/include/
             sudo docker-php-ext-install -j$(nproc) gd
 
       # Install PHP PDO MySQL extension
