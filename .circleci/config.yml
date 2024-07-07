@@ -12,10 +12,11 @@ jobs:
 
       # Install PHP PDO MySQL extension
       - run:
-          name: Install PHP PDO MySQL extension
+          name: Install PHP MySQL extension
           command: |
             sudo apt-get update
-            sudo apt-get install -y php-mysqlnd
+            sudo apt-get install -y libmysqlclient-dev
+            sudo docker-php-ext-install pdo_mysql
 
       # Install dependencies and run tests
       - run:
