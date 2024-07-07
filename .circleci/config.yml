@@ -16,12 +16,12 @@ jobs:
     steps:
       - checkout
 
-      # Install dependencies including libpng
+      # Install dependencies including libpng and libwebp
       - run:
-          name: Install dependencies including libpng
+          name: Install dependencies including libpng and libwebp
           command: |
             sudo apt-get update
-            sudo apt-get install -y default-mysql-client libmariadb-dev libpng-dev # libpng-devを追加
+            sudo apt-get install -y default-mysql-client libmariadb-dev libpng-dev libwebp-dev # libpng-devとlibwebp-devを追加
 
       # Install PHP extensions including GD
       - run:
@@ -36,6 +36,12 @@ jobs:
           command: |
             sudo docker-php-ext-install pdo_mysql
 
+      # Install PHP WebP extension
+      - run:
+          name: Install PHP WebP extension
+          command: |
+            sudo docker-php-ext-configure gd --with-webp=/usr/include/webp
+            sudo docker-php-ext-install -j$(nproc) gd
 
       # Install dependencies, configure environment, and run tests
       - run:
