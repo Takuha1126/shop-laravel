@@ -4,7 +4,7 @@ jobs:
       - image: circleci/php:8.0-apache
         environment:
           MYSQL_DATABASE: laravel_db
-          MYSQL_HOST: database-1.cjua0qayaefc.ap-northeast-1.rds.amazonaws.com
+          MYSQL_HOST: 127.0.0.1
           MYSQL_PORT: 3306
           MYSQL_USERNAME: admin
           MYSQL_PASSWORD: segnIg-cukqih-koqpi9
