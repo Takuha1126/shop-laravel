@@ -30,9 +30,9 @@ jobs:
 
       # Install gd extension
       - run:
-          name: Install gd extension
+          name: Install gd extension and libjpeg
           command: |
-            sudo apt-get install -y libpng-dev
+            sudo apt-get install -y libpng-dev libjpeg-dev
             sudo docker-php-ext-configure gd --with-jpeg --with-freetype
             sudo docker-php-ext-install gd
 
