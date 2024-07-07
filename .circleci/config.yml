@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/php:8.0
+      - image: circleci/php:7.4
         environment:
           MYSQL_ROOT_PASSWORD: root  # MySQLのルートパスワードを設定する
           MYSQL_DATABASE: demo_test  # テスト用のデータベース名を設定する
@@ -15,7 +15,7 @@ jobs:
           name: Install PHP and MySQL PDO driver
           command: |
             sudo apt-get update
-            sudo apt-get install -y php-mysql
+            sudo apt-get install -y php7.4-common php7.4-mysql
 
       # Install dependencies and run tests
       - run:
@@ -34,7 +34,7 @@ jobs:
 
   deploy:
     docker:
-      - image: circleci/php:8.0
+      - image: circleci/php:7.4
     steps:
       - checkout
 
