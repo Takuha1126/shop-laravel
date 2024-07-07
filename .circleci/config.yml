@@ -3,117 +3,52 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/php:8.0-node-browsers
-      - image: circleci/mysql:5.7
-        name: mysql
-        environment:
-          MYSQL_ROOT_PASSWORD: segnIg-cukqih-koqpi9
-          MYSQL_DATABASE: laravel_db
-
+      - image: circleci/php:7.4-node
     steps:
       - checkout
-
-      # Add Google Chrome repository key using gpg
       - run:
-          name: Add Google Chrome repository key
+          name: Install PHP extensions
           command: |
-            curl -fsSL https://dl.google.com/linux/linux_signing_key.pub | sudo gpg --dearmor -o /usr/share/keyrings/google-linux-signing-key.gpg
+            sudo apt-get update && sudo apt-get install -y \
+            php7.4-bcmath php7.4-xml php7.4-mbstring php7.4-gd
 
-      # Set up Google Chrome repository
-      - run:
-          name: Set up Google Chrome repository
-          command: |
-            echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google-linux-signing-key.gpg] https://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
-
-      # PHP extension dependencies
-      - run:
-          name: Install PHP extensions and MySQL client
-          command: |
-            sudo apt-get update
-            sudo apt-get install -y libzip-dev zip unzip default-mysql-client
-            sudo docker-php-ext-install pdo_mysql zip
-
-      # Install Composer dependencies
+      # Install dependencies
       - run:
           name: Install Composer dependencies
-          command: |
-            cd /home/circleci/project/src
-            composer install --no-dev --optimize-autoloader --no-interaction
+          command: composer install --no-interaction --prefer-dist --optimize-autoloader
 
-      # Environment setup for testing
+      # Install PHPUnit
       - run:
-          name: Environment setup for testing
-          command: |
-            cd /home/circleci/project/src
-            cp .env.example .env
-            php artisan key:generate
+          name: Install PHPUnit
+          command: composer require --dev phpunit/phpunit
 
-      # Wait for MySQL to be ready
+      # Run PHPUnit tests
       - run:
-          name: Wait for MySQL
-          command: |
-            for i in `seq 1 30`; do nc -z mysql 3306 && break; sleep 1; done
-
-      # Setup MySQL user and permissions
-      - run:
-          name: Setup MySQL user and permissions
-          command: |
-            mysql -h database-1.cjua0qayaefc.ap-northeast-1.rds.amazonaws.com -u admin -p segnIg-cukqih-koqpi9 -e "CREATE USER 'laravel_user'@'%' IDENTIFIED BY 'laravel_pass';"
-            mysql -h database-1.cjua0qayaefc.ap-northeast-1.rds.amazonaws.com -u admin -p segnIg-cukqih-koqpi9 -e "GRANT ALL PRIVILEGES ON laravel_db.* TO 'laravel_user'@'%';"
-            mysql -h database-1.cjua0qayaefc.ap-northeast-1.rds.amazonaws.com -u admin -p segnIg-cukqih-koqpi9 -e "FLUSH PRIVILEGES;"
-
-      # Database setup
-      - run:
-          name: Database setup
-          command: |
-            cd /home/circleci/project/src
-            php artisan migrate --force
-
-      # Run tests
-      - run:
-          name: Run tests
-          command: |
-            cd /home/circleci/project/src
-            php artisan test
+          name: Run PHPUnit tests
+          command: vendor/bin/phpunit
 
   deploy:
-    docker:
-      - image: circleci/php:8.0-node-browsers
-
+    machine:
+      enabled: true
     steps:
       - checkout
-
-      # SSH key setup
       - add_ssh_keys:
           fingerprints:
-            - "SHA256:TO+Duj/pL4QtNcadDHvGzcttWG8nB462D5+GzIzlC+Y" # Replace with your SSH key fingerprint
-
-      # Add Google Chrome repository key using gpg
+            - "TO+Duj/pL4QtNcadDHvGzcttWG8nB462D5+GzIzlC+Y"
       - run:
-          name: Add Google Chrome repository key
+          name: Deploy Over SSH
           command: |
-            curl -fsSL https://dl.google.com/linux/linux_signing_key.pub | sudo gpg --dearmor -o /usr/share/keyrings/google-linux-signing-key.gpg
-
-      # Set up Google Chrome repository
-      - run:
-          name: Set up Google Chrome repository
-          command: |
-            echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google-linux-signing-key.gpg] https://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
-
-      # Update repository information
-      - run:
-          name: Update repositories
-          command: sudo apt-get update
-
-      # Deploy to EC2
-      - run:
-          name: Deploy to EC2
-          command: |
-            ssh -o StrictHostKeyChecking=no ec2-user@ec2-57-180-65-218.ap-northeast-1.compute.amazonaws.com "cd /var/www/shop-laravel/arc && git pull origin master && cp .env.example .env && composer install --no-dev --optimize-autoloader --no-interaction && php artisan migrate --force"
+            ssh -o StrictHostKeyChecking=no \
+                -i ~/.ssh/shop-caravel.pem \
+                ec2-user@ec2-43-207-83-43 \
+                "cd /var/www/shop-laravel && \
+                git pull origin master && \
+                composer install --no-interaction --prefer-dist --optimize-autoloader && \
+                php artisan migrate --force"
 
 workflows:
   version: 2
-  build-and-deploy:
+  build_and_deploy:
     jobs:
       - build
       - deploy:
