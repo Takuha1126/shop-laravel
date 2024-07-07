@@ -26,12 +26,7 @@ jobs:
             sudo apt-get update
             sudo apt-get install -y default-mysql-client libmariadb-dev
             sudo docker-php-ext-install pdo_mysql
-
-      # Wait for MySQL to be ready
-      - run:
-          name: Wait for MySQL
-          command: |
-            dockerize -wait tcp://mysql:3306 -timeout 1m
+            
 
       # Install dependencies, configure environment, and run tests
       - run:
