@@ -50,7 +50,7 @@ jobs:
             # Clear configuration cache, test MySQL connection, run migrations and tests
             php artisan config:clear --env=testing
             php artisan migrate:fresh --seed --force --env=testing
-            vendor/bin/phpunit --env=testing
+            vendor/bin/phpunit
 
   deploy:
     docker:
