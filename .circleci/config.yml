@@ -4,42 +4,24 @@ jobs:
   build:
     docker:
       - image: circleci/php:8.0-apache
+    environment:
+      MYSQL_DATABASE: laravel_db
+      MYSQL_HOST: database-1.cjua0qayaefc.ap-northeast-1.rds.amazonaws.com
+      MYSQL_PORT: 3306
+      MYSQL_USERNAME: admin
+      MYSQL_PASSWORD: segnIg-cukqih-koqpi9
     steps:
       - checkout
 
-      # 環境変数の設定
-      - run:
-          name: Set Environment Variables
-          command: |
-            echo 'DB_CONNECTION=mysql' >> ~/.bashrc
-            echo 'DB_HOST=database-1.cjua0qayaefc.ap-northeast-1.rds.amazonaws.com' >> ~/.bashrc
-            echo 'DB_PORT=3306' >> ~/.bashrc
-            echo 'DB_DATABASE=laravel_db' >> ~/.bashrc
-            echo 'DB_USERNAME=admin' >> ~/.bashrc
-            echo 'DB_PASSWORD=segnIg-cukqih-koqpi9' >> ~/.bashrc
-            source ~/.bashrc
-
-      # MySQLクライアントのインストール
-      - run:
-          name: Install MySQL client
-          command: |
-            sudo apt-get update
-            sudo apt-get install -y default-mysql-client
-
-      # MySQL接続のテスト
-      - run:
-          name: Test MySQL connection
-          command: |
-            mysql -h $DB_HOST -u $DB_USERNAME -p$DB_PASSWORD -e "SHOW DATABASES;"
-
-      # PHP MySQL拡張のインストール
+      # Install PHP PDO MySQL extension
       - run:
           name: Install PHP MySQL extension
           command: |
+            sudo apt-get update
             sudo apt-get install -y libmariadb-dev
             sudo docker-php-ext-install pdo_mysql
 
-      # 依存関係のインストールとテストの実行
+      # Install dependencies and run tests
       - run:
           name: Install dependencies and run tests
           command: |
@@ -48,11 +30,54 @@ jobs:
             cp .env.example .env
             php artisan key:generate --ansi
             php artisan config:cache
+
+            # Ensure database configuration is correct
+            sed -i "s/DB_HOST=127.0.0.1/DB_HOST=$MYSQL_HOST/" .env
+            sed -i "s/DB_DATABASE=homestead/DB_DATABASE=$MYSQL_DATABASE/" .env
+            sed -i "s/DB_USERNAME=homestead/DB_USERNAME=$MYSQL_USERNAME/" .env
+            sed -i "s/DB_PASSWORD=secret/DB_PASSWORD=$MYSQL_PASSWORD/" .env
+
+            # Debug: Output current environment settings
+            echo "Current environment settings:"
+            cat .env
+
+            # Test MySQL connection
+            echo "Testing MySQL connection..."
+            mysql -h $MYSQL_HOST -P $MYSQL_PORT -u $MYSQL_USERNAME -p$MYSQL_PASSWORD -e "SHOW DATABASES;" || (echo "Failed to connect to MySQL"; exit 1)
+
+            # Run migrations and tests
             php artisan migrate:fresh --seed --force
             vendor/bin/phpunit
+
+  deploy:
+    docker:
+      - image: circleci/php:8.0
+    steps:
+      - checkout
+
+      # Add SSH keys for deployment
+      - add_ssh_keys:
+          fingerprints:
+            - "TO+Duj/pL4QtNcadDHvGzcttWG8nB462D5+GzIzlC+Y"
+
+      # Deploy over SSH
+      - run:
+          name: Deploy over SSH
+          command: |
+            ssh -o StrictHostKeyChecking=no \
+                -i ~/.ssh/shop-caravel.pem \
+                ec2-user@ec2-43-207-83-43 "\
+                cd /var/www/shop-laravel && \
+                git pull origin master && \
+                cd src && \
+                composer install --no-interaction --prefer-dist --optimize-autoloader && \
+                php artisan migrate --force"
 
 workflows:
   version: 2
   build_and_deploy:
     jobs:
       - build
+      - deploy:
+          requires:
+            - build
