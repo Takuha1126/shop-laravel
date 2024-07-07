@@ -3,43 +3,20 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/php:8.0-node
+      - image: circleci/php:8.0
     steps:
       - checkout
 
-      # Install PHP 8.0 manually
+      # Install dependencies and run tests
       - run:
-          name: Install PHP 8.0
+          name: Install dependencies and run tests
           command: |
-            sudo apt-get update && \
-            sudo apt-get install -y \
-              software-properties-common \
-              && sudo add-apt-repository -y ppa:ondrej/php \
-              && sudo apt-get update && \
-              sudo apt-get install -y \
-              php8.0-cli \
-              php8.0-bcmath \
-              php8.0-xml \
-              php8.0-mbstring
-
-      # Install Composer dependencies
-      - run:
-          name: Install Composer dependencies
-          command: composer install --no-interaction --prefer-dist --optimize-autoloader
-
-      # Install PHPUnit
-      - run:
-          name: Install PHPUnit
-          command: composer require --dev phpunit/phpunit
-
-      # Run PHPUnit tests
-      - run:
-          name: Run PHPUnit tests
-          command: vendor/bin/phpunit
+            composer install --no-interaction --prefer-dist --optimize-autoloader
+            vendor/bin/phpunit
 
   deploy:
     docker:
-      - image: circleci/php:8.0-node
+      - image: circleci/php:8.0
     steps:
       - checkout
 
@@ -50,7 +27,7 @@ jobs:
 
       # Deploy over SSH
       - run:
-          name: Deploy Over SSH
+          name: Deploy over SSH
           command: |
             ssh -o StrictHostKeyChecking=no \
                 -i ~/.ssh/shop-caravel.pem \
