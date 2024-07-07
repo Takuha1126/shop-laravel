@@ -6,16 +6,16 @@ jobs:
       - image: circleci/php:8.0
         environment:
           MYSQL_ROOT_PASSWORD: root  # MySQLのルートパスワードを設定する
-          MYSQL_DATABASE: demo_test     # テスト用のデータベース名を設定する
+          MYSQL_DATABASE: demo_test  # テスト用のデータベース名を設定する
     steps:
       - checkout
 
-      # Install PHP PDO MySQL driver
+      # Install PHP and MySQL PDO driver
       - run:
-          name: Install PHP PDO MySQL driver
+          name: Install PHP and MySQL PDO driver
           command: |
             sudo apt-get update
-            sudo apt-get install -y php8.0-common php8.0-mysql
+            sudo apt-get install -y php-mysql
 
       # Install dependencies and run tests
       - run:
