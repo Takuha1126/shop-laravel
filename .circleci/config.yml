@@ -6,8 +6,8 @@ jobs:
           MYSQL_DATABASE: laravel_db
           MYSQL_HOST: mysql
           MYSQL_PORT: 3306
-          MYSQL_USERNAME: laravel_user
-          MYSQL_PASSWORD: laravel_pass
+          MYSQL_USERNAME: root
+          MYSQL_PASSWORD: root
     steps:
       - checkout
 
