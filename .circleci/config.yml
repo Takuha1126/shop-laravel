@@ -5,8 +5,8 @@ jobs:
     docker:
       - image: circleci/php:8.0-apache
         environment:
-          MYSQL_ROOT_PASSWORD: root  # MySQLのルートパスワードを設定する
-          MYSQL_DATABASE: demo_test  # テスト用のデータベース名を設定する
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: demo_test
     steps:
       - checkout
 
@@ -15,21 +15,20 @@ jobs:
           name: Install PHP MySQL extension
           command: |
             sudo apt-get update
-            sudo apt-get install -y libmysqlclient-dev
+            sudo apt-get install -y libmariadb-dev
             sudo docker-php-ext-install pdo_mysql
 
       # Install dependencies and run tests
       - run:
           name: Install dependencies and run tests
           command: |
-            cd src  # srcディレクトリに移動する
+            cd src
             composer install --no-interaction --prefer-dist --optimize-autoloader
-            cp .env.example .env  # .envファイルのコピー（必要に応じて）
+            cp .env.example .env
 
-            # Laravelアプリケーションのセットアップ
             php artisan key:generate --ansi
             php artisan config:cache
-            php artisan migrate:fresh --seed --force  # テスト用データベースのリフレッシュ
+            php artisan migrate:fresh --seed --force
 
             vendor/bin/phpunit
 
