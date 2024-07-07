@@ -7,13 +7,16 @@ jobs:
     steps:
       - checkout
 
-      # Install PHP 8.0 and extensions using Homebrew
+      # Install PHP 8.0 and extensions using apt-get
       - run:
-          name: Install PHP 8.0 and extensions using Homebrew
+          name: Install PHP 8.0 and extensions
           command: |
-            brew update
-            brew install php@8.0
-            brew install php@8.0-bcmath php@8.0-xml php@8.0-mbstring
+            sudo apt-get update && \
+            sudo apt-get install -y \
+              php8.0 \
+              php8.0-bcmath \
+              php8.0-xml \
+              php8.0-mbstring
 
       # Install Composer dependencies
       - run:
