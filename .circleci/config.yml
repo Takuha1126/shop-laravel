@@ -3,7 +3,7 @@ jobs:
     docker:
       - image: circleci/php:8.0-apache
         environment:
-          MYSQL_DATABASE: laravel_db
+          MYSQL_DATABASE: demo_test
           MYSQL_HOST: mysql
           MYSQL_PORT: 3306
           MYSQL_USERNAME: root
