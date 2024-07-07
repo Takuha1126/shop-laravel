@@ -28,11 +28,11 @@ jobs:
             sudo apt-get install -y default-mysql-client libmariadb-dev
             sudo docker-php-ext-install pdo_mysql
 
-      # Install gd extension
+      # Install gd extension and dependencies
       - run:
-          name: Install gd extension and libjpeg
+          name: Install gd extension and dependencies
           command: |
-            sudo apt-get install -y libpng-dev libjpeg-dev
+            sudo apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev
             sudo docker-php-ext-configure gd --with-jpeg --with-freetype
             sudo docker-php-ext-install gd
 
