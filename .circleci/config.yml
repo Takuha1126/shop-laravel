@@ -13,11 +13,17 @@ jobs:
     steps:
       - checkout
 
+      # Install MySQL client
+      - run:
+          name: Install MySQL client
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y mysql-client  # MySQLクライアントのインストール
+
       # Install PHP PDO MySQL extension
       - run:
           name: Install PHP MySQL extension
           command: |
-            sudo apt-get update
             sudo apt-get install -y libmariadb-dev
             sudo docker-php-ext-install pdo_mysql
 
