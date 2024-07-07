@@ -10,10 +10,10 @@ jobs:
     steps:
       - checkout
 
-      # Install PHP PDO MySQL extension
+      # Install PHP MySQLnd extension
       - run:
-          name: Install PHP PDO MySQL extension
-          command: sudo apt-get update && sudo apt-get install -y php8.0-mysql
+          name: Install PHP MySQLnd extension
+          command: sudo apt-get update && sudo apt-get install -y php-mysqlnd
 
       # Install dependencies and run tests
       - run:
