@@ -5,6 +5,7 @@ jobs:
     docker:
       - image: circleci/php:8.0-apache
         environment:
+          PHP_EXTENSIONS: gd
           DB_CONNECTION: mysql
           DB_HOST: 127.0.0.1
           DB_PORT: 3306
