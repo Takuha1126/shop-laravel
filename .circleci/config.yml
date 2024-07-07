@@ -13,6 +13,13 @@ jobs:
           command: |
             cd src  # srcディレクトリに移動する
             composer install --no-interaction --prefer-dist --optimize-autoloader
+            cp .env.example .env  # .envファイルのコピー（必要に応じて）
+
+            # Laravelアプリケーションのセットアップ
+            php artisan key:generate --ansi
+            php artisan config:cache
+            php artisan migrate:fresh --seed --force  # テスト用データベースのリフレッシュ
+
             vendor/bin/phpunit
 
   deploy:
