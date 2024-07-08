@@ -95,6 +95,10 @@
         border: none;
     }
 
+    .nav__item input::-webkit-calendar-picker-indicator {
+        display: none !important;
+    }
+
     .button__logout,
     .button__ttl {
         font-size: 16px;

@@ -116,7 +116,6 @@
             const fileInput = document.getElementById('fileInput');
             const label = document.getElementById('fileLabel');
 
-            // ファイルが選択されたときにラベルの色を変更
             fileInput.addEventListener('change', function () {
                 if (fileInput.files.length > 0) {
                     label.classList.add('selected');

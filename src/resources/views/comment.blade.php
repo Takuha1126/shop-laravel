@@ -85,24 +85,20 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-    // お気に入りアイコンの処理
     $(document).ready(function() {
         var productId = $('#favoriteIcon').data('product-id');
         var favoriteCount = parseInt($('#favoriteCount').text());
         var isFavorite = localStorage.getItem('favorite-' + productId) === 'true';
 
-        // 初期表示時のアイコン状態を設定
         if (isFavorite) {
             $('#favoriteIcon').removeClass('far').addClass('fas text-yellow-400');
         } else {
             $('#favoriteIcon').removeClass('fas text-yellow-400').addClass('far');
         }
 
-        // お気に入りアイコンがクリックされた時の処理
         $('#favoriteIcon').on('click', function() {
-            isFavorite = !isFavorite; // 現在の状態を反転
+            isFavorite = !isFavorite;
 
-            // アイコンのクラスを切り替え
             if (isFavorite) {
                 $(this).removeClass('far').addClass('fas text-yellow-400');
                 favoriteCount++;
@@ -111,10 +107,9 @@
                 favoriteCount--;
             }
 
-            // お気に入り数の表示を更新
             $('#favoriteCount').text(favoriteCount);
 
-            // バックエンドにお気に入りの状態を保存
+
             $.ajax({
                 url: '{{ route("favorite.toggle") }}',
                 type: 'POST',
@@ -124,16 +119,13 @@
                 },
                 error: function(xhr, status, error) {
                     alert('お気に入りの更新に失敗しました');
-                    // エラー時の処理を追加する場合はここに記述
                 }
             });
 
-            // ローカルストレージにお気に入りの状態を保存
             localStorage.setItem('favorite-' + productId, isFavorite.toString());
         });
     });
 
-    // コメントの削除処理
     function deleteComment(commentId) {
         $.ajax({
             url: '/comment/' + commentId + '/delete',
@@ -151,7 +143,6 @@
         });
     }
 
-    // 「続きを見る」ボタンの処理
     $(document).ready(function() {
         var nextPageUrl = "{{ $comments->nextPageUrl() }}";
         var loading = false;
