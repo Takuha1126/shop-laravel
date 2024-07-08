@@ -81,7 +81,8 @@ jobs:
           command: |
             ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@ec2-54-248-213-203.ap-northeast-1.compute.amazonaws.com "\
               cd /var/www/shop-laravel && \
-              git pull origin main && \
+              git fetch origin && \
+              git reset --hard origin/main && \
               cd src && \
               composer install --no-interaction --prefer-dist --optimize-autoloader && \
               php artisan migrate --force"
