@@ -59,12 +59,6 @@ class PaymentController extends Controller
         $orderData = session('order_data');
         $order = null;
 
-        if (!$order) {
-            $order = new Order();
-            $order->user_id = auth()->user()->id;
-            $order->product_id = $orderData['product_id'];
-        }
-
         $order->payment_method = 'credit_card';
         $order->save();
 
