@@ -95,8 +95,18 @@
         border: none;
     }
 
-    .nav__item input::-webkit-calendar-picker-indicator {
-        display: none !important;
+    .search__option::-webkit-calendar-picker-indicator {
+        display: none;
+    }
+
+    .search__option::-moz-calendar-picker-indicator {
+        display: none;
+    }
+
+    .search__option {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
     }
 
     .button__logout,
