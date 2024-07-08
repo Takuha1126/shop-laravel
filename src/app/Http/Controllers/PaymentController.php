@@ -23,51 +23,28 @@ class PaymentController extends Controller
     }
 
     public function saveCreditCard(Request $request)
-{
-    if (!$request->stripeToken) {
-        return redirect()->back()->with('error', 'クレジットカード情報の取得に失敗しました。');
-    }
+    {
+        $token = $request->input('stripeToken');
 
-    Stripe::setApiKey(env('STRIPE_SECRET'));
-
+        Stripe::setApiKey(env('STRIPE_SECRET'));
 
         $customer = Customer::create([
             'email' => auth()->user()->email,
-            'source' => $request->stripeToken,
+            'source' => $token,
             'name' => $request->card_holder_name,
         ]);
-
-        $defaultSource = null;
-        if ($customer->default_source) {
-            $defaultSource = \Stripe\Customer::retrieveSource(
-                $customer->id,
-                $customer->default_source
-            );
-        }
-
-        if (!$defaultSource) {
-            return redirect()->back()->with('error', 'クレジットカード情報の保存に失敗しました。');
-        }
 
         $creditCard = new CreditCard();
         $creditCard->user_id = auth()->user()->id;
         $creditCard->customer_id = $customer->id;
-        $creditCard->last_four = substr($defaultSource->last4, -4);
-        $creditCard->brand = $defaultSource->brand;
         $creditCard->save();
 
         $orderData = session('order_data');
-        $order = null;
+        if ($orderData) {
+            $orderData['payment_method'] = 'credit_card';
+            session(['order_data' => $orderData]);
+        }
 
-        $order->payment_method = 'credit_card';
-        $order->save();
-
-        $orderData['payment_method'] = 'credit_card';
-        session(['order_data' => $orderData]);
-
-        return redirect()->route('order.details')->with('status', 'クレジットカード情報が登録されました。');
-
-}
-
-
+        return redirect()->route('order.details');
+    }
 }
