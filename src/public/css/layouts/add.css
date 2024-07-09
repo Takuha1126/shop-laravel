@@ -95,16 +95,6 @@
         border: none;
     }
 
-    .nav__item input::-webkit-outer-spin-button,
-    .nav__item input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
-
-    .nav__item input {
-        -moz-appearance: textfield;
-    }
-
     .button__logout,
     .button__ttl {
         font-size: 16px;
