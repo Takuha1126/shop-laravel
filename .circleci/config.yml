@@ -78,7 +78,7 @@ jobs:
       - run:
           name: Deploy over SSH
           command: |
-            ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-52-195-218-49.ap-northeast-1.compute.amazonaws.com "\
+            ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@ec2-52-195-218-49.ap-northeast-1.compute.amazonaws.com "\
               cd /var/www/shop-laravel && \
               git fetch origin && \
               git reset --hard origin/main && \
