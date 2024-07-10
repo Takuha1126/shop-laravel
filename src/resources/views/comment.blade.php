@@ -23,7 +23,7 @@
                 </div>
                 <div class="about__action">
                     <div class="action__favorite">
-                        <i id="favoriteIcon" class="action__star {{ $isFavorite ? 'fas text-yellow-400' : 'far' }} fa-star" data-product-id="{{ $product->id }}"></i>
+                        <i id="favoriteIcon" class="action__star {{ $isFavorite ? 'fas text-black' : 'far' }} fa-star" data-product-id="{{ $product->id }}"></i>
                         <p id="favoriteCount" class="star__number">{{ $product->favorites->count() }}</p>
                     </div>
                     <div class="action__comment">
@@ -91,19 +91,19 @@
         var isFavorite = localStorage.getItem('favorite-' + productId) === 'true';
 
         if (isFavorite) {
-            $('#favoriteIcon').removeClass('far').addClass('fas text-yellow-400');
+            $('#favoriteIcon').removeClass('far').addClass('fas text-black');
         } else {
-            $('#favoriteIcon').removeClass('fas text-yellow-400').addClass('far');
+            $('#favoriteIcon').removeClass('fas text-black').addClass('far');
         }
 
         $('#favoriteIcon').on('click', function() {
             isFavorite = !isFavorite;
 
             if (isFavorite) {
-                $(this).removeClass('far').addClass('fas text-yellow-400');
+                $(this).removeClass('far').addClass('fas text-black');
                 favoriteCount++;
             } else {
-                $(this).removeClass('fas text-yellow-400').addClass('far');
+                $(this).removeClass('fas text-black').addClass('far');
                 favoriteCount--;
             }
 

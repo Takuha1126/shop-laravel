@@ -23,7 +23,7 @@
                     </div>
                     <div class="about__action">
                         <div class="action__favorite">
-                            <i class="favorite-icon {{ $isFavorite ? 'fas text-yellow-400' : 'far' }} fa-star" data-product-id="{{ $product->id }}"></i>
+                            <i class="favorite-icon {{ $isFavorite ? 'fas text-black' : 'far' }} fa-star" data-product-id="{{ $product->id }}"></i>
                             <p id="favorite-count" class="star__number">{{ $product->favorites->count() }}</p>
                         </div>
                         <div class="action__comment">
@@ -76,15 +76,15 @@
                 var iconElement = $(this);
                 var productId = iconElement.data('product-id');
                 var favoriteCountElement = iconElement.siblings('.star__number');
-                var isFavorite = iconElement.hasClass('fas text-yellow-400');
+                var isFavorite = iconElement.hasClass('fas text-black');
                 var favoriteCount = parseInt(favoriteCountElement.text());
 
                 isFavorite = !isFavorite;
                 if (isFavorite) {
-                    iconElement.addClass('fas text-yellow-400').removeClass('far');
+                    iconElement.addClass('fas text-black').removeClass('far');
                     favoriteCount++;
                 } else {
-                    iconElement.removeClass('fas text-yellow-400').addClass('far');
+                    iconElement.removeClass('fas text-black').addClass('far');
                     favoriteCount--;
                 }
                 favoriteCountElement.text(favoriteCount);
