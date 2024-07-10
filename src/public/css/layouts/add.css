@@ -88,19 +88,23 @@
         width: 100%;
     }
 
-    .nav__item input {
+    .nav__item input[type="text"] {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
         width: 70%;
         padding: 10px;
         border-radius: 5px;
         border: none;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
     }
 
-    .nav__item input::-webkit-calendar-picker-indicator {
+    .nav__item input[type="text"]::-webkit-calendar-picker-indicator {
         display: none;
-        opacity: 0;
+    }
+
+    .nav__item input[type="text"]::-webkit-inner-spin-button,
+    .nav__item input[type="text"]::-webkit-outer-spin-button {
+        display: none;
     }
 
     .nav__item datalist.search__option {
@@ -108,7 +112,9 @@
         list-style: none;
     }
 
-
+    .nav__item datalist.search__option option {
+        display: none;
+    }
 
     .button__logout,
     .button__ttl {
