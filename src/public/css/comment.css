@@ -205,7 +205,6 @@
         font-size: 20px;
     }
 
-
     .about__ttl {
         text-align: center;
     }
@@ -219,15 +218,11 @@
         text-align: center;
     }
 
-
     .action__favorite,
     .action__comment {
         margin-bottom: 10px;
         margin: 0 auto;
     }
-
-
-
 
     .comment__textarea {
         width: 100%;

@@ -64,18 +64,6 @@
     font-size: 15px;
 }
 
-.star-icon {
-    font-size: 24px;
-    cursor: pointer;
-}
-
-.star-icon.far {
-    color: #ccc;
-}
-
-.star-icon.fas {
-    color: #ffc107;
-}
 
 .comment__link {
     text-decoration: none;
@@ -192,6 +180,16 @@
         width: 80%;
         margin: 0 auto;
     }
+
+    .action__favorite {
+        margin-right: 150px;
+    }
+
+    .action__favorite .star__number,
+    .action__comment .comment__number {
+        margin-left: 2px;
+    }
+
 
     .button__purchase {
         width: 250px;

@@ -100,8 +100,10 @@
 
     .nav__item input::-webkit-calendar-picker-indicator {
         display: none;
+        opacity: 0;
 
     }
+
 
     .button__logout,
     .button__ttl {
