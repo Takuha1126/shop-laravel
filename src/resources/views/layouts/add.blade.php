@@ -22,12 +22,12 @@
                 <form id="search-form" action="{{ route('products.search') }}" method="post">
                     @csrf
                     <input type="hidden" name="source" value="category_search">
-                    <input type="text" id="category_name_input" name="category_name" list="category_list" placeholder="なにをお探しですか？">
-                    <datalist id="category_list" class="search__option">
+                    <select id="category_name_input" name="category_name" class="search__option">
+                        <option value="">なにをお探しですか?</option>
                         @foreach($categories as $category)
-                            <option value="{{ $category->name }}"></option>
+                            <option value="{{ $category->name }}">{{ $category->name }}</option>
                         @endforeach
-                    </datalist>
+                    </select>
                 </form>
             </div>
             <div class="nav__item">
