@@ -11,53 +11,63 @@
 </head>
 <body>
     <header class="header">
-    <div class="header__group">
-        <div class="header__ttl">
-            <p class="header__title">
-                <img src="https://s3-ap-northeast-1.amazonaws.com/shop-laravel/images/logo.svg" alt="Logo">
-            </p>
+        <div class="header__group">
+            <div class="header__ttl">
+                <p class="header__title">
+                    <img src="https://s3-ap-northeast-1.amazonaws.com/shop-laravel/images/logo.svg" alt="Logo">
+                </p>
+            </div>
+            <nav class="nav">
+                <div class="nav__item">
+                    <form id="search-form" action="{{ route('products.search') }}" method="post">
+                        @csrf
+                        <input type="hidden" name="source" value="category_search">
+                        <input type="text" id="category_name_input" name="category_name" list="category_list" placeholder="なにをお探しですか？">
+                        <datalist id="category_list" class="search__option">
+                            @foreach($categories as $category)
+                                <option value="{{ $category->name }}"></option>
+                            @endforeach
+                        </datalist>
+                    </form>
+                </div>
+                <div class="nav__item">
+                    <form action="{{ route('logout') }}" method="post">
+                        @csrf
+                        <button type="submit" class="button__logout">ログアウト</button>
+                    </form>
+                </div>
+                <div class="nav__item">
+                    <a class="button__ttl" href="{{ route('user.show') }}">マイページ</a>
+                </div>
+                <div class="nav__item">
+                    <a href="{{ route('product.index') }}" class="button__title">出品</a>
+                </div>
+            </nav>
         </div>
-        <nav class="nav">
-            <div class="nav__item">
-                <form id="search-form" action="{{ route('products.search') }}" method="post">
-                    @csrf
-                    <input type="hidden" name="source" value="category_search">
-                    <input type="text" id="category_name_input" name="category_name" list="category_list" placeholder="なにをお探しですか？">
-                    <datalist id="category_list" class="search__option">
-                        @foreach($categories as $category)
-                            <option value="{{ $category->name }}"></option>
-                        @endforeach
-                    </datalist>
-                </form>
-            </div>
-            <div class="nav__item">
-                <form action="{{ route('logout') }}" method="post">
-                    @csrf
-                    <button type="submit" class="button__logout">ログアウト</button>
-                </form>
-            </div>
-            <div class="nav__item">
-                <a class="button__ttl" href="{{ route('user.show') }}">マイページ</a>
-            </div>
-            <div class="nav__item">
-                <a href="{{ route('product.index') }}" class="button__title">出品</a>
-            </div>
-        </nav>
-    </div>
-</header>
-<main>
-    @yield('content')
-</main>
+    </header>
+    <main>
+        @yield('content')
+    </main>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var searchInput = document.getElementById('category_name_input');
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var searchInput = document.getElementById('category_name_input');
 
-        searchInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                document.getElementById('search-form').submit();
-            }
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    document.getElementById('search-form').submit();
+                }
+            });
+
+            searchInput.addEventListener('focus', function() {
+                searchInput.style.zIndex = '1';
+            });
+
+            searchInput.addEventListener('blur', function() {
+                searchInput.style.zIndex = '1';
+            });
         });
-    });
-</script>
+    </script>
+</body>
+</html>
