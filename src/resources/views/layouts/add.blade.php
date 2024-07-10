@@ -53,16 +53,6 @@
     document.addEventListener('DOMContentLoaded', function() {
         var searchInput = document.getElementById('category_name_input');
 
-        searchInput.addEventListener('focus', function() {
-            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-                searchInput.setAttribute('readonly', 'readonly');
-                searchInput.blur();
-                setTimeout(function() {
-                    searchInput.removeAttribute('readonly');
-                }, 0);
-            }
-        });
-
         searchInput.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 e.preventDefault();
