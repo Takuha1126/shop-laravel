@@ -96,16 +96,13 @@
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none;
-        background: none;
-        position: relative;
-        z-index: 1;
-        }
-    
-        .nav__item input::-webkit-calendar-picker-indicator {
-            display: none;
-            opacity: 0;
-            pointer-events: none;
-        }
+    }
+
+    .nav__item input::-webkit-calendar-picker-indicator {
+        display: none;
+        opacity: 0;
+    }
+
 
     .button__logout,
     .button__ttl {
