@@ -107,12 +107,11 @@
         display: none;
     }
 
-    .search__option::-webkit-inner-spin-button,
-    .search__option::-webkit-outer-spin-button {
+    .search__option {
         -webkit-appearance: none;
-        margin: 0;
+        -moz-appearance: none;
+        appearance: none;
     }
-
 
     .button__logout,
     .button__ttl {
