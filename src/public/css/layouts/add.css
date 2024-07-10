@@ -107,10 +107,9 @@
         display: none;
     }
 
-    .search__option {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
+    .search__option::-webkit-inner-spin-button,
+    .search__option::-webkit-outer-spin-button {
+        display: none;
     }
 
     .button__logout,
