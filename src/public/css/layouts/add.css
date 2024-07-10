@@ -83,21 +83,28 @@
         width: 100%;
     }
 
-    .nav__item {
-        margin: 10px 0;
-        width: 100%;
-    }
-
-    .nav__item input::-webkit-calendar-picker-indicator {
-        display: none !important;
-    }
-
-    .nav__item input {
-        width: 70%;
-        padding: 10px;
-        border-radius: 5px;
-        border: none;
-    }
+        .nav__item {
+            margin: 10px 0;
+            width: 100%;
+        }
+    
+        .nav__item input {
+            width: 70%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            -webkit-appearance: none;
+            /* Webkitブラウザのデフォルトスタイルを無効にする */
+            -moz-appearance: none;
+            /* Firefoxのデフォルトスタイルを無効にする */
+            appearance: none;
+            /* その他のブラウザのデフォルトスタイルを無効にする */
+        }
+    
+        .nav__item input::-webkit-calendar-picker-indicator {
+            display: none;
+            /* カレンダーピッカーの矢印を非表示にする */
+        }
 
     .button__logout,
     .button__ttl {
