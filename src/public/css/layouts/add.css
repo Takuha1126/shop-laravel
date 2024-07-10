@@ -20,15 +20,8 @@
     margin-right: 50px;
 }
 
-.nav__item input::-webkit-calendar-picker-indicator {
-    display: none !important;
-}
-
-.nav__item input {
+.nav__item select {
     width: 500px;
-    padding: 10px 10px;
-    border-radius: 5px;
-    border: none;
 }
 
 .button__logout {

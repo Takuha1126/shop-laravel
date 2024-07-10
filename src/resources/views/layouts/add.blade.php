@@ -7,7 +7,6 @@
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/layouts/add.css') }}" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0/css/select2.min.css"/>
     @yield('css')
 </head>
 <body>
@@ -24,6 +23,11 @@
                     @csrf
                     <input type="hidden" name="source" value="category_search">
                     <input type="text" id="category_name_input" name="category_name" list="category_list" placeholder="なにをお探しですか？">
+                    <datalist id="category_list" class="search__option">
+                        @foreach($categories as $category)
+                            <option value="{{ $category->name }}"></option>
+                        @endforeach
+                    </datalist>
                 </form>
             </div>
             <div class="nav__item">
@@ -45,8 +49,6 @@
     @yield('content')
 </main>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0/js/select2.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var searchInput = document.getElementById('category_name_input');
