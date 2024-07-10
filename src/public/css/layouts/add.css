@@ -103,6 +103,10 @@
         opacity: 0;
     }
 
+    .search__option::-webkit-calendar-picker-indicator {
+        display: none;
+    }
+
 
     .button__logout,
     .button__ttl {
