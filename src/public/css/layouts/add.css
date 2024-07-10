@@ -104,12 +104,12 @@
     }
 
     .search__option::-webkit-calendar-picker-indicator {
-        display: none;
+        display: none !important;
     }
 
     .search__option::-webkit-inner-spin-button,
     .search__option::-webkit-outer-spin-button {
-        display: none;
+        display: none !important;
     }
 
     .button__logout,
