@@ -103,6 +103,10 @@
         opacity: 0;
     }
 
+    .nav__item datalist.search__option {
+        display: none !important;
+    }
+
     .search__option::-webkit-calendar-picker-indicator {
         display: none !important;
     }
