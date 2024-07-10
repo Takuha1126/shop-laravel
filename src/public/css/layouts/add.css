@@ -99,7 +99,7 @@
     }
 
     .nav__item input::-webkit-calendar-picker-indicator {
-        display: none;
+        color: #fff;
 
     }
 
