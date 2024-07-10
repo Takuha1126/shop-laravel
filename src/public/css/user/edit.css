@@ -93,8 +93,11 @@
     }
 
     .photo__about img {
-        width: 20%;
-        height: 20%;
+        max-width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        margin-left: 10px;
+        overflow: hidden;
     }
 
     .label {
