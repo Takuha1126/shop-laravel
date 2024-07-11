@@ -51,13 +51,15 @@ class UserController extends Controller
         $profile->building_name = $request->building_name;
 
         if ($request->hasFile('profile_image')) {
-        if (App::environment('local')) {
-            $imagePath = $request->file('profile_image')->store('profile_images', 'public');
-        } else {
-            $imagePath = $request->file('profile_image')->store('profile_images', 's3');
-        }
-        $product->profile_image = $imagePath;
+           if (App::environment('local')) {
+        $imagePath = $request->file('profile_image')->store('profile_images', 'public');
+    } else {
+        $imagePath = $request->file('profile_image')->store('profile_images', 's3');
     }
+    \Log::info('Uploaded image path: ' . $imagePath);
+    $product->profile_image = $imagePath;
+}
+
 
         $profile->save();
 
