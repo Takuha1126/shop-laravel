@@ -31,9 +31,9 @@ class RegisterTest extends TestCase
 
     $response = $this->post(route('register'), $userData);
 
-    $response->assertStatus(302); // リダイレクトされることを確認
-    $response->assertRedirect(route('home.index')); // リダイレクト先が正しいことを確認
-    $this->assertAuthenticated(); // ユーザーが認証されていることを確認
+    $response->assertStatus(302);
+    $response->assertRedirect('/email/verify');
+    $this->assertAuthenticated();
 }
 
 }
