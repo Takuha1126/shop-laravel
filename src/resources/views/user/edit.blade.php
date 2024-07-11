@@ -16,9 +16,9 @@
                 <div class="photo__about">
                     @if ($profile && $profile->profile_image && $profile->profile_image !== 'default.jpg')
                         @if (App::environment('local'))
-                            <img src="{{ asset('storage/' . $profile->profile_image) }}" alt="Profile Image">
+                            <img id="preview" src="{{ asset('storage/' . $profile->profile_image) }}" alt="Profile Image">
                         @else
-                            <img src="{{ Storage::disk('s3')->url($profile->profile_image) }}" alt="Profile Image">
+                            <img id="preview" src="{{ Storage::disk('s3')->url($profile->profile_image) }}" alt="Profile Image">
                         @endif
                     @else
                         @if (App::environment('local'))
