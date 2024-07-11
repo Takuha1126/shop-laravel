@@ -8,6 +8,7 @@ use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Profile;
 use App\Models\Category;
+use App\Http\Requests\CommentRequest;
 
 class CommentController extends Controller
 {
@@ -24,7 +25,7 @@ class CommentController extends Controller
         return view('comment', compact('product', 'comments', 'isFavorite', 'categories'));
     }
 
-    public function store(Request $request, $id) {
+    public function store(CommentRequest $request, $id) {
         $product = Product::findOrFail($id);
         $user = Auth::user();
 

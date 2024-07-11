@@ -186,6 +186,10 @@
 
 }
 
+.error {
+    color: #ff0000;
+}
+
 @media (max-width: 768px) {
     .main__ttl {
         flex-direction: column;

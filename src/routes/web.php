@@ -28,6 +28,8 @@ use App\Http\Controllers\PaymentController;
 */
 
 Route::middleware('auth')->group(function () {
+    Route::get('/email/verify', [RegisterController::class, 'showVerifyForm'])->name('auth.verify');
+    Route::post('/email/resend', [RegisterController::class, 'resendVerificationEmail'])->name('auth.resend');
     Route::post('/search', [ItemController::class, 'search'])->name('products.search');
     Route::get('/clear', [ItemController::class, 'clearSession'])->name('clear.session');
     Route::get('/favorite/get', [FavoriteController::class, 'getFavorite'])->name('favorite.get');

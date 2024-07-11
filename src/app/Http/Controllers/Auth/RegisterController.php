@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\RegisterRequest;
 use App\Models\Profile;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\RegisterRequest;
+use App\Notifications\VerifyEmail;
 
 class RegisterController extends Controller
 {
@@ -19,7 +20,6 @@ class RegisterController extends Controller
 
     public function register(RegisterRequest $request)
     {
-
         $user = User::create([
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -34,8 +34,25 @@ class RegisterController extends Controller
             'profile_image' => 'default.jpg',
         ]);
 
+        $user->notify(new VerifyEmail());
+
+
         Auth::login($user);
 
-        return redirect()->route('home.index')->with('success', '登録が完了しました。');
+        return redirect()->route('auth.verify');
+    }
+
+    public function showVerifyForm()
+    {
+        return view('auth.verify');
+    }
+
+    public function resendVerificationEmail(Request $request)
+    {
+        $user = $request->user();
+        $user->notify(new VerifyEmail());
+
+
+        return redirect()->route('auth.verify')->with('resent', true);
     }
 }

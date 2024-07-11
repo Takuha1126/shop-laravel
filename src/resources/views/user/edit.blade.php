@@ -22,9 +22,9 @@
                         @endif
                     @else
                         @if (App::environment('local'))
-                            <img src="{{ asset('storage/profile_images/default.jpg') }}" alt="Default Profile Image">
+                            <img id="preview" src="{{ asset('storage/profile_images/default.jpg') }}" alt="Default Profile Image">
                         @else
-                            <img src="{{ Storage::disk('s3')->url('profile_images/default.jpg') }}" alt="Default Profile Image">
+                            <img id="preview" src="{{ Storage::disk('s3')->url('profile_images/default.jpg') }}" alt="Default Profile Image">
                         @endif
                     @endif
                     <div class="photo__border">
