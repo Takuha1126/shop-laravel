@@ -60,7 +60,7 @@ class OrderController extends Controller
         return redirect()->route('order.details');
     }
 
-    public function submitOrder(Request $request)
+    public function submitOrder(SubmitOrderRequest $request)
 {
 
 
