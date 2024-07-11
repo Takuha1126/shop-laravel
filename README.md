@@ -23,6 +23,37 @@ Laravel,php
 
 #環境構築
 開発環境を以下のGithubURLからクローンする
+git clone git@github.com:Takuha1126/shop-laravel.git
+
+ここではshop-laravelで行う
+cd shop-laravel
+
+Dockerで開発環境構築
+docker-compose up -d --build
+
+Laravelパッケージをインストール
+docker-compose exec php bash
+
+composer install
+
+.envファイルの作成
+cp .env.example .env
+
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=laravel_db
+DB_USERNAME=laravel_user
+DB_PASSWORD=laravel_pass
+このように書き換える
+
+アプリケーションキーを作成する
+php artisan key:generate
+
+ストレージ保存した画像を反映させるために、シンボリック作成
+php artisan storage:link
+
+
 
 
 
