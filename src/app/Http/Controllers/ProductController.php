@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
 use App\Models\Category;
 use App\Http\Requests\ProductRequest;
-use Illuminate\Support\Facades\App;
 
 class ProductController extends Controller
 {
@@ -30,16 +29,10 @@ class ProductController extends Controller
     $product->status = $request->status;
 
     if ($request->hasFile('image')) {
-        if (App::environment('local')) {
-            // ローカル環境ではシンボリックリンクを使用する
-            $imagePath = $request->file('image')->store('images', 'public');
-            $product->image = $imagePath;
-        } else {
-            // 本番環境ではS3に保存する
-            $imagePath = $request->file('image')->store('images', 's3');
-            $product->image = $imagePath;
-        }
-    }
+    $imagePath = $request->file('image')->store('images', 's3');
+    $product->image = $imagePath;
+}
+
 
     $product->save();
 
