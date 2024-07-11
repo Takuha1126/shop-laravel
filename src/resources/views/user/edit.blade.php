@@ -15,9 +15,13 @@
                 @method('PUT')
                 <div class="photo__about">
                     @if ($profile && $profile->profile_image && $profile->profile_image !== 'default.jpg')
-                        <img id="preview" src="{{ Storage::url($profile->profile_image) }}" alt="Profile Image">
+                        @if (App::environment('local'))
+                            <img src="{{ asset('storage/' . $profile->profile_image) }}" alt="Profile Image">
+                        @else
+                            <img src="{{ Storage::disk('s3')->url($profile->profile_image) }}" alt="Profile Image">
+                        @endif
                     @else
-                        <img id="preview" src="{{ asset('storage/profile_images/default.jpg') }}" alt="Default Profile Image">
+                        <img src="{{ asset('storage/profile_images/default.jpg') }}" alt="Default Profile Image">
                     @endif
                     <div class="photo__border">
                         <label for="fileInput" class="custom__button">画像を選択する</label>

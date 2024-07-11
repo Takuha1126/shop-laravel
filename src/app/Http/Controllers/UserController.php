@@ -10,6 +10,8 @@ use App\Models\Profile;
 use App\Models\Category;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Http\Requests\UpdateAddressRequest;
+use Illuminate\Support\Facades\App;
+
 
 class UserController extends Controller
 {
@@ -49,9 +51,12 @@ class UserController extends Controller
         $profile->building_name = $request->building_name;
 
         if ($request->hasFile('profile_image')) {
-        $storageDisk = env('FILESYSTEM_DRIVER', 'public');
-        $imagePath = $request->file('profile_image')->store('profile_images', $storageDisk);
-        $profile->profile_image = $imagePath;
+        if (App::environment('local')) {
+            $imagePath = $request->file('profile_image')->store('profile_images', 'public');
+        } else {
+            $imagePath = $request->file('profile_image')->store('profile_images', 's3');
+        }
+        $product->profile_image = $imagePath;
     }
 
         $profile->save();

@@ -45,9 +45,13 @@
                                         <div class="user__info">
                                             <div class="user__icon-wrapper">
                                                 @if ($comment->user->profile->profile_image && $comment->user->profile->profile_image !== 'default.jpg')
-                                                    <img src="{{ Storage::url($comment->user->profile->profile_image) }}" alt="Profile Image">
+                                                    @if (App::environment('local'))
+                                                        <img src="{{ asset('storage/' . $comment->user->profile->profile_image) }}" alt="Profile Image">
+                                                    @else
+                                                        <img src="{{ Storage::disk('s3')->url($comment->user->profile->profile_image) }}" alt="Profile Image">
+                                                    @endif
                                                 @else
-                                                    <img class="user__icon" src="{{ asset('storage/profile_images/default.jpg') }}">
+                                                    <img class="user__icon" src="{{ asset('storage/profile_images/default.jpg') }}" alt="Default Profile Image">
                                                 @endif
                                             </div>
                                             <div class="user__name">

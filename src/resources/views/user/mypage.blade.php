@@ -10,7 +10,11 @@
             <div class="main__ttl">
                 <div class="main__title">
                     @if ($profile && $profile->profile_image && $profile->profile_image !== 'default.jpg')
-                        <img src="{{ Storage::url($profile->profile_image) }}" alt="Profile Image">
+                        @if (App::environment('local'))
+                            <img src="{{ asset('storage/' . $profile->profile_image) }}" alt="Profile Image">
+                        @else
+                            <img src="{{ Storage::disk('s3')->url($profile->profile_image) }}" alt="Profile Image">
+                        @endif
                     @else
                         <img src="{{ asset('storage/profile_images/default.jpg') }}" alt="Default Profile Image">
                     @endif
