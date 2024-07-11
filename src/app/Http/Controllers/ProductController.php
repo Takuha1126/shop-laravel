@@ -29,9 +29,14 @@ class ProductController extends Controller
     $product->status = $request->status;
 
     if ($request->hasFile('image')) {
-    $imagePath = $request->file('image')->store('images', 's3');
-    $product->image = $imagePath;
-}
+        if (App::environment('local')) {
+            $imagePath = $request->file('image')->store('images', 'public');
+        } else {
+            $imagePath = $request->file('image')->store('images', 's3');
+        }
+        $product->image = $imagePath;
+    }
+
 
 
     $product->save();

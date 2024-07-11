@@ -21,7 +21,11 @@
                         @foreach ($recommendedProducts as $product)
                             <div class="recommended-product">
                                 <a class="item__button" href="{{ route('item.detail', ['id' => $product->id]) }}">
-                                    <img src="{{ Storage::url($product->image) }}" alt="{{ $product->productName }}">
+                                    @if (App::environment('local'))
+                                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->productName }}">
+                                    @else
+                                        <img src="{{ Storage::disk('s3')->url($product->image) }}" alt="{{ $product->productName }}">
+                                    @endif
                                 </a>
                             </div>
                         @endforeach
@@ -34,7 +38,11 @@
                         @foreach ($favoriteProducts as $product)
                             <div class="favorite-product" data-product-id="{{ $product->id }}">
                                 <a class="item__button" href="{{ route('item.detail', ['id' => $product->id]) }}">
-                                    <img src="{{ Storage::url($product->image) }}" alt="{{ $product->productName }}">
+                                    @if (App::environment('local'))
+                                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->productName }}">
+                                    @else
+                                        <img src="{{ Storage::disk('s3')->url($product->image) }}" alt="{{ $product->productName }}">
+                                    @endif
                                 </a>
                             </div>
                         @endforeach
