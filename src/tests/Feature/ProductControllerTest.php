@@ -14,11 +14,6 @@ class ProductControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * Test if a product can be stored.
-     *
-     * @return void
-     */
     public function test_store_product()
     {
         // テスト用ユーザーの作成
@@ -29,7 +24,7 @@ class ProductControllerTest extends TestCase
         $category = Category::factory()->create(['name' => $categoryName]);
 
         // ダミーの画像ファイルを準備する
-        Storage::fake('public'); // S3ストレージを使用することを宣言
+        Storage::fake('s3'); // S3ストレージを使用することを宣言
         $dummyImage = UploadedFile::fake()->image('sample.jpg');
 
         // テスト用リクエストデータの準備
@@ -56,15 +51,19 @@ class ProductControllerTest extends TestCase
         // データベースに商品が保存されたことを確認する
         $this->assertDatabaseHas('products', [
             'user_id' => $user->id,
-            'status' => 'available',
             'productName' => 'Sample Product',
             'brand' => 'Sample Brand',
             'description' => 'This is a sample product description.',
             'price' => 1000,
+            'status' => 'available',
             'image' => 'images/' . $dummyImage->hashName(),
         ]);
 
+        // カテゴリーが正しく関連付けられていることを確認する
+        $product = Product::where('productName', 'Sample Product')->first();
+        $this->assertTrue($product->categories->contains($category));
+
         // S3に画像が保存されていることを確認する
-        Storage::disk('public')->assertExists('images/' . $dummyImage->hashName());
+        Storage::disk('s3')->assertExists('images/' . $dummyImage->hashName());
     }
 }
