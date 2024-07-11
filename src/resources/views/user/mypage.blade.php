@@ -16,7 +16,11 @@
                             <img src="{{ Storage::disk('s3')->url($profile->profile_image) }}" alt="Profile Image">
                         @endif
                     @else
-                        <img src="{{ asset('storage/profile_images/default.jpg') }}" alt="Default Profile Image">
+                        @if (App::environment('local'))
+                            <img src="{{ asset('storage/profile_images/default.jpg') }}" alt="Default Profile Image">
+                        @else
+                            <img src="{{ Storage::disk('s3')->url('profile_images/default.jpg') }}" alt="Default Profile Image">
+                        @endif
                     @endif
                     <p class="title__user">{{ $profile->name }}</p>
                 </div>
