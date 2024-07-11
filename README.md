@@ -47,11 +47,37 @@ DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
 このように書き換える
 
+メール設定
+各自でしてください
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.your-email-provider.com
+MAIL_PORT=587
+MAIL_USERNAME=your_email@example.com
+MAIL_PASSWORD=your_password
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=no-reply@example.com
+MAIL_FROM_NAME="${APP_NAME}"
+
+stripeの設定
+各自でしてください
+STRIPE_KEY=your_stripe_public_key
+STRIPE_SECRET=your_stripe_secret_key
+
 アプリケーションキーを作成する
 php artisan key:generate
 
 ストレージ保存した画像を反映させるために、シンボリック作成
 php artisan storage:link
+
+テーブルの作成
+php artisan migrate:refresh
+
+シーダーで初期データを挿入
+php artisan db:seed --class=CategoriesTableSeeder
+
+
+
+
 
 
 
