@@ -10,7 +10,7 @@
 <div class="main">
     <div class="main__ttl">
         <div class="main__item">
-            <img src="https://s3-ap-northeast-1.amazonaws.com/shop-laravel/{{ $product->image }}" alt="{{ $product->productName }}">
+            <img src="{{ Storage::url($product->image) }}" alt="{{ $product->productName }}">
         </div>
         <div class="main__about">
             <div class="about__group">
@@ -45,9 +45,9 @@
                                         <div class="user__info">
                                             <div class="user__icon-wrapper">
                                                 @if ($comment->user->profile->profile_image && $comment->user->profile->profile_image !== 'default.jpg')
-                                                    <img id="preview" src="https://s3-ap-northeast-1.amazonaws.com/shop-laravel/{{ $comment->user->profile->profile_image }}" alt="Profile Image">
+                                                    <img src="{{ Storage::url($comment->user->profile->profile_image) }}" alt="Profile Image">
                                                 @else
-                                                    <img id="preview" src='https://s3-ap-northeast-1.amazonaws.com/shop-laravel/profile_images/default.jpg'>
+                                                    <img class="user__icon" src="{{ asset('storage/profile_images/default.jpg') }}">
                                                 @endif
                                             </div>
                                             <div class="user__name">

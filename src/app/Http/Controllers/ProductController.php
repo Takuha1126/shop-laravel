@@ -17,31 +17,33 @@ class ProductController extends Controller
     }
 
     public function store(ProductRequest $request)
-    {
-        $user = Auth::user();
+{
+    $user = Auth::user();
 
-        $product = new Product();
-        $product->user_id = $user->id;
-        $product->productName = $request->productName;
-        $product->brand = $request->brand;
-        $product->description = $request->description;
-        $product->price = $request->price;
-        $product->status = $request->status;
+    $product = new Product();
+    $product->user_id = $user->id;
+    $product->productName = $request->productName;
+    $product->brand = $request->brand;
+    $product->description = $request->description;
+    $product->price = $request->price;
+    $product->status = $request->status;
 
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('images', 's3');
-            $product->image = $imagePath;
-        }
-
-        $product->save();
-
-        $categoryNames = $request->input('categories', []);
-        foreach ($categoryNames as $categoryName) {
-            $trimmedCategoryName = trim($categoryName);
-            $category = Category::firstOrCreate(['name' => $trimmedCategoryName]);
-            $product->categories()->attach($category->id);
-        }
-
-        return redirect()->route('home.index')->with('success', '商品を登録しました。');
+    if ($request->hasFile('image')) {
+        $storageDisk = env('FILESYSTEM_DRIVER', 'public');
+        $imagePath = $request->file('image')->store('images', $storageDisk);
+        $product->image = $imagePath;
     }
+
+    $product->save();
+
+    $categoryNames = $request->input('categories', []);
+    foreach ($categoryNames as $categoryName) {
+        $trimmedCategoryName = trim($categoryName);
+        $category = Category::firstOrCreate(['name' => $trimmedCategoryName]);
+        $product->categories()->attach($category->id);
+    }
+
+    return redirect()->route('home.index')->with('success', '商品を登録しました。');
+}
+
 }

@@ -15,9 +15,9 @@
                 @method('PUT')
                 <div class="photo__about">
                     @if ($profile && $profile->profile_image && $profile->profile_image !== 'default.jpg')
-                        <img id="preview" src="https://s3-ap-northeast-1.amazonaws.com/shop-laravel/{{ $profile->profile_image }}">
+                        <img id="preview" src="{{ Storage::url($profile->profile_image) }}" alt="Profile Image">
                     @else
-                        <img id="preview" src='https://s3-ap-northeast-1.amazonaws.com/shop-laravel/profile_images/default.jpg'>
+                        <img id="preview" src="{{ asset('storage/profile_images/default.jpg') }}" alt="Default Profile Image">
                     @endif
                     <div class="photo__border">
                         <label for="fileInput" class="custom__button">画像を選択する</label>

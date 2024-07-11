@@ -9,7 +9,7 @@
     <div class="main__group">
         <div class="main__ttl">
             <div class="main__item">
-                <img src="https://s3-ap-northeast-1.amazonaws.com/shop-laravel/{{ $product->image }}" alt="{{ $product->productName }}">
+                <img src="{{ Storage::url($product->image) }}" alt="{{ $product->productName }}">
                 <div class="item__ttl">
                     <p class="item__title">{{ $product->productName }}</p>
                     <p class="item__price">¥{{ $product->price }}</p>

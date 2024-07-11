@@ -50,7 +50,7 @@
                     @else
                         @foreach($products as $product)
                             <a class="item__button" href="{{ route('item.detail', ['id' => $product->id]) }}">
-                                <img src="https://s3-ap-northeast-1.amazonaws.com/shop-laravel/{{ $product->image }}" alt="{{ $product->productName }}">
+                                <img src="{{ Storage::url($product->image) }}" alt="{{ $product->productName }}">
                             </a>
                         @endforeach
                     @endif

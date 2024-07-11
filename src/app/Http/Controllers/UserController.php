@@ -49,8 +49,8 @@ class UserController extends Controller
         $profile->building_name = $request->building_name;
 
         if ($request->hasFile('profile_image')) {
-        $profileImage = $request->file('profile_image');
-        $imagePath = $profileImage->store('profile_images', 's3');
+        $storageDisk = env('FILESYSTEM_DRIVER', 'public');
+        $imagePath = $request->file('profile_image')->store('profile_images', $storageDisk);
         $profile->profile_image = $imagePath;
     }
 
