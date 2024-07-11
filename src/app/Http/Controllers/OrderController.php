@@ -63,8 +63,6 @@ class OrderController extends Controller
     public function submitOrder(SubmitOrderRequest $request)
 {
 
-
-
         if ($request->payment_method === 'credit_card') {
             $creditCard = auth()->user()->creditCard;
 
