@@ -29,7 +29,7 @@
                     @endif
                     <div class="photo__border">
                         <label for="fileInput" class="custom__button">画像を選択する</label>
-                        <input id="fileInput" type="file" style="display:none;" onchange="previewImage(event)" name="profile_image" accept="image/*" capture>
+                        <input id="fileInput" type="file" style="display:none;" onchange="previewImage(event)" name="profile_image" accept="image/*">
                     </div>
                 </div>
                 <div class="main__edit">
