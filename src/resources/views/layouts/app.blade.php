@@ -15,7 +15,7 @@
                 @if (App::environment('local'))
                     <img src="{{ asset('storage/images/logo.svg') }}">
                 @else
-                    <img src="{{ Storage::disk('s3')->url('/images/logo.svg') }}">
+                    <img src="https://s3-ap-northeast-1.amazonaws.com/shop-laravel/images/logo.svg" alt="Logo">
                 @endif
             </p>
         </div>

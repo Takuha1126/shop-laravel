@@ -16,15 +16,15 @@ class FavoriteController extends Controller
         }
 
         $favorites = Favorite::where('user_id', $userId)
-                             ->with('product')
-                             ->get()
-                             ->map(function ($favorite) {
-                                 return [
-                                     'id' => $favorite->product->id,
-                                     'productName' => $favorite->product->name,
-                                     'image' => $favorite->product->image,
-                                 ];
-                             });
+                            ->with('product')
+                            ->get()
+                            ->map(function ($favorite) {
+                                return [
+                                    'id' => $favorite->product->id,
+                                    'productName' => $favorite->product->name,
+                                    'image' => $favorite->product->image,
+                                ];
+                            });
 
         return response()->json($favorites);
     }
