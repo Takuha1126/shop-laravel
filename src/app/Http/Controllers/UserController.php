@@ -39,37 +39,40 @@ class UserController extends Controller
 
     public function update(ProfileUpdateRequest $request, $id)
     {
-    $profile = Profile::where('user_id', $id)->first();
+        $profile = Profile::where('user_id', $id)->first();
 
-    if (!$profile) {
-        $profile = new Profile();
-        $profile->user_id = $id;
-    }
-
-    $profile->name = $request->name;
-    $profile->postal_code = $request->postal_code;
-    $profile->address = $request->address;
-    $profile->building_name = $request->building_name;
-
-    if ($request->hasFile('profile_image')) {
-        $image = $request->file('profile_image');
-
-        if (App::environment('local')) {
-            $imagePath = $image->store('profile_images', 'public');
-        } else {
-            $fileName = time() . '_' . $image->getClientOriginalName();
-            $path = 'profile_images/' . $fileName;
-            Storage::disk('s3')->put($path, file_get_contents($image));
-            $imagePath = $path;
+        if (!$profile) {
+            $profile = new Profile();
+            $profile->user_id = $id;
         }
 
-        $profile->profile_image = $imagePath;
+        $profile->name = $request->name;
+        $profile->postal_code = $request->postal_code;
+        $profile->address = $request->address;
+        $profile->building_name = $request->building_name;
+
+
+        if ($request->hasFile('profile_image')) {
+            $request->validate([
+                'profile_image' => 'image|max:2048',
+            ]);
+
+            if (App::environment('local')) {
+                $imagePath = $request->file('profile_image')->store('profile_images', 'public');
+            } else {
+                $fileName = time() . '_' . $request->file('profile_image')->getClientOriginalName();
+                $imagePath = 'profile_images/' . $fileName;
+                Storage::disk('s3')->put($imagePath, file_get_contents($request->file('profile_image')));
+            }
+
+            $profile->profile_image = $imagePath;
+        }
+
+        $profile->save();
+
+        return redirect()->route('user.show')->with('success', 'プロフィールが更新されました。');
     }
 
-    $profile->save();
-
-    return redirect()->route('user.show');
-    }
 
 
     public function editAddress()

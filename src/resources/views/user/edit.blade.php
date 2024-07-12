@@ -32,9 +32,9 @@
                         <input id="fileInput" type="file" style="display:none;" onchange="previewImage(event)" name="profile_image" accept="image/*">
                     </div>
                 </div>
-                @error('profile_image')
-                    <p class="error">{{ $message }}</p>
-                @enderror
+                @if ($errors->has('profile_image'))
+                    <p class="error">{{ $errors->first('profile_image') }}</p>
+                @endif
                 <div class="main__edit">
                     <div class="edit__item">
                         <label class="label">ユーザー名</label>
