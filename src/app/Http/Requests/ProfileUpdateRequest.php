@@ -28,6 +28,7 @@ class ProfileUpdateRequest extends FormRequest
             'postal_code' => 'required|string|max:10',
             'address' => 'required|string|max:255',
             'building_name' => 'nullable|string|max:255',
+            'profile_image' => 'max:2048',
         ];
     }
 
