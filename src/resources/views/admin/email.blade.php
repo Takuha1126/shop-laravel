@@ -10,7 +10,13 @@
 <body>
     <header class="header">
         <div class="header__ttl">
-            <p class="header__title"><img src="https://s3-ap-northeast-1.amazonaws.com/shop-laravel/images/logo.svg" alt="Logo"></p>
+            <p class="header__title">
+                @if (App::environment('local'))
+                    <img src="{{ asset('storage/images/logo.svg') }}">
+                @else
+                    <img src="{{ Storage::disk('s3')->url('/images/logo.svg') }}">
+                @endif
+            </p>
             <nav class="nav">
                 <div class="nav__button">
                     <a class="nav__home" href="{{ route('admin.index')}}">ホーム</a>
@@ -36,16 +42,17 @@
                         <div class="form-group">
                             <label for="user_id" class="label">対象ユーザー</label>
                             <select name="user_id" class="form-control">
+                                <option value="">選択してください</option>
                                 @foreach ($users as $user)
                                     <option value="{{ $user->id }}">
                                         {{ $user->profile->name }} ({{ $user->email }})
                                     </option>
                                 @endforeach
                             </select>
-                            @error('user_id')
-                                <p class="error">{{$message}}</p>
-                            @enderror
                         </div>
+                        @error('user_id')
+                            <p class="error">{{$message}}</p>
+                        @enderror
                         <div class="form-group">
                             <label for="message_content" class="label">メッセージ内容</label>
                             <textarea class="form-control" name="message_content" rows="3"></textarea>

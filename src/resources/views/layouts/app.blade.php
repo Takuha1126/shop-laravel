@@ -11,8 +11,13 @@
 <body>
     <header class="header">
         <div class="header__ttl">
-            <p class="header__title"><img src="https://s3-ap-northeast-1.amazonaws.com/shop-laravel/images/logo.svg" alt="Logo">
-</p>
+            <p class="header__title">
+                @if (App::environment('local'))
+                    <img src="{{ asset('storage/images/logo.svg') }}">
+                @else
+                    <img src="{{ Storage::disk('s3')->url('/images/logo.svg') }}">
+                @endif
+            </p>
         </div>
     </header>
     <main>

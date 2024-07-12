@@ -27,16 +27,15 @@ class AuthenticationTest extends TestCase
     $userData = [
         'email' => 'test@example.com',
         'password' => 'password',
-        '_token' => csrf_token(), // CSRFトークンを手動で追加する
+        '_token' => csrf_token(),
     ];
 
-    // セッションをリセットする
     $this->flushSession();
 
     $response = $this->post(route('login'), $userData);
 
-    $response->assertRedirect(route('home.index')); // ログイン後に適切なリダイレクトが行われていることを確認
-    $this->assertAuthenticated(); // ユーザーが認証されていることを確認
+    $response->assertRedirect(route('home.index'));
+    $this->assertAuthenticated();
 }
 
     public function test_users_can_not_authenticate_with_invalid_password()

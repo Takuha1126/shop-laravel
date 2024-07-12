@@ -8,7 +8,7 @@ class UpdateAddressRequest extends FormRequest
 {
     public function authorize()
     {
-        return true; // 認可のロジックが必要な場合に適宜修正
+        return true;
     }
 
     public function rules()

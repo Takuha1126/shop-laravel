@@ -8,6 +8,7 @@ use App\Models\Admin;
 use App\Http\Requests\AdminRegisterRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\AdminVerifyEmail;
 
 class AdminRegisterController extends Controller
 {
@@ -25,9 +26,25 @@ class AdminRegisterController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        $admin->notify(new AdminVerifyEmail());
+
+
         Auth::guard('admin')->login($admin);
 
-        return redirect()->route('admin.index');
+        return redirect()->route('admin.verify');
+    }
+
+    public function showVerifyForm()
+    {
+        return view('admin.verify');
+    }
+
+    public function resendVerificationEmail()
+    {
+        $admin = Auth::guard('admin')->user();
+        $admin->notify(new AdminVerifyEmail());
+
+        return redirect()->route('admin.verify')->with('resent', true);
     }
 
 }

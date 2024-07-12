@@ -8,7 +8,7 @@ class SendNotificationRequest extends FormRequest
 {
     public function authorize()
     {
-        return true; // 認可ロジックを追加する場合は適宜変更
+        return true;
     }
 
     public function rules()
@@ -22,7 +22,7 @@ class SendNotificationRequest extends FormRequest
     public function messages()
     {
         return [
-            'user_id.required' => 'ユーザーIDは必須です。',
+            'user_id.required' => 'ユーザーは必須です。',
             'user_id.exists' => '指定されたユーザーIDが存在しません。',
             'message_content.required' => 'メッセージ内容は必須です。',
             'message_content.string' => 'メッセージ内容は文字列である必要があります。',

@@ -11,7 +11,7 @@ class SendEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $messageContent; // メールの本文を格納するプロパティ
+    public $messageContent;
 
     /**
      * Create a new message instance.
@@ -21,7 +21,7 @@ class SendEmail extends Mailable
      */
     public function __construct($messageContent)
     {
-        $this->messageContent = $messageContent; // コンストラクタでメールの本文を受け取る
+        $this->messageContent = $messageContent;
     }
 
     /**
@@ -32,6 +32,6 @@ class SendEmail extends Mailable
     public function build()
     {
         return $this->subject('メールの件名')
-                    ->view('admin.emails.send'); // メールのビューを指定
+                    ->view('admin.emails.send');
     }
 }

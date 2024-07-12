@@ -8,7 +8,7 @@ class SendAllRequest extends FormRequest
 {
     public function authorize()
     {
-        return true; // 認可ロジックを追加する場合は適宜変更
+        return true;
     }
 
     public function rules()

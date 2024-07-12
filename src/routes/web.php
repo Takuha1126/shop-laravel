@@ -68,6 +68,8 @@ Route::middleware(['auth.admin'])->group(function () {
     Route::delete('/admin/users/{id}', [AdminController::class, 'destroy'])->name('user.destroy');
     Route::post('/send-mail', [EmailController::class, 'sendNotification'])->name('send.mail');
     Route::post('/send-all', [EmailController::class, 'sendAll'])->name('send.all');
+    Route::get('/admin/verify', [AdminRegisterController::class, 'showVerifyForm'])->name('admin.verify');
+    Route::post('/admin/verify/resend', [AdminRegisterController::class, 'resendVerificationEmail'])->name('admin.verify.resend');
 });
 
 
