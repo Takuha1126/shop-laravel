@@ -53,10 +53,6 @@ class UserController extends Controller
 
 
         if ($request->hasFile('profile_image')) {
-            $request->validate([
-                'profile_image' => 'image|max:2048',
-            ]);
-
             if (App::environment('local')) {
                 $imagePath = $request->file('profile_image')->store('profile_images', 'public');
             } else {
