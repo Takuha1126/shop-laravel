@@ -65,6 +65,12 @@
     font-size: 15px;
 }
 
+.success {
+    margin-left: 50px;
+    color: #ff0000;
+    margin-top: 30px;
+}
+
 @media (max-width: 768px) {
     .header {
         padding: 10px;

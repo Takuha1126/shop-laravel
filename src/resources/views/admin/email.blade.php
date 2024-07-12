@@ -30,6 +30,11 @@
             </nav>
         </div>
     </header>
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
     <main class="main">
         <div class="main__ttl">
             <div class="main__item">

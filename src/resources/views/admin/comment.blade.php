@@ -24,6 +24,11 @@
             </nav>
         </div>
     </header>
+    @if(session('success'))
+        <div class="success">
+            {{ session('success') }}
+        </div>
+    @endif
     <main class="main">
         <div class="main__ttl">
             <div class="main__item">
@@ -37,20 +42,26 @@
                         <th class="about__th">コメント</a></th>
                         <th class="about__th">削除</th>
                     </tr>
-                    @foreach ($comments as $comment)
-                    <tr class="about__tr">
-                        <td class="about__td">{{ $comment->created_at->format('Y-m-d H:i:s') }}</td>
-                        <td class="about__td">{{ $comment->product->productName }}</td>
-                        <td class="about__td">{{ $comment->content }}</td>
-                        <td class="about__td">
-                            <form action="{{ route('comments.remove', ['id' => $comment->id]) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                                <button type="submit" class="button__delete">削除</button>
-                            </form>
-                        </td>
-                    </tr>
-                    @endforeach
+                    @if($comments->isNotEmpty())
+                        @foreach ($comments as $comment)
+                        <tr class="about__tr">
+                            <td class="about__td">{{ $comment->created_at->format('Y-m-d H:i:s') }}</td>
+                            <td class="about__td">{{ $comment->product->productName }}</td>
+                            <td class="about__td">{{ $comment->content }}</td>
+                            <td class="about__td">
+                                <form action="{{ route('comments.remove', ['id' => $comment->id]) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="button__delete">削除</button>
+                                </form>
+                            </td>
+                        </tr>
+                        @endforeach
+                    @else
+                        <tr class="about__tr">
+                            <td class="about__td" colspan="4">コメントはしていません</td>
+                        </tr>
+                    @endif
                 </table>
             </div>
         </div>
