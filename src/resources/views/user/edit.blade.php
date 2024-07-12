@@ -33,7 +33,7 @@
                     </div>
                 </div>
                 @error('profile_image')
-                    <p class="error">{{ $message }}</p>
+                    <p class="error">プロフィール画像のアップロードに失敗しました。</p>
                 @enderror
                 <div class="main__edit">
                     <div class="edit__item">
