@@ -23,7 +23,7 @@ class LoginController extends Controller
         ]);
 
         if (Auth::attempt($request->only('email', 'password'))) {
-            return redirect()->route('home.index')->with('success', 'ログインしました。');
+            return redirect()->route('home.index');
         }
 
         return back()->withErrors([
@@ -34,7 +34,7 @@ class LoginController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('login')->with('success', 'ログアウトしました。');
+        return redirect()->route('login');
     }
 }
 

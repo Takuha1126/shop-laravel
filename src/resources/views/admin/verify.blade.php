@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/auth/mail.css')}}">
+<link rel="stylesheet" href="{{ asset('css/admin/verify.css')}}">
 @endsection
 
 @section('content')
@@ -17,7 +17,6 @@
                             {{ __('新しい確認リンクがあなたのメールアドレスに送信されました。') }}
                         </div>
                     @endif
-
                     {{ __('続行する前に、確認リンクを含むメールをご確認ください。') }}
                     {{ __('もしメールが届かない場合は、') }}
                     <form class="d-inline" method="POST" action="{{ route('admin.verify.resend') }}">

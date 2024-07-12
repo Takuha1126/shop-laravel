@@ -95,6 +95,11 @@
     border: none;
 }
 
+.success {
+    margin-left: 50px;
+    margin-top: 30px;
+}
+
 .error {
     text-align: center;
     color: #ff0000;

@@ -41,7 +41,7 @@ class CommentController extends Controller
         $comment->profile_id = $user->profile->id;
         $comment->save();
 
-        return redirect()->route('comment.index', ['id' => $id])->with('success', 'コメントを投稿しました。');
+        return redirect()->route('comment.index', ['id' => $id]);
     }
 
     public function destroy($id) {

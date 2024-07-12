@@ -49,7 +49,7 @@ class ProductController extends Controller
         $product->categories()->attach($category->id);
     }
 
-    return redirect()->route('home.index')->with('success', '商品を登録しました。');
+    return redirect()->route('home.index');
 }
 
 }

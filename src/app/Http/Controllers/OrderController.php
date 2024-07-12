@@ -106,7 +106,7 @@ class OrderController extends Controller
 
         session(['order_data' => $orderData]);
 
-        return redirect()->route('purchase.success',['orderId' => $order->id])->with('status', '支払いが完了しました。');
+        return redirect()->route('purchase.success',['orderId' => $order->id]);
 
 }
 
@@ -159,7 +159,7 @@ class OrderController extends Controller
 
         $order->payment_method = $orderData['payment_method'];
 
-        return redirect()->route('order.details', ['id' => $orderData['product_id']])->with('success', '支払い方法が更新されました。');
+        return redirect()->route('order.details', ['id' => $orderData['product_id']]);
 
 }
 

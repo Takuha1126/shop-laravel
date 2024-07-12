@@ -66,7 +66,7 @@ class UserController extends Controller
 
         $profile->save();
 
-        return redirect()->route('user.show')->with('success', 'プロフィールが更新されました。');
+        return redirect()->route('user.show');
     }
 
 
@@ -94,7 +94,7 @@ class UserController extends Controller
 
         $profile->save();
 
-        return redirect()->route('order.details')->with('success', '住所が更新されました。');
+        return redirect()->route('order.details');
     }
 }
 

@@ -31,47 +31,46 @@
         </div>
     </header>
     @if(session('success'))
-        <div class="success">
-            {{ session('success') }}
-        </div>
+        <p class="success">{{ session('success') }}</p>
     @endif
     <main class="main">
-    <div class="main__ttl">
-        <div class="main__item">
-            <p class="main__title">ユーザー一覧</p>
-        </div>
-        <div class="main__about">
-            <table class="about__table">
-                <tr class="about__tr">
-                    <th class="about__th">名前</th>
-                    <th class="about__th">メールアドレス</th>
-                    <th class="about__th">コメント一覧</th>
-                    <th class="about__th">削除</th>
-                </tr>
-                @if($users->isNotEmpty())
-                    @foreach ($users as $user)
-                        <tr class="about__tr">
-                            <td class="about__td">{{ $user->profile->name }}</td>
-                            <td class="about__td">{{ $user->email }}</td>
-                            <td class="about__td"><a href="{{ route('admin.comment', ['user' => $user->id]) }}" class="about__link">コメント一覧</a></td>
-                            <td class="about__td">
-                                <form action="{{route('user.destroy',$user->id) }}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="button__delete">削除</button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                @else
+        <div class="main__ttl">
+            <div class="main__item">
+                <p class="main__title">ユーザー一覧</p>
+            </div>
+            <div class="main__about">
+                <table class="about__table">
                     <tr class="about__tr">
-                        <td class="about__td" colspan="4">登録されたユーザーはいません。</td>
+                        <th class="about__th">名前</th>
+                        <th class="about__th">メールアドレス</th>
+                        <th class="about__th">コメント一覧</th>
+                        <th class="about__th">削除</th>
                     </tr>
-                @endif
-            </table>
+                    @if($users->isNotEmpty())
+                        @foreach ($users as $user)
+                            <tr class="about__tr">
+                                <td class="about__td">{{ $user->profile->name }}</td>
+                                <td class="about__td">{{ $user->email }}</td>
+                                <td class="about__td">
+                                    <a href="{{ route('admin.comment', ['user' => $user->id]) }}" class="about__link">コメント一覧</a>
+                                </td>
+                                <td class="about__td">
+                                    <form action="{{route('user.destroy',$user->id) }}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="button__delete">削除</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @else
+                        <tr class="about__tr">
+                            <td class="about__td" colspan="4">登録されたユーザーはいません。</td>
+                        </tr>
+                    @endif
+                </table>
+            </div>
         </div>
-    </div>
-</main>
-
+    </main>
 </body>
 </html>

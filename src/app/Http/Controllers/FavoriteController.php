@@ -60,8 +60,8 @@ class FavoriteController extends Controller
 
     private function checkFavoriteExists($userId, $productId) {
         return Favorite::where('user_id', $userId)
-                       ->where('product_id', $productId)
-                       ->exists();
+                        ->where('product_id', $productId)
+                        ->exists();
     }
 }
 
