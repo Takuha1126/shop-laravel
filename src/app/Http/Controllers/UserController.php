@@ -68,7 +68,7 @@ class UserController extends Controller
 
     $profile->save();
 
-    return redirect()->route('user.show')->with('success', 'プロフィールが更新されました。');
+    return redirect()->route('user.show');
     }
 
 

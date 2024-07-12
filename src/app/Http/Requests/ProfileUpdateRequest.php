@@ -28,6 +28,7 @@ class ProfileUpdateRequest extends FormRequest
             'postal_code' => 'required|string|max:10',
             'address' => 'required|string|max:255',
             'building_name' => 'nullable|string|max:255',
+            'profile_image' => 'nullable|image|max:2048',
         ];
     }
 
@@ -45,6 +46,8 @@ class ProfileUpdateRequest extends FormRequest
             'address.max' => '住所は255文字以下で入力してください。',
             'building_name.string' => '建物名には文字列を入力してください。',
             'building_name.max' => '建物名は255文字以下で入力してください。',
+            'profile_image.image' => 'プロフィール画像には画像ファイルを指定してください。',
+            'profile_image.max' => 'プロフィール画像は2MB以下のファイルを指定してください。',
         ];
     }
 }

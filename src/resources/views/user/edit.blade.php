@@ -31,6 +31,9 @@
                         <label for="fileInput" class="custom__button">画像を選択する</label>
                         <input id="fileInput" type="file" style="display:none;" onchange="previewImage(event)" name="profile_image" accept="image/*">
                     </div>
+                    @error('profile_image')
+                        <p class="error">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div class="main__edit">
                     <div class="edit__item">
