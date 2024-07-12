@@ -32,10 +32,8 @@
                         <input id="fileInput" type="file" style="display:none;" onchange="previewImage(event)" name="profile_image" accept="image/*">
                     </div>
                 </div>
-                @error('image')
-                    @if ($message == 'The image failed to upload.')
-                        <p class="error">画像のサイズが大きすぎます。2MB以下の画像を選択してください。</p>
-                    @endif
+                @error('profile_image')
+                    <p class="error">画像のサイズが大きすぎます。2MB以下の画像を選択してください。</p>
                 @enderror
                 <div class="main__edit">
                     <div class="edit__item">
