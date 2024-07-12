@@ -12,6 +12,7 @@ use App\Http\Requests\ProfileUpdateRequest;
 use App\Http\Requests\UpdateAddressRequest;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 
 class UserController extends Controller
@@ -39,36 +40,39 @@ class UserController extends Controller
 
     public function update(ProfileUpdateRequest $request, $id)
     {
-    $profile = Profile::where('user_id', $id)->first();
+        $profile = Profile::where('user_id', $id)->first();
 
-    if (!$profile) {
-        $profile = new Profile();
-        $profile->user_id = $id;
-    }
-
-    $profile->name = $request->name;
-    $profile->postal_code = $request->postal_code;
-    $profile->address = $request->address;
-    $profile->building_name = $request->building_name;
-
-    if ($request->hasFile('profile_image')) {
-        $image = $request->file('profile_image');
-
-        if (App::environment('local')) {
-            $imagePath = $image->store('profile_images', 'public');
-        } else {
-            $fileName = time() . '_' . $image->getClientOriginalName();
-            $path = 'profile_images/' . $fileName;
-            Storage::disk('s3')->put($path, file_get_contents($image));
-            $imagePath = $path;
+        if (!$profile) {
+            $profile = new Profile();
+            $profile->user_id = $id;
         }
 
-        $profile->profile_image = $imagePath;
-    }
+        $profile->name = $request->name;
+        $profile->postal_code = $request->postal_code;
+        $profile->address = $request->address;
+        $profile->building_name = $request->building_name;
 
-    $profile->save();
+        if ($request->hasFile('profile_image')) {
+            $image = $request->file('profile_image');
+            $resizedImage = Image::make($image)->resize(300, 300, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            })->encode('jpg');
 
-    return redirect()->route('user.show')->with('success', 'プロフィールが更新されました。');
+            $fileName = time() . '_' . $image->getClientOriginalName();
+
+            if (App::environment('local')) {
+                Storage::disk('public')->put('profile_images/' . $fileName, (string) $resizedImage);
+                $profile->profile_image = 'profile_images/' . $fileName;
+            } else {
+                Storage::disk('s3')->put('profile_images/' . $fileName, (string) $resizedImage);
+                $profile->profile_image = 'profile_images/' . $fileName;
+            }
+        }
+
+        $profile->save();
+
+        return redirect()->route('user.show')->with('success', 'プロフィールが更新されました。');
     }
 
 
