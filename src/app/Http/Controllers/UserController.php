@@ -11,6 +11,7 @@ use App\Models\Category;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Http\Requests\UpdateAddressRequest;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Storage;
 
 
 class UserController extends Controller
