@@ -27,11 +27,6 @@
                     @csrf
                     <input type="hidden" name="source" value="category_search">
                     <input type="text" id="category_name_input" name="category_name" list="category_list" placeholder="なにをお探しですか？">
-                    <datalist id="category_list" class="search__option">
-                        @foreach($categories as $category)
-                            <option value="{{ $category->name }}">
-                        @endforeach
-                    </datalist>
                 </form>
             </div>
             <div class="nav__item">
@@ -55,22 +50,42 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-    var searchInput = document.getElementById('category_name_input');
+        var searchInput = document.getElementById('category_name_input');
+        var categoryList = [
+            @foreach($categories as $category)
+                "{{ $category->name }}",
+            @endforeach
+        ];
 
-    searchInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            document.getElementById('search-form').submit();
-        }
+        searchInput.addEventListener('input', function() {
+            var value = this.value.trim().toLowerCase();
+            var autocompleteList = document.createElement('div');
+            autocompleteList.setAttribute('id', 'autocomplete-list');
+            autocompleteList.setAttribute('class', 'autocomplete-items');
+
+            categoryList.forEach(function(category) {
+                if (category.toLowerCase().indexOf(value) > -1) {
+                    var option = document.createElement('div');
+                    option.textContent = category;
+                    option.addEventListener('click', function() {
+                        searchInput.value = category;
+                        autocompleteList.innerHTML = '';
+                    });
+                    autocompleteList.appendChild(option);
+                }
+            });
+
+            var searchForm = document.getElementById('search-form');
+            searchForm.appendChild(autocompleteList);
+        });
+
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                document.getElementById('search-form').submit();
+            }
+        });
     });
-
-    if (navigator.userAgent.match(/Android|iPhone|iPad|iPod|Opera Mini|IEMobile/i)) {
-        searchInput.style.webkitAppearance = 'none';
-        searchInput.style.mozAppearance = 'none';
-        searchInput.style.appearance = 'none';
-    }
-});
-
 </script>
 </body>
 </html>
