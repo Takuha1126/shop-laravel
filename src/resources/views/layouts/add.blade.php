@@ -25,8 +25,12 @@
             <div class="nav__item">
                 <form id="search-form" action="{{ route('products.search') }}" method="post">
                     @csrf
-                    <input type="hidden" name="source" value="category_search">
-                    <input type="text" id="category_name_input" name="category_name" list="category_list" placeholder="なにをお探しですか？">
+                    <select id="category_select" name="category_name">
+                        <option value="">何をお探しですか？</option>
+                            @foreach($categories as $category)
+                                <option value="{{ $category->name }}">{{ $category->name }}</option>
+                            @endforeach
+                    </select>
                 </form>
             </div>
             <div class="nav__item">
@@ -50,41 +54,10 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        var searchInput = document.getElementById('category_name_input');
-        var categories = {!! json_encode($categories->pluck('name')) !!};
+        var selectInput = document.getElementById('category_select');
 
-
-        if (navigator.userAgent.match(/Android|iPhone|iPad|iPod|Opera Mini|IEMobile/i)) {
-            searchInput.style.webkitAppearance = 'none';
-            searchInput.style.mozAppearance = 'none';
-            searchInput.style.appearance = 'none';
-        }
-
-        searchInput.addEventListener('input', function() {
-            var inputValue = this.value.toLowerCase();
-            var datalist = document.createElement('datalist');
-            datalist.id = 'category_list';
-
-            categories.forEach(function(category) {
-                if (category.toLowerCase().includes(inputValue)) {
-                    var option = document.createElement('option');
-                    option.value = category;
-                    datalist.appendChild(option);
-                }
-            });
-
-            var existingDatalist = document.getElementById('category_list');
-            if (existingDatalist) {
-                existingDatalist.parentNode.removeChild(existingDatalist);
-            }
-            this.parentNode.appendChild(datalist);
-        });
-
-        searchInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                document.getElementById('search-form').submit();
-            }
+        selectInput.addEventListener('change', function() {
+            document.getElementById('search-form').submit();
         });
     });
 </script>
