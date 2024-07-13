@@ -27,7 +27,7 @@
                     @csrf
                     <input type="hidden" name="source" value="category_search">
                     <input type="text" id="category_name_input" name="category_name" list="category_list" placeholder="なにをお探しですか？">
-                    <datalist id="category_list" class="search__option" type="hidden">
+                    <datalist id="category_list" class="search__option">
                         @foreach($categories as $category)
                             <option value="{{ $category->name }}">
                         @endforeach
@@ -55,17 +55,22 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        var searchInput = document.getElementById('category_name_input');
+    var searchInput = document.getElementById('category_name_input');
 
-        searchInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                document.getElementById('search-form').submit();
-            }
-        });
+    searchInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            document.getElementById('search-form').submit();
+        }
+    });
 
+    if (navigator.userAgent.match(/Android|iPhone|iPad|iPod|Opera Mini|IEMobile/i)) {
         searchInput.style.webkitAppearance = 'none';
         searchInput.style.mozAppearance = 'none';
         searchInput.style.appearance = 'none';
-    });
+    }
+});
+
 </script>
+</body>
+</html>

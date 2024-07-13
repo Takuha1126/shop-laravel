@@ -98,13 +98,7 @@
         border: none;
     }
 
-    .nav__item input[type="date"]::-webkit-calendar-picker-indicator,
-    .nav__item input[type="datetime-local"]::-webkit-calendar-picker-indicator,
-    .nav__item input[type="month"]::-webkit-calendar-picker-indicator,
-    .nav__item input[type="week"]::-webkit-calendar-picker-indicator,
-    .nav__item input[type="time"]::-webkit-calendar-picker-indicator {
-        display: none !important;
-    }
+
 
     .button__logout,
     .button__ttl {
