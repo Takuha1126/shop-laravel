@@ -100,20 +100,12 @@
 
     .nav__item input[type="text"]::-webkit-calendar-picker-indicator {
         display: none;
+        -webkit-appearance: none;
     }
-
-    .nav__item input[type="text"]::-webkit-inner-spin-button,
-    .nav__item input[type="text"]::-webkit-outer-spin-button {
+    
+    .nav__item input[type="text"]::-webkit-clear-button {
         display: none;
-    }
-
-    .nav__item datalist.search__option {
-        display: block;
-        list-style: none;
-    }
-
-    .nav__item datalist.search__option option {
-        display: none;
+        -webkit-appearance: none;
     }
 
     .button__logout,
