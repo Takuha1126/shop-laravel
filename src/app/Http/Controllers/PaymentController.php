@@ -3,16 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Stripe\Stripe;
 use Stripe\Customer;
-use App\Models\Product;
 use App\Models\CreditCard;
-use App\Models\Order;
-use Stripe\PaymentIntent;
-use Stripe\PaymentMethod;
-use Stripe\Exception\ApiErrorException;
-use Stripe\Checkout\Session;
 
 
 class PaymentController extends Controller

@@ -11,10 +11,6 @@ class FavoriteController extends Controller
     public function getFavorite(Request $request) {
         $userId = Auth::id();
 
-        if (!$userId) {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
-
         $favorites = Favorite::where('user_id', $userId)
                             ->with('product')
                             ->get()
@@ -33,29 +29,21 @@ class FavoriteController extends Controller
         $userId = Auth::id();
         $productId = $request->input('product_id');
 
-        if (!$userId || !$productId) {
-            return response()->json(['error' => 'Invalid data'], 400);
+        $isFavorite = $this->checkFavoriteExists($userId, $productId);
+
+        if ($isFavorite) {
+            Favorite::where('user_id', $userId)
+                    ->where('product_id', $productId)
+                    ->delete();
+        } else {
+            Favorite::create([
+                'user_id' => $userId,
+                'product_id' => $productId,
+            ]);
         }
 
-        try {
-            $isFavorite = $this->checkFavoriteExists($userId, $productId);
-
-            if ($isFavorite) {
-                Favorite::where('user_id', $userId)
-                        ->where('product_id', $productId)
-                        ->delete();
-            } else {
-                Favorite::create([
-                    'user_id' => $userId,
-                    'product_id' => $productId,
-                ]);
-            }
-
-            $favoriteCount = Favorite::where('product_id', $productId)->count();
-            return response()->json(['favoriteCount' => $favoriteCount, 'isFavorite' => !$isFavorite]);
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'Failed to toggle favorite'], 500);
-        }
+        $favoriteCount = Favorite::where('product_id', $productId)->count();
+        return response()->json(['favoriteCount' => $favoriteCount, 'isFavorite' => !$isFavorite]);
     }
 
     private function checkFavoriteExists($userId, $productId) {

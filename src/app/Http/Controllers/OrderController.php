@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Stripe\Stripe;
 use App\Models\Product;
@@ -20,10 +19,6 @@ class OrderController extends Controller
         $user = Auth::user();
         $categories = Category::all();
         $orderData = session('order_data');
-
-        if (!$orderData) {
-            return redirect()->back()->with('error', '注文情報がありません。');
-        }
 
         $productId = $orderData['product_id'];
         $product = Product::findOrFail($productId);
@@ -42,10 +37,6 @@ class OrderController extends Controller
     {
         $userId = Auth::id();
         $productId = $request->input('product_id');
-
-        if (!$userId || !$productId) {
-            return redirect()->back()->with('error', '不正なデータです。');
-        }
 
         $orderId = Str::uuid()->toString();
 
@@ -78,9 +69,6 @@ class OrderController extends Controller
 
         $orderData = session('order_data');
 
-        if (!$orderData) {
-            throw new \Exception('注文データがセッションに見つかりません。');
-        }
 
         $product = Product::findOrFail($orderData['product_id']);
         $amount = $product->price;
@@ -141,10 +129,6 @@ class OrderController extends Controller
 
     $orderData = session('order_data');
 
-
-    if (!$orderData) {
-        return redirect()->route('home.index')->with('error', '注文データが見つかりませんでした。');
-    }
 
 
         $orderData['payment_method'] = $request->input('payment_method');

@@ -3,27 +3,31 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Comment;
 
 class AdminController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $users = User::with('profile')->get();
         return view('admin.index', compact('users'));
     }
 
-    public function comment(User $user) {
-        $comments = Comment::where('user_id', $user->id)->with('product')->orderBy('created_at', 'desc')->get();
-        return view('admin.comment', compact('user','comments'));
+    public function comment(User $user)
+    {
+        $comments = Comment::where('user_id', $user->id)
+            ->with('product')
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('admin.comment', compact('user', 'comments'));
     }
 
     public function destroy($id)
     {
         $user = User::findOrFail($id);
-        $user->comment()->delete();
-        $user->product()->delete();
+
+        $user->comments()->delete();
         $user->delete();
 
         return redirect()->route('admin.index')->with('success', 'ユーザーが削除されました');
