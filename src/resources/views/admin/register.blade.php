@@ -16,21 +16,21 @@
                 <label class="label">名前</label>
                 <input type="text" name="name">
                 @error('name')
-                    <div class="error">{{ $message }}</div>
+                    <p class="error">{{ $message }}</p>
                 @enderror
             </div>
             <div class="main__email">
                 <label class="label">メールアドレス</label>
                 <input type="email" name="email">
                 @error('email')
-                    <div class="error">{{ $message }}</div>
+                    <p class="error">{{ $message }}</p>
                 @enderror
             </div>
             <div class="main__password">
                 <label class="label">パスワード</label>
                 <input type="password" name="password">
                 @error('password')
-                    <div class="error">{{ $message }}</div>
+                    <p class="error">{{ $message }}</p>
                 @enderror
             </div>
             <div class="button">

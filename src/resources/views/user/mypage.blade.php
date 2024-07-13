@@ -39,12 +39,20 @@
                     <div class="item__ttl">
                         @foreach($productsForSale as $product)
                             <a class="item__button listing" href="{{ route('item.detail', ['id' => $product->id]) }}">
-                                <img src="{{ Storage::url($product->image) }}" alt="{{ $product->productName }}">
+                                @if (App::environment('local'))
+                                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->productName }}">
+                                @else
+                                    <img src="{{ Storage::disk('s3')->url($product->image) }}" alt="{{ $product->productName }}">
+                                @endif
                             </a>
                         @endforeach
                         @foreach($purchasedProducts as $product)
                             <a class="item__button buy" href="{{ route('item.detail', ['id' => $product->product->id]) }}">
-                                <img src="{{ Storage::url($product->image) }}" alt="{{ $product->productName }}">
+                                @if (App::environment('local'))
+                                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->productName }}">
+                                @else
+                                    <img src="{{ Storage::disk('s3')->url($product->image) }}" alt="{{ $product->productName }}">
+                                @endif
                             </a>
                         @endforeach
                     </div>

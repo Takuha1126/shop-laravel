@@ -11,6 +11,7 @@ use App\Models\Order;
 use App\Models\Category;
 use App\Http\Requests\SubmitOrderRequest;
 use Stripe\Charge;
+use Illuminate\Support\Facades\Session;
 
 class OrderController extends Controller
 {
@@ -19,6 +20,7 @@ class OrderController extends Controller
         $user = Auth::user();
         $categories = Category::all();
         $orderData = session('order_data');
+
 
         $productId = $orderData['product_id'];
         $product = Product::findOrFail($productId);
@@ -52,7 +54,15 @@ class OrderController extends Controller
     }
 
     public function submitOrder(SubmitOrderRequest $request)
-{
+    {
+        $orderData = session('order_data');
+        $productId = $orderData['product_id'];
+
+        $product = Product::findOrFail($productId);
+        if ($product->status === 'purchased') {
+            return redirect()->back()->with('error', '他の方が既にこの商品を購入しています。');
+        }
+
 
         if ($request->payment_method === 'credit_card') {
             $creditCard = auth()->user()->creditCard;
@@ -67,10 +77,6 @@ class OrderController extends Controller
             return redirect()->back()->with('error', '購入する前に住所を設定してください。');
         }
 
-        $orderData = session('order_data');
-
-
-        $product = Product::findOrFail($orderData['product_id']);
         $amount = $product->price;
 
         Stripe::setApiKey(env('STRIPE_SECRET'));
@@ -81,23 +87,21 @@ class OrderController extends Controller
                 'description' => 'Order ' . $orderData['order_id'],
                 'customer' => $creditCard->customer_id,
             ]);
-
         }
 
         $order = new Order();
         $order->user_id = auth()->user()->id;
-        $order->product_id = $orderData['product_id'];
+        $order->product_id = $productId;
         $order->payment_method = $request->payment_method;
         $order->amount = $amount;
         $order->save();
 
+        $product->purchase();
 
         session(['order_data' => $orderData]);
 
         return redirect()->route('purchase.success',['orderId' => $order->id]);
-
-}
-
+    }
 
     public function success($orderId)
     {
@@ -107,33 +111,26 @@ class OrderController extends Controller
     }
 
     public function edit()
-{
-    $orderData = session('order_data');
+    {
+        $orderData = session('order_data');
+        $productId = $orderData['product_id'];
 
-    $productId = $orderData['product_id'];
+        $order = new \stdClass();
+        $order->product_id = $productId;
 
+        $order->payment_method = isset($orderData['payment_method']) ? $orderData['payment_method'] : null;
 
-    $order = new \stdClass();
-    $order->product_id = $productId;
-
-
-    $order->payment_method = isset($orderData['payment_method']) ? $orderData['payment_method'] : null;
-
-    return view('payment', compact('order'));
-}
+        return view('payment', compact('order'));
+    }
 
 
 
     public function update(Request $request)
-{
-
-    $orderData = session('order_data');
-
-
+    {
+        $orderData = session('order_data');
 
         $orderData['payment_method'] = $request->input('payment_method');
         Session::put('order_data', $orderData);
-
 
         $orderId = $orderData['order_id'];
 
@@ -144,7 +141,5 @@ class OrderController extends Controller
         $order->payment_method = $orderData['payment_method'];
 
         return redirect()->route('order.details', ['id' => $orderData['product_id']]);
-
-}
-
+    }
 }

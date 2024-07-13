@@ -39,7 +39,7 @@
                     <tr class="about__tr">
                         <th class="about__th">投稿日時</th>
                         <th class="about__th">商品名</th>
-                        <th class="about__th">コメント</a></th>
+                        <th class="about__th">コメント</th>
                         <th class="about__th">削除</th>
                     </tr>
                     @if($comments->isNotEmpty())

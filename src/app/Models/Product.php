@@ -50,4 +50,11 @@ class Product extends Model
         return $this->favorites()->where('user_id', $userId)->exists();
     }
 
+    public function purchase()
+    {
+        $this->status = 'purchased';
+        $this->save();
+    }
+
+
 }
