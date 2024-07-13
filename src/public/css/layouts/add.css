@@ -88,7 +88,7 @@
         width: 100%;
     }
 
-    .nav__item input[type="text"] {
+    .nav__item input {
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none;
@@ -98,10 +98,12 @@
         border: none;
     }
 
-    .nav__item input::-webkit-calendar-picker-indicator,
-    .nav__item input::-webkit-clear-button {
-        display: none;
-        -webkit-appearance: none;
+    .nav__item input[type="date"]::-webkit-calendar-picker-indicator,
+    .nav__item input[type="datetime-local"]::-webkit-calendar-picker-indicator,
+    .nav__item input[type="month"]::-webkit-calendar-picker-indicator,
+    .nav__item input[type="week"]::-webkit-calendar-picker-indicator,
+    .nav__item input[type="time"]::-webkit-calendar-picker-indicator {
+        display: none !important;
     }
 
     .button__logout,

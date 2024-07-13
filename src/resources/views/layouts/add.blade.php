@@ -56,25 +56,12 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var searchInput = document.getElementById('category_name_input');
-        if (searchInput) {
-            searchInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    document.getElementById('search-form').submit();
-                }
-            });
-        }
 
-        var inputs = document.querySelectorAll('input[type="text"], input[type="date"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="time"]');
-
-        inputs.forEach(function(input) {
-            input.style.webkitAppearance = "none";
-            input.style.mozAppearance = "none";
-            input.style.appearance = "none";
-            input.style.position = "relative";
-            input.style.zIndex = "10";
-            input.style.background = "transparent";
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                document.getElementById('search-form').submit();
+            }
         });
     });
 </script>
-
