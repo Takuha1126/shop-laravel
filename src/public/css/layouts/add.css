@@ -98,16 +98,6 @@
         border: none;
     }
 
-    .nav__item input[type="text"]::-webkit-calendar-picker-indicator {
-        display: none;
-        -webkit-appearance: none;
-    }
-
-    .nav__item input[type="text"]::-webkit-clear-button {
-        display: none;
-        -webkit-appearance: none;
-    }
-
     .nav__item input::-webkit-calendar-picker-indicator,
     .nav__item input::-webkit-clear-button {
         display: none;
