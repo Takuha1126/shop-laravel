@@ -18,6 +18,7 @@ class ItemController extends Controller
             $favoriteProducts = $user->favorites()->get();
             $categories = Category::all();
 
+
             return view('home.index', compact('recommendedProducts', 'favoriteProducts', 'categories'));
         } else {
             $products = Product::inRandomOrder()->take(10)->get();

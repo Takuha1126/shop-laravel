@@ -51,32 +51,33 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var searchInput = document.getElementById('category_name_input');
-        var categoryList = [
-            @foreach($categories as $category)
-                "{{ $category->name }}",
-            @endforeach
-        ];
+        var categories = {!! json_encode($categories->pluck('name')) !!};
+
+
+        if (navigator.userAgent.match(/Android|iPhone|iPad|iPod|Opera Mini|IEMobile/i)) {
+            searchInput.style.webkitAppearance = 'none';
+            searchInput.style.mozAppearance = 'none';
+            searchInput.style.appearance = 'none';
+        }
 
         searchInput.addEventListener('input', function() {
-            var value = this.value.trim().toLowerCase();
-            var autocompleteList = document.createElement('div');
-            autocompleteList.setAttribute('id', 'autocomplete-list');
-            autocompleteList.setAttribute('class', 'autocomplete-items');
+            var inputValue = this.value.toLowerCase();
+            var datalist = document.createElement('datalist');
+            datalist.id = 'category_list';
 
-            categoryList.forEach(function(category) {
-                if (category.toLowerCase().indexOf(value) > -1) {
-                    var option = document.createElement('div');
-                    option.textContent = category;
-                    option.addEventListener('click', function() {
-                        searchInput.value = category;
-                        autocompleteList.innerHTML = '';
-                    });
-                    autocompleteList.appendChild(option);
+            categories.forEach(function(category) {
+                if (category.toLowerCase().includes(inputValue)) {
+                    var option = document.createElement('option');
+                    option.value = category;
+                    datalist.appendChild(option);
                 }
             });
 
-            var searchForm = document.getElementById('search-form');
-            searchForm.appendChild(autocompleteList);
+            var existingDatalist = document.getElementById('category_list');
+            if (existingDatalist) {
+                existingDatalist.parentNode.removeChild(existingDatalist);
+            }
+            this.parentNode.appendChild(datalist);
         });
 
         searchInput.addEventListener('keypress', function(e) {
