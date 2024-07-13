@@ -27,7 +27,7 @@
                     @csrf
                     <input type="hidden" name="source" value="category_search">
                     <input type="text" id="category_name_input" name="category_name" list="category_list" placeholder="なにをお探しですか？">
-                    <datalist id="category_list" class="search__option">
+                    <datalist id="category_list" class="search__option" type="hidden">
                         @foreach($categories as $category)
                             <option value="{{ $category->name }}">
                         @endforeach
@@ -63,5 +63,9 @@
                 document.getElementById('search-form').submit();
             }
         });
+
+        searchInput.style.webkitAppearance = 'none';
+        searchInput.style.mozAppearance = 'none';
+        searchInput.style.appearance = 'none';
     });
 </script>
