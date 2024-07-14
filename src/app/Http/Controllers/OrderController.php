@@ -64,6 +64,10 @@ class OrderController extends Controller
             return redirect()->back()->with('error', '他の方が既にこの商品を購入しています。');
         }
 
+        if ($product->user_id == auth()->id()) {
+            return redirect()->back()->with('error', '自身が出品した商品は購入できません。');
+        }
+
 
         if ($request->payment_method === 'credit_card') {
             $creditCard = auth()->user()->creditCard;

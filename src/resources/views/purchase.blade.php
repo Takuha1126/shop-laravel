@@ -55,22 +55,22 @@
                     </p>
                 </div>
             </div>
+            @if(session('error'))
+                <p class="error">{{ session('error') }}</p>
+            @endif
+            @error('payment_method')
+                <p class="error">{{ $message }}</p>
+            @enderror
+            <div class="button">
+                <form id="payment-form" action="{{ route('order.submit') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                    <input type="hidden" name="payment_method" value="{{ $orderData['payment_method'] ?? '' }}">
+                    <input type="hidden" name="address" value="{{ $user->profile }}">
+                    <button type="submit" class="order__button">購入する</button>
+                </form>
+            </div>
         </div>
-    </div>
-    @if(session('error'))
-        <p class="error">{{ session('error') }}</p>
-    @endif
-    @error('payment_method')
-        <p class="error">{{ $message }}</p>
-    @enderror
-    <div class="button">
-        <form id="payment-form" action="{{ route('order.submit') }}" method="POST">
-            @csrf
-            <input type="hidden" name="product_id" value="{{ $product->id }}">
-            <input type="hidden" name="payment_method" value="{{ $orderData['payment_method'] ?? '' }}">
-            <input type="hidden" name="address" value="{{ $user->profile }}">
-            <button type="submit" class="order__button">購入する</button>
-        </form>
     </div>
 </div>
 @endsection
