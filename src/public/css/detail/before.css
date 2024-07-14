@@ -316,8 +316,11 @@ header {
         width: 250px;
     }
 
-    .about__detail {
+    .about__detail,
+    .about__category,
+    .about__status {
         width: 100%;
+        padding-left: 60px;
     }
 
     .detail__title {

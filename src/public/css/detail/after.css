@@ -166,7 +166,6 @@
         flex-direction: row;
         justify-content: center;
     }
-    
 
     .category__title,
     .status__title,
@@ -201,7 +200,7 @@
     .about__category,
     .about__status {
         width: 100%;
-        padding-left: 30px;
+        padding-left: 60px;
     }
 
     .detail__title {
