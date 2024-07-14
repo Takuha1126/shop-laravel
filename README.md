@@ -20,7 +20,7 @@ Laravel,php
 ##テーブル設計
 <img width="1440" alt="スクリーンショット 2024-07-14 21 53 52" src="https://github.com/user-attachments/assets/4fa99398-ff0d-4323-bfd3-32cebb27cf5a">
 <img width="1440" alt="スクリーンショット 2024-07-14 21 54 01" src="https://github.com/user-attachments/assets/05a67aea-ed55-4d91-96f0-90f0ccaaf4d2">
-<img width="1440" alt="スクリーンショット 2024-07-14 21 54 22" src="https://github.com/user-attachments/assets/01adfd29-f2d0-4fcd-8697-9c142677b322">
+<img width="1440" alt="スクリーンショット 2024-07-15 8 52 20" src="https://github.com/user-attachments/assets/485a2ca2-05af-4f1c-86ff-f776ed59a17c">
 <img width="1440" alt="スクリーンショット 2024-07-14 21 54 31" src="https://github.com/user-attachments/assets/15917c69-8207-4bd6-b292-5219185a8d6e">
 
 ##ER図
