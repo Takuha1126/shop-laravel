@@ -1,0 +1,43 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.Pagination {
+    display: flex;
+    align-items: center;
+}
+
+.Pagination-Item {
+    list-style: none;
+    margin: 0 5px;
+}
+
+.Pagination-Item-Link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+    background: #fff;
+    font-size: 20px;
+    color: #000;
+    font-weight: bold;
+    transition: all 0.15s linear;
+    text-decoration: none;
+    border-radius: 50%;
+}
+
+.Pagination-Item-Link-Icon {
+    width: 20px;
+}
+
+.Pagination-Item-Link.isActive {
+    pointer-events: none;
+    color: #111;
+}
+
+.Pagination-Item-Link:not(.isActive):hover {
+    opacity: 0.5;
+}

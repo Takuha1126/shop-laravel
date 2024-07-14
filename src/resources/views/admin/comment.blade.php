@@ -64,6 +64,7 @@
                     @endif
                 </table>
             </div>
+            {{ $comments->links('page.custom-pagination') }}
         </div>
     </main>
 </body>

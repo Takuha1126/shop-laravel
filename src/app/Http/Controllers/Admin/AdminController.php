@@ -11,16 +11,16 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $users = User::with('profile')->get();
+        $users = User::with('profile')->paginate(5);
         return view('admin.index', compact('users'));
     }
 
     public function comment(User $user)
     {
         $comments = Comment::where('user_id', $user->id)
-            ->with('product')
-            ->orderBy('created_at', 'desc')
-            ->get();
+                            ->with('product')
+                            ->orderBy('created_at', 'desc')
+                            ->paginate(5);
         return view('admin.comment', compact('user', 'comments'));
     }
 

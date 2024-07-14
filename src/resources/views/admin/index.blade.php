@@ -70,6 +70,7 @@
                     @endif
                 </table>
             </div>
+            {{ $users->links('page.custom-pagination') }}
         </div>
     </main>
 </body>
