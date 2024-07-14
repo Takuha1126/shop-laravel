@@ -24,6 +24,7 @@
                     <p>該当する商品が見つかりませんでした。</p>
                 @endif
             </div>
+            {{ $products->links('page.custom-pagination') }}
         </div>
     </div>
 @endsection

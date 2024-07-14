@@ -47,9 +47,16 @@ class ItemController extends Controller
     public function search(Request $request) {
         $categoryName = $request->input('category_name');
 
-        $products = Product::whereHas('categories', function ($query) use ($categoryName) {
+        $productsQuery = Product::whereHas('categories', function ($query) use ($categoryName) {
             $query->where('name', 'like', "%{$categoryName}%");
-        })->get();
+        });
+
+        if (Auth::check()) {
+            $user = Auth::user();
+            $productsQuery = $productsQuery->where('user_id', '!=', $user->id);
+        }
+
+        $products = $productsQuery->paginate(10);
 
         $categories = Category::all();
         $recommendedProducts = Product::inRandomOrder()->take(10)->get();
@@ -63,10 +70,11 @@ class ItemController extends Controller
                 'products' => $products,
                 'favoriteProducts' => $favoriteProducts,
             ]]);
-        } else {
-            $favoriteProducts = collect();
-        }
+            } else {
+                $favoriteProducts = collect();
+            }
 
         return view('search', compact('products', 'recommendedProducts', 'favoriteProducts', 'categories'));
     }
+
 }
