@@ -14,10 +14,12 @@ class ItemController extends Controller
     public function index(Request $request) {
         if (Auth::check()) {
             $user = Auth::user();
-            $recommendedProducts = Product::inRandomOrder()->take(10)->get();
+            $recommendedProducts = Product::where('user_id', '!=', $user->id)
+                                            ->inRandomOrder()
+                                            ->take(10)
+                                            ->get();
             $favoriteProducts = $user->favorites()->get();
             $categories = Category::all();
-
 
             return view('home.index', compact('recommendedProducts', 'favoriteProducts', 'categories'));
         } else {
@@ -25,6 +27,7 @@ class ItemController extends Controller
             return view('home.before', compact('products'));
         }
     }
+
 
     public function detail($id) {
         $product = Product::with('categories')->findOrFail($id);
