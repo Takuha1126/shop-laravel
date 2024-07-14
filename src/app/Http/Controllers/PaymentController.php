@@ -10,7 +10,7 @@ use App\Models\CreditCard;
 
 class PaymentController extends Controller
 {
-    public function showRegistrationForm()
+    public function showCreditRegistrationForm()
     {
         return view('credit');
     }

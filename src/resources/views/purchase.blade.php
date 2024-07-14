@@ -39,21 +39,21 @@
                 <div class="about__method">
                     <p class="method__title">支払い方法</p>
                     <p class="method__description">
-                @if ($order && isset($order->payment_method))
-                    @if ($order->payment_method === 'credit_card')
-                        クレジットカード払い
-                    @elseif ($order->payment_method === 'convenience_store')
-                        コンビニ払い
-                    @elseif ($order->payment_method === 'bank_transfer')
-                        銀行振込
-                    @else
-                        {{ $order->payment_method }}
-                    @endif
-                @else
-                    支払い情報を設定してください
-                @endif
+                        @if ($order && isset($order->payment_method))
+                            @if ($order->payment_method === 'credit_card')
+                                クレジットカード払い
+                            @elseif ($order->payment_method === 'convenience_store')
+                                コンビニ払い
+                            @elseif ($order->payment_method === 'bank_transfer')
+                                銀行振込
+                            @else
+                                {{ $order->payment_method }}
+                            @endif
+                        @else
+                            支払い情報を設定してください
+                        @endif
                     </p>
-                <div>
+                </div>
             </div>
         </div>
     </div>

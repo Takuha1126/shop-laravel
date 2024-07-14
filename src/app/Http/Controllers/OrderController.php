@@ -57,8 +57,9 @@ class OrderController extends Controller
     {
         $orderData = session('order_data');
         $productId = $orderData['product_id'];
-
         $product = Product::findOrFail($productId);
+
+
         if ($product->status === 'purchased') {
             return redirect()->back()->with('error', '他の方が既にこの商品を購入しています。');
         }

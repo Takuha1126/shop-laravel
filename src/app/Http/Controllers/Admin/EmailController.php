@@ -12,7 +12,8 @@ use App\Http\Requests\SendAllRequest;
 
 class EmailController extends Controller
 {
-    public function show() {
+    public function show()
+    {
         $users = User::with('profile')->get();
         return view('admin.email', compact('users'));
     }

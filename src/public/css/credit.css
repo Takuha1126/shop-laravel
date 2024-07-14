@@ -46,4 +46,8 @@
         max-width: 300px;
         margin:  0 auto;
     }
+
+    .main__title {
+        font-size: 23px;
+    }
 }

@@ -24,7 +24,7 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif',
+            'image' => 'required|image|mimes:jpeg,jpg,svg',
             'categories' => 'required',
             'status' => 'required|string|max:255',
             'productName' => 'required|string|max:255',
@@ -39,7 +39,7 @@ class ProductRequest extends FormRequest
         return [
             'image.required' => '商品画像を選択してください。',
             'image.image' => '有効な画像ファイルを選択してください。',
-            'image.mimes' => '画像ファイルはJPEG、PNG、JPG、GIF形式にしてください。',
+            'image.mimes' => '画像ファイルはJPGまたはSVG形式にしてください。',
             'categories.required' => 'カテゴリーを入力してください。',
             'status.required' => '商品の状態を入力してください。',
             'status.string' => '商品の状態は文字列で入力してください。',

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Comment;
+use App\Models\Product;
 
 class AdminController extends Controller
 {
@@ -26,6 +27,12 @@ class AdminController extends Controller
     public function destroy($id)
     {
         $user = User::findOrFail($id);
+        $productsToDelete = Product::where('user_id', $user->id)->get();
+
+        foreach ($productsToDelete as $product) {
+            $product->delete();
+        }
+
 
         $user->comments()->delete();
         $user->delete();
