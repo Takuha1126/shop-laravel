@@ -326,7 +326,12 @@ header {
     .about__category,
     .about__status {
         width: 100%;
-        padding-left: 60px;
+        padding-left: 40px;
+        font-size: 13px;
+    }
+
+    .category__type {
+        font-size: 10px;
     }
 
     .detail__title {

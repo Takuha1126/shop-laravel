@@ -165,6 +165,7 @@
         width: 80%;
     }
 
+
     .main__item img {
         width: 70%;
     }
@@ -215,14 +216,20 @@
         margin-bottom: 50px;
     }
 
+    .about__title {
+        font-size: 20px;
+    }
+
     .about__detail,
     .about__category,
     .about__status {
         width: 100%;
-        padding-left: 60px;
+        padding-left: 40px;
+        font-size: 13px;
     }
 
-    .detail__title {
-        width: 80%;
+    .category__type {
+        font-size: 10px;
     }
+
 }
