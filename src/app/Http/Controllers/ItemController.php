@@ -30,6 +30,7 @@ class ItemController extends Controller
 
 
     public function detail($id) {
+
         $product = Product::with('categories')->findOrFail($id);
         $categories = Category::all();
 
@@ -37,12 +38,14 @@ class ItemController extends Controller
             $currentUser = Auth::user();
             $order = Order::where('user_id', $currentUser->id)->latest()->first();
             $isFavorite = Favorite::where('user_id', $currentUser->id)->where('product_id', $id)->exists();
+            $soldOut = $product->status === 'purchased';
 
-            return view('detail.after', compact('product', 'order', 'isFavorite', 'categories'));
+            return view('detail.after', compact('product', 'order', 'isFavorite', 'categories', 'soldOut'));
         } else {
             return view('detail.before', compact('product', 'categories'));
         }
     }
+
 
     public function search(Request $request) {
         $categoryName = $request->input('category_name');

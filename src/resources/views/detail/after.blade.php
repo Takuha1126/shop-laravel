@@ -34,11 +34,15 @@
                         </div>
                     </div>
                     <div class="about__button">
-                        <form action="{{ route('order.storeTemporary') }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="product_id" value="{{ $product->id }}">
-                            <button type="submit" class="button__purchase">購入する</button>
-                        </form>
+                        @if ($soldOut)
+                            <p class="about__sold">SOLD OUT</p>
+                        @else
+                            <form action="{{ route('order.storeTemporary') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <button type="submit" class="button__purchase">購入する</button>
+                            </form>
+                        @endif
                     </div>
                 </div>
                 <div class="about__description">

@@ -90,6 +90,19 @@
     width: 100%;
 }
 
+.about__sold {
+    display: inline-block;
+    width: 300px;
+    padding: 5px 0;
+    color: #fff;
+    font-size: 18px;
+    background-color: #FF6666;
+    border: none;
+    border-radius: 3px;
+    text-decoration: none;
+    text-align: center;
+}
+
 .button__purchase {
     display: inline-block;
     width: 300px;

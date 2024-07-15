@@ -59,11 +59,6 @@ class OrderController extends Controller
         $productId = $orderData['product_id'];
         $product = Product::findOrFail($productId);
 
-
-        if ($product->status === 'purchased') {
-            return redirect()->back()->with('error', '他の方が既にこの商品を購入しています。');
-        }
-
         if ($product->user_id == auth()->id()) {
             return redirect()->back()->with('error', '自身が出品した商品は購入できません。');
         }

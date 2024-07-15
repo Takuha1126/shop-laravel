@@ -146,6 +146,10 @@
     padding: 3px 5px;
     width: auto;
     white-space: nowrap;
+    color: #000;
+    background-color: #fff;
+    border-radius: 3px;
+    border: 1px solid #000;
 }
 
 .load__more {
@@ -156,7 +160,7 @@
     text-decoration: none;
     padding: 5px 20px;
     background-color: #000;
-    color: aliceblue;
+    color: #fff;
     border-radius: 3px;
 }
 
@@ -227,6 +231,13 @@
         margin: 0 auto;
     }
 
+    .comment__delete-button {
+        color: #000;
+        background-color: #fff;
+        border-radius: 3px;
+        border: 1px solid #000;
+    }
+
     .comment__textarea {
         width: 100%;
         height: 80px;
@@ -235,4 +246,5 @@
     .comment__button {
         margin-bottom: 30px;
     }
+
 }
