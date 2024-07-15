@@ -328,10 +328,12 @@ header {
         width: 100%;
         padding-left: 40px;
         font-size: 13px;
+        white-space: nowrap;
     }
 
     .category__type {
         font-size: 10px;
+        white-space: nowrap;
     }
 
     .detail__title {
