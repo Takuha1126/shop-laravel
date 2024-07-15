@@ -48,7 +48,8 @@ class ProductController extends Controller
         $product->categories()->attach($category->id);
     }
 
-    return redirect()->back()->with('success', '商品を出品しました。');
+    return redirect()->back()->with('success', '商品を出品しました。<br>なお、出品した商品は出品者のホーム画面と検索欄には表示されませんのでご注意ください。');
+
 
 }
 

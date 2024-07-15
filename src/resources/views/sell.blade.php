@@ -14,7 +14,7 @@
     </header>
     @if (session('success'))
     <div class="success">
-        {{ session('success') }}
+        {!! session('success') !!}
     </div>
     @endif
     <main class="main">
