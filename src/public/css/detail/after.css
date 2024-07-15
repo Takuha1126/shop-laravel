@@ -167,6 +167,12 @@
         justify-content: center;
     }
 
+    .category__item {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
     .category__title,
     .status__title,
     .category__type,

@@ -81,9 +81,11 @@
                     </div>
                     <div class="about__category">
                         <p class="category__title">カテゴリー</p>
-                        @foreach ($product->categories as $category)
-                            <span class="category__type">{{ $category->name }}</span>
-                        @endforeach
+                        <div class="category__item">
+                            @foreach ($product->categories as $category)
+                                <span class="category__type">{{ $category->name }}</span>
+                            @endforeach
+                        </div>
                     </div>
                     <div class="about__status">
                         <p class="status__title">商品の状態</p>
