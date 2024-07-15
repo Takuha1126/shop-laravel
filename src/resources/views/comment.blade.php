@@ -39,30 +39,51 @@
                             <div class="comment__about" id="comment-{{ $comment->id }}">
                                 @if($comment->user_id === $product->user_id)
                                     <div class="user__flex--seller">
-                                @else
-                                    <div class="user__flex--buyer">
-                                @endif
-                                    <div class="user__info">
-                                        <div class="user__icon-wrapper">
-                                            @if ($comment->user->profile->profile_image && $comment->user->profile->profile_image !== 'default.jpg')
-                                                @if (App::environment('local'))
-                                                    <img src="{{ asset('storage/' . $comment->user->profile->profile_image) }}" alt="Profile Image">
+                                        <div class="user__info">
+                                            <div class="user__icon-wrapper">
+                                                @if ($comment->user->profile->profile_image && $comment->user->profile->profile_image !== 'default.jpg')
+                                                    @if (App::environment('local'))
+                                                        <img src="{{ asset('storage/' .  $comment->user->profile->profile_image) }}" alt="Profile Image">
+                                                    @else
+                                                        <img src="{{ Storage::disk('s3')->url($comment->user->profile->profile_image) }}" alt="Profile Image">
+                                                    @endif
                                                 @else
-                                                    <img src="{{ Storage::disk('s3')->url($comment->user->profile->profile_image) }}" alt="Profile Image">
+                                                    @if (App::environment('local'))
+                                                        <img src="{{ asset('storage/profile_images/default.jpg') }}" alt="Default Profile Image">
+                                                    @else
+                                                        <img src="{{ Storage::disk('s3')->url('profile_images/default.jpg') }}" alt="Default Profile Image">
+                                                    @endif
                                                 @endif
-                                            @else
-                                                @if (App::environment('local'))
-                                                    <img src="{{ asset('storage/profile_images/default.jpg') }}" alt="Default Profile Image">
-                                                @else
-                                                    <img src="{{ Storage::disk('s3')->url('profile_images/default.jpg') }}" alt="Default Profile Image">
-                                                @endif
-                                            @endif
-                                        </div>
-                                        <div class="user__name">
-                                            {{ $comment->user->profile->name }}
+                                            </div>
+                                            <div class="user__name">
+                                                {{ $comment->user->profile->name }}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                @else
+                                    <div class="user__flex--buyer">
+                                        <div class="user__info">
+                                            <div class="user__name">
+                                                {{ $comment->user->profile->name }}
+                                            </div>
+                                            <div class="user__icon-wrapper">
+                                                @if ($comment->user->profile->profile_image && $comment->user->profile->profile_image !== 'default.jpg')
+                                                    @if (App::environment('local'))
+                                                        <img src="{{ asset('storage/' . $comment->user->profile->profile_image) }}" alt="Profile Image">
+                                                    @else
+                                                        <img src="{{ Storage::disk('s3')->url($comment->user->profile->profile_image) }}" alt="Profile Image">
+                                                    @endif
+                                                @else
+                                                    @if (App::environment('local'))
+                                                        <img src="{{ asset('storage/profile_images/default.jpg') }}" alt="Default Profile Image">
+                                                    @else
+                                                        <img src="{{ Storage::disk('s3')->url('profile_images/default.jpg') }}" alt="Default Profile Image">
+                                                    @endif
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
                                 <div class="user__comment" id="comment-{{ $comment->id }}">
                                     <div class="user__comment-post">{{ $comment->content }}</div>
                                     @if($comment->user_id == Auth::id())
@@ -86,7 +107,6 @@
                                 @enderror
                                 <button type="submit" class="comment__button">コメントを送信する</button>
                             </form>
-
                         </div>
                     </div>
                 </div>

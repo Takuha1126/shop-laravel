@@ -114,7 +114,7 @@
     overflow: hidden;
     width: 30px;
     height: 30px;
-    margin-right: 10px;
+    margin-left: 10px;
     object-fit: cover;
 }
 
@@ -131,22 +131,21 @@
 .user__comment {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: end;
     background-color: #dddddd;
     border-radius: 3px;
 }
 
 .user__comment-post {
-    padding: 5px;
+    padding: 3px;
     font-size: 13px;
 }
 
 .comment__delete-button {
-    margin: 5px 5px 5px 0;
-    border: none;
-    border-bottom: 1px solid blue;
-    background-color: #dddddd;
-    color: blue;
+    font-size: 10px;
+    padding: 3px 5px;
+    width: auto;
+    white-space: nowrap;
 }
 
 .load__more {
