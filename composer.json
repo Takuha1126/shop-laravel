@@ -1,5 +1,6 @@
 {
     "require": {
-        "illuminate/http": "^11.14"
+        "illuminate/http": "^11.14",
+        "intervention/image": "^3.7"
     }
 }
