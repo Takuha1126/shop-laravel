@@ -31,7 +31,7 @@ class SendEmail extends Mailable
      */
     public function build()
     {
-        return $this->subject('メールの件名')
+        return $this->subject('')
                     ->view('admin.emails.send');
     }
 }
