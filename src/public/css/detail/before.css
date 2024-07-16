@@ -38,6 +38,7 @@ html {
     border: none;
 }
 
+
 .button__ttl {
     color: #fff;
     font-size: 20px;
@@ -107,6 +108,7 @@ html {
 .action__favorite .star__number {
     margin: 0;
     padding: 0;
+    color: #000;
 }
 
 .action__favorite i {
@@ -116,7 +118,6 @@ html {
 
 .action__favorite .star__number {
     margin-left: 6px;
-    font-size: 15px;
 }
 
 
@@ -207,6 +208,17 @@ html {
 
 .status__type {
     font-size: 15px;
+}
+
+.login-required-message {
+    display: none;
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 14px;
 }
 
 @media (max-width: 768px) {
