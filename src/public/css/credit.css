@@ -40,6 +40,11 @@
     border-radius: 3px;
 }
 
+.error {
+    text-align: center;
+    color: #ff0000;
+}
+
 
 @media (max-width: 768px) {
     .main {
