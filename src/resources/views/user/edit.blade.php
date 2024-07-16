@@ -33,11 +33,7 @@
                     </div>
                 </div>
                 @error('profile_image')
-                    @if ($message == 'The profile image failed to upload.')
-                        <p class="error">画像のサイズが大きすぎます。2MB以下の画像を選択してください。</p>
-                    @else
                         <p class="error">{{ $message }}</p>
-                    @endif
                 @enderror
                 <div class="main__edit">
                     <div class="edit__item">

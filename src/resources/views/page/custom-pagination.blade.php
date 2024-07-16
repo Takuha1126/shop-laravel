@@ -33,8 +33,8 @@
             @else
                 <li class="Pagination-Item disabled"><span>&raquo;</span></li>
             @endif
-    </ul>
-</div>
+        </ul>
+    </div>
 </body>
 </html>
 
