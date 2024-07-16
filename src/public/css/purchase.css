@@ -167,7 +167,11 @@
         width: 90%;
         margin: 20px auto;
     }
-
+    
+    .button {
+        text-align: center;
+    }
+    
     .order__button {
         width: 90%;
     }

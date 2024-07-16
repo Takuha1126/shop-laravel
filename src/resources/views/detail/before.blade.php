@@ -72,7 +72,7 @@
                         <p class="about__title">商品の説明</p>
                     </div>
                     <div class="about__detail">
-                        <p class="detail__title">{{ $product->description }}</p>
+                        <p class="detail__title">{!! nl2br(e($product->description)) !!}</p>
                     </div>
                 </div>
                 <div class="about__information">
