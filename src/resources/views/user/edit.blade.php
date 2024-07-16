@@ -33,7 +33,11 @@
                     </div>
                 </div>
                 @error('profile_image')
+                    @if ($message == 'The profile image failed to upload.')
+                        <p class="error">画像ファイルのサイズは7MB以下にしてください。</p>
+                    @else
                         <p class="error">{{ $message }}</p>
+                    @endif
                 @enderror
                 <div class="main__edit">
                     <div class="edit__item">

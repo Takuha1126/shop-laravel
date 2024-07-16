@@ -32,7 +32,11 @@
                             <input type="file" accept="image/*" id="fileInput" name="image">
                         </div>
                         @error('image')
+                            @if ($message == 'The image failed to upload.')
+                                <p class="error">画像ファイルのサイズは7MB以下にしてください。</p>
+                            @else
                                 <p class="error">{{ $message }}</p>
+                            @endif
                         @enderror
                     </div>
                     <div class="main__detail">

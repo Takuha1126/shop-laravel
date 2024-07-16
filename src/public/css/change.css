@@ -1,8 +1,14 @@
+body,
+html {
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden;
+}
+
 .header {
     background-color: black;
     height: 70px;
     width: 100%;
-    overflow-x: hidden;
 
 }
 
