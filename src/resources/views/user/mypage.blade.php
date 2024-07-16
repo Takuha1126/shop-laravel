@@ -51,7 +51,7 @@
                                 @if (App::environment('local'))
                                     <img src="{{ asset('storage/' . $product->product->image) }}" alt="{{ $product->product->productName }}の写真">
                                 @else
-                                    <img src="{{ Storage::disk('s3')->url($product->image) }}" alt="{{ $product->productName }}">
+                                    <img src="{{ Storage::disk('s3')->url($product->product->image) }}" alt="{{ $product->product->image}}">
                                 @endif
                             </a>
                         @endforeach
