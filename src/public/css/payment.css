@@ -43,6 +43,13 @@
         font-size: 16px;
     }
 
+    .main__group select {
+        border: 1px solid #000;
+        border-radius: 3px;
+        background-color: #fff;
+        color: #000;
+    }
+
     .main__item {
         font-size: 14px;
     }
