@@ -55,4 +55,9 @@
     .main__title {
         font-size: 23px;
     }
+
+    .error {
+        text-align: center;
+        color: #ff0000;
+    }
 }
