@@ -60,6 +60,8 @@ class ItemController extends Controller
             $productsQuery = $productsQuery->where('user_id', '!=', $user->id);
         }
 
+        $productsQuery->whereDoesntHave('orders');
+
         $products = $productsQuery->paginate(10);
 
         $categories = Category::all();
