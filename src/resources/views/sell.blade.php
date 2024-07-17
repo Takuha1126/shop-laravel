@@ -13,9 +13,9 @@
         <div class="header__ttl"></div>
     </header>
     @if (session('success'))
-    <div class="success">
-        {!! session('success') !!}
-    </div>
+        <div class="success">
+            {!! session('success') !!}
+        </div>
     @endif
     <main class="main">
         <div class="main__ttl">

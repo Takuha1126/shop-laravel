@@ -30,7 +30,7 @@ class ProductController extends Controller
 
     if ($request->hasFile('image')) {
         $file = $request->file('image');
-        $fileSize = $file->getSize(); // ファイルサイズを取得
+        $fileSize = $file->getSize();
 
         if (App::environment('local')) {
             $imagePath = $file->store('images', 'public');

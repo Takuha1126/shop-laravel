@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-    <main class="main">
+    <div class="main">
         <div class="main__ttl">
             <div class="main__border">
                 <div class="main__title">
@@ -52,7 +52,7 @@
                 </div>
             </div>
         </div>
-    </main>
+    </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
