@@ -15,6 +15,7 @@ class ItemController extends Controller
         if (Auth::check()) {
             $user = Auth::user();
             $recommendedProducts = Product::where('user_id', '!=', $user->id)
+                                            ->whereDoesntHave('orders')
                                             ->inRandomOrder()
                                             ->take(10)
                                             ->get();
