@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>フリマアプリ</title>
     <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/change.css') }}" />
 </head>
@@ -13,7 +13,7 @@
     </header>
     <main class="main">
         <div class="main__ttl">
-            <p class="main__title">住所の変更</p>
+            <p class="main__title">配送先の変更</p>
         </div>
         <div class="main__item">
             <form action="{{ route('user.address.update') }}" method="POST">

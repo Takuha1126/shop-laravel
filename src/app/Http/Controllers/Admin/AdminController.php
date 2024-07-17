@@ -27,10 +27,12 @@ class AdminController extends Controller
     public function destroy($id)
     {
         $user = User::findOrFail($id);
-        $productsToDelete = Product::where('user_id', $user->id)->get();
+        $products = Product::where('user_id', $user->id)->get();
 
-        foreach ($productsToDelete as $product) {
-            $product->delete();
+        foreach ($products as $product) {
+            if (!$product->orders()->exists()) {
+                $product->delete();
+            }
         }
 
 
