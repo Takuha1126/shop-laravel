@@ -30,7 +30,7 @@
                             </div>
                         @endforeach
                     @else
-                        <p>現在、おすすめ商品はありません。</p>
+                        <p class="item__message">現在、おすすめ商品はありません。</p>
                     @endif
                 </div>
                 <div id="mylist" class="item__ttl" style="display: none;">
@@ -47,7 +47,7 @@
                             </div>
                         @endforeach
                     @else
-                        <p>現在、マイリストには商品がありません。</p>
+                        <p class="item__message">現在、マイリストには商品がありません。</p>
                     @endif
                 </div>
             </div>

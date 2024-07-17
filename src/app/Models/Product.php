@@ -16,7 +16,7 @@ class Product extends Model
         'brand',
         'description',
         'price',
-        'image',
+        'image'
     ];
 
     public function comments()

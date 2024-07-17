@@ -13,7 +13,7 @@ class Order extends Model
         'user_id',
         'product_id',
         'status',
-        'payment_method',
+        'payment_method'
     ];
 
     public function user()

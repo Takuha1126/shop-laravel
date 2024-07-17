@@ -74,7 +74,7 @@ html {
     color: #ff0000;
 }
 
-.main__button--my {
+.main__button-my {
     font-weight: 900;
     text-decoration: none;
     color: #000;
@@ -101,7 +101,6 @@ html {
 }
 
 .item__button::before {
-    content: "";
     display: block;
     padding-top: 120%;
 }

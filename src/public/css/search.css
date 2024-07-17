@@ -22,7 +22,6 @@
 }
 
 @media (max-width: 768px) {
-
     .container__group{
         display: grid;
         grid-template-columns: repeat(2, 1fr);
