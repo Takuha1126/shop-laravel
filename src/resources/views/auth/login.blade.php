@@ -10,18 +10,18 @@
         <p class="main__title">ログイン</p>
     </div>
     <div class="main__about">
-        <form action="{{ route('login') }}"  method="POST" autocomplete="on">
+        <form action="{{ route('login') }}"  method="POST">
             @csrf
             <div class="main__email">
                 <label class="label">メールアドレス</label>
-                <input type="email" name="email" autocomplete="email">
+                <input type="email" name="email">
                 @error('email')
                     <p class="error">{{ $message }}</p>
                 @enderror
             </div>
             <div class="main__password">
                 <label class="label">パスワード</label>
-                <input type="password" name="password" autocomplete="current-password">
+                <input type="password" name="password">
                 @error('password')
                     <p class="error">{{ $message }}</p>
                 @enderror

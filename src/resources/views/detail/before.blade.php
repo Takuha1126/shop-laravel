@@ -44,7 +44,11 @@
     <main class="main">
         <div class="main__ttl">
             <div class="main__item">
-                <img src="{{ Storage::url($product->image) }}" alt="{{ $product->productName }}">
+                @if (App::environment('local'))
+                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->productName }}">
+                @else
+                    <img src="{{ Storage::disk('s3')->url($product->image) }}" alt="{{ $product->productName }}">
+                @endif
             </div>
             <div class="main__about">
                 <div class="about__group">
