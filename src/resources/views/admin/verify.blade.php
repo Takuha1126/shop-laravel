@@ -20,7 +20,7 @@
                     {{ __('もしメールが届かない場合は、') }}
                     <form class="d-inline" method="POST" action="{{ route('admin.verify.resend') }}">
                         @csrf
-                        <button type="submit" class="btn  p-0 m-0 align-baseline">{{ __('こちらをクリックして別のリンクをリクエストしてください') }}</button>
+                        <button type="submit" class="button">{{ __('こちらをクリックして別のリンクをリクエストしてください') }}</button>
                     </form>
                 </div>
             </div>
