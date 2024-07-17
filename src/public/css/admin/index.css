@@ -151,4 +151,10 @@ html {
     .button__delete {
         font-size: 8px;
     }
+
+    .success {
+        margin-left: 20px;
+        color: #ff0000;
+        margin-top: 20px;
+    }
 }

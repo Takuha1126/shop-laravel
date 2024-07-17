@@ -89,9 +89,9 @@ html {
         padding: 10px;
     }
 
-        .header__title img {
-            height: 30px;
-        }
+    .header__title img {
+        height: 30px;
+    }
 
     .nav__home {
         font-size: 16px;
@@ -124,5 +124,11 @@ html {
 
     .button__delete {
         font-size: 8px;
+    }
+
+    .success {
+        margin-left: 20px;
+        color: #ff0000;
+        margin-top: 20px;
     }
 }

@@ -171,4 +171,9 @@ html {
         border: 1px solid #000;
     }
 
+    .success {
+        margin-left: 20px;
+        margin-top: 20px;
+    }
+
 }
