@@ -82,35 +82,29 @@ html {
 
 .main__item {
     max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
+    margin: 30px auto;
+    display: grid;
+    gap: 20px;
+
 }
 
 .item__ttl {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 30px;
     width: 100%;
 }
 
 .item__button {
-    width: 20%;
-    box-sizing: border-box;
-    padding: 20px;
-    position: relative;
-}
-
-.item__button::before {
     display: block;
-    padding-top: 120%;
+    text-decoration: none;
+
 }
 
 .item__button img {
-    position: absolute;
-    top: 20%;
-    left: 15%;
-    width: 70%;
-    height: 60%;
+    width: 100%;
+    max-width: 150px;
+    height: 150px;
     object-fit: cover;
 }
 
