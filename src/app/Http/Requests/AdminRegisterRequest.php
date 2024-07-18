@@ -26,7 +26,7 @@ class AdminRegisterRequest extends FormRequest
         return [
             'name' => 'required|string|max:50',
             'email' => 'required|email|unique:admins,email',
-            'password' => 'required|string|min:8|max:64',
+            'password' => 'required|string|min:8',
         ];
     }
 
@@ -42,7 +42,6 @@ class AdminRegisterRequest extends FormRequest
             'password.required' => 'パスワードは必須です。',
             'password.string' => 'パスワードは文字列で入力してください。',
             'password.min' => 'パスワードは少なくとも8文字以上で入力してください。',
-            'password.max' => 'パスワードは64文字以下で入力してください。',
         ];
     }
 }
