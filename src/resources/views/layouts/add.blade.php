@@ -23,7 +23,7 @@
             </div>
             <nav class="nav">
                 <div class="nav__item">
-                    <form id="search-form" action="{{ route('products.search') }}" method="post">
+                    <form id="search-form" action="{{ route('products.search') }}" method="get">
                         @csrf
                         <select id="category_select" name="category_name">
                             <option value="">何をお探しですか？</option>

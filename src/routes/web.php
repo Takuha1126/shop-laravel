@@ -28,9 +28,7 @@ use App\Http\Controllers\PaymentController;
 */
 
 Route::middleware('auth')->group(function () {
-    Route::get('/email/verify', [RegisterController::class, 'showVerifyForm'])->name('auth.verify');
-    Route::post('/email/resend', [RegisterController::class, 'resendVerificationEmail'])->name('auth.resend');
-    Route::post('/search', [ItemController::class, 'search'])->name('products.search');
+    Route::get('/search', [ItemController::class, 'search'])->name('products.search');
     Route::get('/favorite/get', [FavoriteController::class, 'getFavorite'])->name('favorite.get');
     Route::post('/toggle',[FavoriteController::class, 'toggleFavorite'])->name('favorite.toggle');
     Route::get('/user', [UserController::class, 'show'])->name('user.show');
@@ -51,6 +49,8 @@ Route::middleware('auth')->group(function () {
     Route::put('/orders/{order}/updatePayment', [OrderController::class, 'update'])->name('payment.update');
     Route::get('/credit',[PaymentController::class, 'showCreditRegistrationForm'])->name('credit.show');
     Route::post('/credit/save', [PaymentController::class, 'saveCreditCard'])->name('credit.save');
+    Route::get('/email/verify', [RegisterController::class, 'showVerifyForm'])->name('auth.verify');
+    Route::post('/email/resend', [RegisterController::class, 'resendVerificationEmail'])->name('auth.resend');
 });
 Route::get('/', [ItemController::class, 'index'])->name('home.index');
 Route::get('/item/{id}', [ItemController::class, 'detail'])->name('item.detail');
