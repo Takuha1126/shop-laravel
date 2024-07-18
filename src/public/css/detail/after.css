@@ -48,10 +48,15 @@
     margin-right: 30px;
 }
 
+.action__favorite i,
+.action__favorite .star__number {
+    margin: 0;
+    padding: 0;
+}
+
 .action__favorite i {
     font-size: 20px;
 }
-
 
 .action__favorite .star__number {
     margin-left: 6px;
