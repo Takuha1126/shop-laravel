@@ -148,6 +148,10 @@ html {
         border: none;
     }
 
+    .nav__item a {
+        font-size: 15px;
+    }
+
     .login-required-message {
         width: 250px;
         font-size: 12px;

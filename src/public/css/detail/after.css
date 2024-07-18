@@ -127,6 +127,7 @@
 .category__title {
     font-weight: 700;
     margin-right: 30px;
+    white-space: nowrap;
 }
 
 .category__type {
