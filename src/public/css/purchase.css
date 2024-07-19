@@ -119,13 +119,13 @@
 
     .main__group {
         flex-direction: column;
+        text-align: center;
     }
 
     .main__item {
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-left: 100px;
     }
 
     .item__title,
