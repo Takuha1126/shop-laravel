@@ -122,6 +122,7 @@ html {
 .action__favorite .star__number {
     margin: 0;
     padding: 0;
+    color: #000;
 }
 
 .action__favorite i {
@@ -300,6 +301,20 @@ html {
         justify-content: center;
     }
 
+    .action__favorite {
+        margin-right: 150px;
+    }
+
+    .action__favorite .star__number,
+    .action__comment .comment__number {
+        margin-left: 2px;
+    }
+
+    .button__purchase {
+        width: 250px;
+        margin-bottom: 50px;
+    }
+
     .category__item {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -320,19 +335,6 @@ html {
         margin: 0 auto;
         }
 
-    .action__favorite {
-        margin-right: 150px;
-    }
-
-    .action__favorite .star__number,
-    .action__comment .comment__number {
-        margin-left: 2px;
-    }
-
-    .button__purchase {
-        width: 250px;
-        margin-bottom: 50px;
-    }
 
     .about__title {
         font-size: 20px;
