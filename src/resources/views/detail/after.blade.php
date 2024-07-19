@@ -50,16 +50,16 @@
                     </div>
                 </div>
                 <div class="about__description">
-                    <div class="about__ttl">
-                        <p class="about__title">商品の説明</p>
+                    <div class="description__ttl">
+                        <p class="description__title">商品の説明</p>
                     </div>
                     <div class="about__detail">
                         <p class="detail__title">{!! nl2br(e($product->description)) !!}</p>
                     </div>
                 </div>
                 <div class="about__information">
-                    <div class="about__ttl">
-                        <p class="about__title">商品の情報</p>
+                    <div class="information__ttl">
+                        <p class="information__title">商品の情報</p>
                     </div>
                     <div class="about__category">
                         <p class="category__title">カテゴリー</p>

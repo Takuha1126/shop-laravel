@@ -38,6 +38,16 @@ html {
     border: none;
 }
 
+.login-required-message {
+    display: none;
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
 
 .button__ttl {
     color: #fff;
@@ -75,6 +85,10 @@ html {
     width: 600px;
 }
 
+.about__ttl {
+    width: 300px;
+}
+
 .about__title {
     font-size: 25px;
     font-weight: bold;
@@ -108,16 +122,15 @@ html {
 .action__favorite .star__number {
     margin: 0;
     padding: 0;
-    color: #000;
 }
 
 .action__favorite i {
     font-size: 20px;
 }
 
-
 .action__favorite .star__number {
     margin-left: 6px;
+    font-size: 15px;
 }
 
 
@@ -172,8 +185,16 @@ html {
     text-align: center;
 }
 
+.description__title,
+.information__title {
+    font-weight: 600;
+    font-size: 20px;
+}
+
 .about__detail {
-    width: 300px;
+    width: 100%;
+    padding: 0 20px;
+    font-size: 16px;
 }
 
 .about__category {
@@ -211,16 +232,6 @@ html {
     font-size: 15px;
 }
 
-.login-required-message {
-    display: none;
-    background-color: #f8d7da;
-    color: #721c24;
-    padding: 10px;
-    border: 1px solid #f5c6cb;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    font-size: 14px;
-}
 
 @media (max-width: 768px) {
     .header__group {
@@ -251,9 +262,9 @@ html {
         border: none;
     }
 
-        .nav__item a {
-            font-size: 15px;
-        }
+    .nav__item a {
+        font-size: 15px;
+    }
 
     .login-required-message {
         width: 250px;
@@ -270,11 +281,14 @@ html {
         width: 80%;
     }
 
-
     .main__item img {
         width: 70%;
     }
 
+    .about__ttl {
+        width: 200px;
+        margin: 0 auto;
+    }
 
     .about__group {
         width: 100%;
@@ -304,7 +318,7 @@ html {
     .about__information {
         width: 80%;
         margin: 0 auto;
-    }
+        }
 
     .action__favorite {
         margin-right: 150px;
@@ -314,7 +328,6 @@ html {
     .action__comment .comment__number {
         margin-left: 2px;
     }
-
 
     .button__purchase {
         width: 250px;
