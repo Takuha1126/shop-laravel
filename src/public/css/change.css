@@ -71,7 +71,7 @@ html {
 @media (max-width: 768px) {
     .main {
         padding: 15px;
-        margin: 0 10px;
+        margin: 0 auto;
     }
 
     .main__title {
