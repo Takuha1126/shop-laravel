@@ -7,7 +7,6 @@
 @section('content')
     <div class="main">
         <p class="main__title">クレジットカード情報の登録</p>
-        <p id="card-number-error" class="error"></p>
         <form id="credit-card-form" action="{{ route('credit.save') }}" method="POST">
             @csrf
             <div class="main__group">
@@ -25,8 +24,9 @@
             <div class="main__group">
                 <label for="card_holder_name" class="label">名義</label>
                 <input type="text" name="card_holder_name" id="card-holder-name" class="main__item">
-                <p id="card-holder-name-error" class="error"></p>
             </div>
+            <p id="card-holder-name-error" class="error"></p>
+            <p id="card-number-error" class="error"></p>
             <div class="button">
                 <button type="submit" class="btn-primary" id="submit-btn">登録する</button>
             </div>

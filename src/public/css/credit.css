@@ -11,7 +11,7 @@
 }
 
 .main__group {
-    padding-bottom: 50px;
+    padding-bottom: 40px;
 }
 
 .label {
@@ -28,7 +28,7 @@
 
 .button {
     text-align: center;
-    margin-top: 50px;
+    margin-top: 10px;
 }
 
 .btn-primary {
