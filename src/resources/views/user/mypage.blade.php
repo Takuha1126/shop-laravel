@@ -47,7 +47,7 @@
                             </a>
                         @endforeach
                         @foreach($purchasedProducts as $product)
-                            <a class="item__button buy" href="{{ route('item.detail', ['id' => $product->id]) }}">
+                            <a class="item__button buy" href="{{ route('item.detail', ['id' => $product->product->id]) }}">
                                 @if (App::environment('local'))
                                     <img src="{{ asset('storage/' . $product->product->image) }}" alt="{{ $product->product->productName }}の写真">
                                 @else
