@@ -78,15 +78,18 @@
     padding: 30px;
 }
 
-.about__price,
 .about__total,
 .about__method {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
+
 .about__price {
-    padding-bottom: 50px;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .method__description {
@@ -115,11 +118,11 @@
 @media (max-width: 768px) {
     .main__ttl {
         max-width: 320px;
+        text-align: center;
     }
 
     .main__group {
         flex-direction: column;
-        text-align: center;
     }
 
     .main__item {

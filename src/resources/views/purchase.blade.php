@@ -54,7 +54,7 @@
                                     {{ $order->payment_method }}
                                 @endif
                             @else
-                                支払い情報を設定してください
+                                設定してください
                             @endif
                         </p>
                     </div>
