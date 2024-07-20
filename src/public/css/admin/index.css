@@ -139,19 +139,20 @@ html {
 
     .about__th,
     .about__td {
-        font-size: 5px;
-        padding: 10px 3px;
+        font-size: 8px;
+        padding: 10px 0;
     }
 
     .about__link {
-        font-size: 5px;
+        font-size: 8px;
         padding: 3px;
         white-space: nowrap;
     }
 
     .button__delete {
-        font-size: 5px;
+        font-size: 8px;
         border-bottom: 1px solid #ff0000;
+        white-space: nowrap;
     }
 
     .success {
