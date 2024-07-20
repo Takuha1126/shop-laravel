@@ -20,7 +20,7 @@ class ItemController extends Controller
                                             ->inRandomOrder()
                                             ->take(10)
                                             ->get();
-            $favoriteProducts = $user->favorites()->get();
+            $favoriteProducts = $user->favoriteProducts()->get();
             $categories = Category::all();
 
             return view('home.index', compact('recommendedProducts', 'favoriteProducts', 'categories'));

@@ -24,19 +24,15 @@ class Product extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function favorites()
-    {
-        return $this->hasMany(Favorite::class);
-    }
 
     public function categories()
     {
         return $this->belongsToMany(Category::class);
     }
 
-    public function user()
+    public function favoritedByUsers()
     {
-        return $this->belongsTo(User::class);
+    return $this->belongsToMany(User::class, 'favorites', 'product_id', 'user_id')->withTimestamps();
     }
 
     public function orders()
