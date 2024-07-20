@@ -70,18 +70,16 @@ class ItemController extends Controller
 
         if (Auth::check()) {
             $user = Auth::user();
-            $favoriteProducts = $user->favorites()->get();
             $sessionKey = 'user_' . $user->id . '_searched_products';
 
             session([$sessionKey => [
                 'products' => $products,
-                'favoriteProducts' => $favoriteProducts,
             ]]);
             } else {
                 $favoriteProducts = collect();
             }
 
-        return view('search', compact('products', 'recommendedProducts', 'favoriteProducts', 'categories'));
+        return view('search', compact('products', 'recommendedProducts','categories'));
     }
 
 }
