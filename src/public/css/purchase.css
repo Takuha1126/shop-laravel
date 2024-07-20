@@ -127,8 +127,8 @@
 
     .main__item {
         display: flex;
-        justify-content: center;
         align-items: center;
+        margin-left: 60px;
     }
 
     .item__title,
@@ -162,9 +162,12 @@
         white-space: nowrap;
     }
 
-    .payment__title,
-    .place__title {
+    .payment__title {
         margin-right: 30px;
+    }
+
+    .place__title {
+        margin-right: 65px;
     }
 
     .main__logo {
