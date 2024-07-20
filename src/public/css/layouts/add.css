@@ -104,6 +104,7 @@ html {
         border-radius: 5px;
         border: none;
         background-color: #fff;
+        color: #000;
     }
 
     .button__logout,
