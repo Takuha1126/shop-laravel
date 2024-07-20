@@ -109,7 +109,6 @@
                     },
                     error: function(xhr, status, error) {
                         alert('お気に入りの更新に失敗しました');
-                        console.error(xhr);
                     }
                 });
             });

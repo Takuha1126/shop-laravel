@@ -134,7 +134,6 @@
                             hideLoginRequiredMessage();
                         },
                         error: function(xhr) {
-                            console.log(xhr.responseText);
                             showLoginRequiredMessage();
                         }
                     });

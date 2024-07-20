@@ -88,13 +88,13 @@
                         preview.src = e.target.result;
                         preview.style.display = 'block';
                     } else {
-                        console.error('プレビュー用のエレメントが見つかりません。');
+                        alert('プレビュー用のエレメントが見つかりません。');
                     }
                 };
 
                 reader.readAsDataURL(input.files[0]);
             } else {
-                console.error('ファイルが選択されていません。');
+                alert('ファイルが選択されていません。');
             }
         }
     </script>

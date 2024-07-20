@@ -36,7 +36,7 @@
     <main class="main">
         <div class="main__ttl">
             <div class="main__item">
-                <p class="main__title">ユーザー一覧</p>
+                <p class="main__title">ユーザー管理画面</p>
             </div>
             <div class="main__about">
                 <table class="about__table">

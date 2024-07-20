@@ -31,11 +31,11 @@ class LoginRequest extends FormRequest
 
     public function messages() {
         return [
-            'email.required' => 'メールアドレスは必須です',
-            'email.email' => '有効なメールアドレスを入力してください',
-            'password.required' => 'パスワードは必須です',
-            'password.string' => 'パスワードは文字列でなければならない',
-            'password.min' => 'パスワードは少なくとも8文字以上でなければなりません',
+            'email.required' => 'メールアドレスは必須です。',
+            'email.email' => '有効なメールアドレスを入力してください。',
+            'password.required' => 'パスワードは必須です。',
+            'password.string' => 'パスワードは文字列でなければならない。',
+            'password.min' => 'パスワードは少なくとも8文字以上でなければなりません。',
         ];
     }
 }

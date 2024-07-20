@@ -25,7 +25,7 @@ class ProfileUpdateRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:15',
-            'postal_code' => 'required|string|max:10',
+            'postal_code' =>'required|regex:/^\d{3}-\d{4}$|^\d{7}$/',
             'address' => 'required|string|max:255',
             'building_name' => 'nullable|string|max:255',
             'profile_image' => 'max:7168|mimes:jpg',
@@ -39,8 +39,7 @@ class ProfileUpdateRequest extends FormRequest
             'name.string' => 'ユーザー名には文字列を入力してください。',
             'name.max' => 'ユーザー名は15文字以下で入力してください。',
             'postal_code.required' => '郵便番号は必須です。',
-            'postal_code.string' => '郵便番号には文字列を入力してください。',
-            'postal_code.max' => '郵便番号は10文字以下で入力してください。',
+            'postal_code.regex' => '郵便番号は「123-4567」または「1234567」の形式で入力してください。',
             'address.required' => '住所は必須です。',
             'address.string' => '住所には文字列を入力してください。',
             'address.max' => '住所は255文字以下で入力してください。',

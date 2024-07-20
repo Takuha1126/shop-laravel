@@ -34,9 +34,9 @@ class Product extends Model
         return $this->belongsToMany(Category::class);
     }
 
-    public function users()
+    public function user()
     {
-        return $this->belongsToMany(User::class, 'favorites', 'product_id', 'user_id')->withTimestamps();
+        return $this->belongsTo(User::class);
     }
 
     public function orders()

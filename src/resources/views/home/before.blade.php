@@ -78,7 +78,6 @@
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         data: {
-                            _token: '{{ csrf_token() }}',
                             keyword: keyword
                         },
                         success: function(response) {
@@ -93,7 +92,6 @@
                             hideLoginRequiredMessage();
                         },
                         error: function(xhr) {
-                            console.log(xhr.responseText);
                             showLoginRequiredMessage();
                         }
                     });
