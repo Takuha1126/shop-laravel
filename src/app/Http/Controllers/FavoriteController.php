@@ -10,20 +10,27 @@ use App\Models\Favorite;
 class FavoriteController extends Controller
 {
     public function getFavorite(Request $request) {
-        $userId = Auth::id();
+        try {
+            $userId = Auth::id();
+            if (!$userId) {
+                return response()->json(['error' => '認証されていません'], 401);
+            }
 
-        $favorites = Favorite::where('user_id', $userId)
-                            ->with('product')
-                            ->get()
-                            ->map(function ($favorite) {
-                                return [
-                                    'id' => $favorite->product->id,
-                                    'productName' => $favorite->product->name,
-                                    'image' => $favorite->product->image,
-                                ];
-                            });
+            $productId = $request->query('product_id');
+            if (!$productId) {
+                return response()->json(['error' => '商品IDが指定されていません'], 400);
+            }
 
-        return response()->json($favorites);
+        $isFavorite = Favorite::where('user_id', $userId)
+                              ->where('product_id', $productId)
+                              ->exists();
+
+        return response()->json(['isFavorite' => $isFavorite]);
+
+        } catch (\Exception $e) {
+
+            return response()->json(['error' => '内部サーバーエラー'], 500);
+        }
     }
 
     public function toggleFavorite(Request $request) {
@@ -52,6 +59,8 @@ class FavoriteController extends Controller
                         ->where('product_id', $productId)
                         ->exists();
     }
+
+
 }
 
 
