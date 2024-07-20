@@ -46,7 +46,7 @@
                     @csrf
                         <div class="form-group">
                             <label for="user_id" class="label">対象ユーザー</label>
-                            <select name="user_id" class="form-control">
+                            <select id="user_id" name="user_id" class="form-control">
                                 <option value="">選択してください</option>
                                 @foreach ($users as $user)
                                     <option value="{{ $user->id }}">
@@ -60,7 +60,7 @@
                         @enderror
                         <div class="form-group">
                             <label for="message_content" class="label">メッセージ内容</label>
-                            <textarea class="form-control" name="message_content" rows="3"></textarea>
+                            <textarea id="message_content" class="form-control" name="message_content" rows="3"></textarea>
                         </div>
                         @error('message_content')
                             <p class="error">{{$message}}</p>
@@ -78,7 +78,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="message_content" class="label">メッセージ内容</label>
-                            <textarea class="form-control" name="message_all" rows="3"></textarea>
+                            <textarea id="message_all" class="form-control" name="message_all" rows="3"></textarea>
                         </div>
                         @error('message_all')
                             <p class="error">{{$message}}</p>

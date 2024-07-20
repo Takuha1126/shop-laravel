@@ -56,6 +56,11 @@
         font-size: 23px;
     }
 
+    .button {
+        text-align: center;
+        margin: 10px 0;
+    }
+
     .error {
         text-align: center;
         color: #ff0000;

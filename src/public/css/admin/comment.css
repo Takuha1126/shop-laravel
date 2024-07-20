@@ -78,10 +78,6 @@ html {
 }
 
 @media (max-width: 768px) {
-    .header {
-        padding: 10px;
-    }
-
     .header__ttl {
         flex-direction: column;
         align-items: flex-start;
@@ -93,8 +89,7 @@ html {
     }
 
     .nav__home {
-        font-size: 16px;
-        margin-bottom: 10px;
+        font-size: 13px;
     }
 
     main {
@@ -112,22 +107,23 @@ html {
 
     .about__table {
         width: 100%;
-        font-size: 8px;
+        font-size: 5px;
     }
 
     .about__th,
     .about__td {
-        font-size: 8px;
+        font-size: 5px;
         padding: 10px;
     }
 
     .button__delete {
-        font-size: 8px;
+        font-size: 5px;
     }
 
     .success {
         margin-left: 20px;
         color: #ff0000;
         margin-top: 20px;
+        border-bottom: 1px solid #ff0000;
     }
 }

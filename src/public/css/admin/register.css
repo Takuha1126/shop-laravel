@@ -84,6 +84,16 @@
         padding: 15px;
     }
 
+    .main__title {
+        font-size: 16px;
+    }
+
+    .label {
+        font-weight: 700;
+        font-size: 15px;
+    }
+
+    .main__name input,
     .main__email input,
     .main__password input {
         font-size: 14px;
