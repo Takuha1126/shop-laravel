@@ -34,13 +34,12 @@
 }
 
 .custom__button {
-    width: 200px;
     background-color: #fff;
     color: #FF6666;
     border: 1px solid #FF6666;
     border-radius: 5px;
-    padding: 5px 0;
-    margin-left: 50px;
+    padding: 5px;
+    margin-left: 60px;
 }
 
 .photo__border input {
@@ -99,6 +98,12 @@
         margin-left: 10px;
         overflow: hidden;
     }
+
+    .custom__button {
+        white-space: nowrap;
+        margin-left: 5px;
+    }
+
 
     .label {
         font-size: 12px;
