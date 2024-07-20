@@ -40,19 +40,14 @@ html {
 }
 
 .about__table {
-    border: 1px solid #aaaaaa;
     width: 100%;
-}
-
-.about__tr {
-    border-bottom: 1px solid #aaaaaa;
 }
 
 .about__th {
     background-color: black;
     color: #fff;
     font-size: 20px;
-    border: 1px solid #fff;
+    border: 1px solid #aaaaaa;
     width: 20%;
     padding: 20px 0;
 }
@@ -107,17 +102,18 @@ html {
 
     .about__table {
         width: 100%;
-        font-size: 5px;
     }
 
     .about__th,
     .about__td {
-        font-size: 5px;
-        padding: 10px;
+        font-size: 8px;
+        padding: 10px 0;
     }
 
     .button__delete {
-        font-size: 5px;
+        font-size: 8px;
+        border-bottom: 1px solid #ff0000;
+        white-space: nowrap;
     }
 
     .success {

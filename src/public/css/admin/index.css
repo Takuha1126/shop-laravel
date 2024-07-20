@@ -53,14 +53,8 @@ html {
 }
 
 .about__table {
-    border: 1px solid #aaaaaa;
     width: 100%;
 }
-
-.about__tr {
-    border-bottom: 1px solid #aaaaaa;
-}
-
 
 .about__th {
     background-color: black;
