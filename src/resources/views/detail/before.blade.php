@@ -63,7 +63,7 @@
                         <div class="action__favorite">
                             <a class="comment__link" href="{{ route('login') }}">
                                 <i class="far fa-star"></i>
-                                <p class="star__number">{{ $product->favorites->count() }}</p>
+                                <p class="star__number">{{ $product->favoriteByUsers->count() }}</p>
                             </a>
                         </div>
                         <div class="action__comment">

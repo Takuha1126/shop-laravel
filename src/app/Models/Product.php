@@ -30,7 +30,7 @@ class Product extends Model
         return $this->belongsToMany(Category::class);
     }
 
-    public function favoritedByUsers()
+    public function favoriteByUsers()
     {
     return $this->belongsToMany(User::class, 'favorites', 'product_id', 'user_id')->withTimestamps();
     }

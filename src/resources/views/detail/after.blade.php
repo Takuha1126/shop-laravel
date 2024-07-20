@@ -28,7 +28,7 @@
                     <div class="about__action">
                         <div class="action__favorite">
                             <i class="favorite-icon {{ $isFavorite ? 'fas text-black' : 'far' }} fa-star" data-product-id="{{ $product->id }}"></i>
-                            <p id="favorite-count" class="star__number">{{ $product->favorites->count() }}</p>
+                            <p id="favorite-count" class="star__number">{{$product->favoriteByUsers->count() }}</p>
                         </div>
                         <div class="action__comment">
                             <a class="comment__link" href="{{ route('comment.index', ['id' => $product->id]) }}">
