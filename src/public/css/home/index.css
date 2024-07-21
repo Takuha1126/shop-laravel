@@ -83,7 +83,8 @@
     .recommended-product img,
     .favorite-product img {
         width: 100%;
-        height: 100%;
+        max-width: 150px;
+        height: 150px;
         object-fit: cover;
     }
 
