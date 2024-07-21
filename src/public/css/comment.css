@@ -53,6 +53,10 @@
     padding: 0;
 }
 
+.action__favorite i {
+    font-size: 20px;
+}
+
 .action__favorite .star__number {
     margin-left: 5px;
 }
@@ -66,6 +70,10 @@
     margin: 0;
     padding: 0;
     color: #000;
+}
+
+.action__comment i {
+    font-size: 20px;
 }
 
 .action__comment .comment__number {
