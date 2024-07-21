@@ -61,40 +61,40 @@
         </div>
     </div>
     <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const buttons = document.querySelectorAll(".about__button a");
+        document.addEventListener("DOMContentLoaded", function() {
+            const buttons = document.querySelectorAll(".about__button a");
 
-        const defaultButton = document.querySelector('.about__button-listing');
-        if (defaultButton) {
-            defaultButton.classList.add("active");
-        }
-
-        const items = document.querySelectorAll(".item__button");
-        items.forEach(item => {
-            if (item.classList.contains("listing")) {
-                item.style.display = "block";
-            } else {
-                item.style.display = "none";
+            const defaultButton = document.querySelector('.about__button-listing');
+            if (defaultButton) {
+                defaultButton.classList.add("active");
             }
-        });
 
-        buttons.forEach(button => {
-            button.addEventListener("click", function() {
-                const target = this.getAttribute("data-target");
+            const items = document.querySelectorAll(".item__button");
+            items.forEach(item => {
+                if (item.classList.contains("listing")) {
+                    item.style.display = "block";
+                } else {
+                    item.style.display = "none";
+                }
+            });
 
-                buttons.forEach(btn => btn.classList.remove("active"));
-                this.classList.add("active");
+            buttons.forEach(button => {
+                button.addEventListener("click", function() {
+                    const target = this.getAttribute("data-target");
 
-                items.forEach(item => {
-                    if ((target === "listing" && item.classList.contains("listing")) ||
+                    buttons.forEach(btn => btn.classList.remove("active"));
+                    this.classList.add("active");
+
+                    items.forEach(item => {
+                        if ((target === "listing" && item.classList.contains("listing")) ||
                         (target === "buy" && item.classList.contains("buy"))) {
-                        item.style.display = "block";
-                    } else {
-                        item.style.display = "none";
-                    }
+                            item.style.display = "block";
+                        } else {
+                            item.style.display = "none";
+                        }
+                    });
                 });
             });
         });
-    });
     </script>
 @endsection

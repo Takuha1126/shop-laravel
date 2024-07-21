@@ -119,119 +119,117 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
-    $(document).ready(function() {
-        $('.main__about').on('click', '.favorite-icon', function(event) {
-            event.preventDefault();
+        $(document).ready(function() {
+            $('.main__about').on('click', '.favorite-icon', function(event) {
+                event.preventDefault();
 
-            var iconElement = $(this);
-            var productId = iconElement.data('product-id');
-            var favoriteCountElement = iconElement.siblings('.star__number');
-            var isFavorite = iconElement.hasClass('fas text-black');
-            var favoriteCount = parseInt(favoriteCountElement.text(), 10);
+                var iconElement = $(this);
+                var productId = iconElement.data('product-id');
+                var favoriteCountElement = iconElement.siblings('.star__number');
+                var isFavorite = iconElement.hasClass('fas text-black');
+                var favoriteCount = parseInt(favoriteCountElement.text(), 10);
 
-            isFavorite = !isFavorite;
-            if (isFavorite) {
-                iconElement.addClass('fas text-black').removeClass('far');
-                favoriteCount++;
-            } else {
-                iconElement.removeClass('fas text-black').addClass('far');
-                favoriteCount--;
-            }
-            favoriteCountElement.text(favoriteCount);
-
-            $.ajax({
-                url: '{{ route("favorite.toggle") }}',
-                type: 'POST',
-                data: {
-                    product_id: productId,
-                    _token: '{{ csrf_token() }}'
-                },
-
-                error: function(xhr, status, error) {
-                    alert('お気に入りの更新に失敗しました。');
-
-                    if (isFavorite) {
-                        iconElement.removeClass('fas text-black').addClass('far');
-                        favoriteCount--;
-                    } else {
-                        iconElement.addClass('fas text-black').removeClass('far');
-                        favoriteCount++;
-                    }
-                    favoriteCountElement.text(favoriteCount);
+                isFavorite = !isFavorite;
+                if (isFavorite) {
+                    iconElement.addClass('fas text-black').removeClass('far');
+                    favoriteCount++;
+                } else {
+                    iconElement.removeClass('fas text-black').addClass('far');
+                    favoriteCount--;
                 }
-            });
-        });
-
-        window.deleteComment = function(commentId) {
-            $.ajax({
-                url: '/comment/' + commentId + '/delete',
-                type: 'DELETE',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(response) {
-                    $('#comment-' + commentId).hide();
-                },
-                error: function(xhr, status, error) {
-                    alert('コメントの削除に失敗しました。');
-                }
-            });
-        };
-
-        var nextPageUrl = "{{ $comments->nextPageUrl() }}";
-        var loading = false;
-
-        $('#load-more-comments').on('click', function(e) {
-            e.preventDefault();
-
-            if (!loading && nextPageUrl) {
-                loading = true;
+                favoriteCountElement.text(favoriteCount);
 
                 $.ajax({
-                    url: nextPageUrl,
-                    type: 'GET',
-                    success: function(response) {
-                        $('#comments-container').append(response);
-                        nextPageUrl = $(response).find('.load-more a').attr('href');
-                        loading = false;
+                    url: '{{ route("favorite.toggle") }}',
+                    type: 'POST',
+                    data: {
+                        product_id: productId,
+                        _token: '{{ csrf_token() }}'
+                    },
 
-                        if (!nextPageUrl) {
-                            $('.load-more').remove();
+                    error: function(xhr, status, error) {
+                        alert('お気に入りの更新に失敗しました。');
+
+                        if (isFavorite) {
+                            iconElement.removeClass('fas text-black').addClass('far');
+                            favoriteCount--;
+                        } else {
+                            iconElement.addClass('fas text-black').removeClass('far');
+                            favoriteCount++;
+                        }
+                        favoriteCountElement.text(favoriteCount);
+                    }
+                });
+            });
+
+            window.deleteComment = function(commentId) {
+                $.ajax({
+                    url: '/comment/' + commentId + '/delete',
+                    type: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        $('#comment-' + commentId).hide();
+                    },
+                    error: function(xhr, status, error) {
+                        alert('コメントの削除に失敗しました。');
+                    }
+                });
+            };
+
+            var nextPageUrl = "{{ $comments->nextPageUrl() }}";
+            var loading = false;
+
+            $('#load-more-comments').on('click', function(e) {
+                e.preventDefault();
+
+                if (!loading && nextPageUrl) {
+                    loading = true;
+
+                    $.ajax({
+                        url: nextPageUrl,
+                        type: 'GET',
+                        success: function(response) {
+                            $('#comments-container').append(response);
+                            nextPageUrl = $(response).find('.load-more a').attr('href');
+                            loading = false;
+
+                            if (!nextPageUrl) {
+                                $('.load-more').remove();
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            alert('コメントの読み込みに失敗しました。');
+                            loading = false;
+                        }
+                    });
+                }
+            });
+
+
+            $('.favorite-icon').each(function() {
+                var iconElement = $(this);
+                var productId = iconElement.data('product-id');
+
+                $.ajax({
+                    url: '{{ route("favorite.get") }}',
+                    type: 'GET',
+                    data: {
+                        product_id: productId
+                    },
+                    success: function(response) {
+                        if (response.isFavorite) {
+                            iconElement.addClass('fas text-black').removeClass('far');
+                        } else {
+                            iconElement.removeClass('fas text-black').addClass('far');
                         }
                     },
                     error: function(xhr, status, error) {
-                        alert('コメントの読み込みに失敗しました。');
-                        loading = false;
+                        alert('お気に入りの状態の取得に失敗しました。');
                     }
                 });
-            }
-        });
-
-
-        $('.favorite-icon').each(function() {
-            var iconElement = $(this);
-            var productId = iconElement.data('product-id');
-
-            $.ajax({
-                url: '{{ route("favorite.get") }}',
-                type: 'GET',
-                data: {
-                    product_id: productId
-                },
-                success: function(response) {
-                    if (response.isFavorite) {
-                        iconElement.addClass('fas text-black').removeClass('far');
-                    } else {
-                        iconElement.removeClass('fas text-black').addClass('far');
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error('お気に入りの状態の取得に失敗しました:', error);
-                }
             });
         });
-    });
     </script>
-
-
 @endsection
