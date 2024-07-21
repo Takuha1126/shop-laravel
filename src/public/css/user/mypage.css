@@ -120,17 +120,9 @@
     .item__ttl {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
+        gap: 30px;
     }
 
-    .item__button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 100%;
-        padding: 5px;
-    }
 
     .item__button img {
         width: 100%;
