@@ -21,11 +21,11 @@ class FavoriteController extends Controller
                 return response()->json(['error' => '商品IDが指定されていません'], 400);
             }
 
-        $isFavorite = Favorite::where('user_id', $userId)
-                              ->where('product_id', $productId)
-                              ->exists();
+            $isFavorite = Favorite::where('user_id', $userId)
+                                ->where('product_id', $productId)
+                                ->exists();
 
-        return response()->json(['isFavorite' => $isFavorite]);
+            return response()->json(['isFavorite' => $isFavorite]);
 
         } catch (\Exception $e) {
 
