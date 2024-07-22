@@ -1,4 +1,4 @@
-.main__ttl {
+.main {
     max-width: 500px;
     margin: 50px auto;
 }
@@ -80,7 +80,7 @@
 }
 
 @media (max-width: 768px) {
-    .main__ttl {
+    .main {
         padding: 15px;
     }
 

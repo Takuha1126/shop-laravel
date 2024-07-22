@@ -79,48 +79,48 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-    $(document).ready(function() {
-        $('.main__about').on('click', '.favorite-icon', function(event) {
-            event.preventDefault();
+        $(document).ready(function() {
+            $('.main__about').on('click', '.favorite-icon', function(event) {
+                event.preventDefault();
 
-            var iconElement = $(this);
-            var productId = iconElement.data('product-id');
-            var favoriteCountElement = iconElement.siblings('.star__number');
-            var isFavorite = iconElement.hasClass('fas text-black');
-            var favoriteCount = parseInt(favoriteCountElement.text(), 10);
+                var iconElement = $(this);
+                var productId = iconElement.data('product-id');
+                var favoriteCountElement = iconElement.siblings('.star__number');
+                var isFavorite = iconElement.hasClass('fas text-black');
+                var favoriteCount = parseInt(favoriteCountElement.text(), 10);
 
-            isFavorite = !isFavorite;
-            if (isFavorite) {
-                iconElement.addClass('fas text-black').removeClass('far');
-                favoriteCount++;
-            } else {
-                iconElement.removeClass('fas text-black').addClass('far');
-                favoriteCount--;
-            }
-            favoriteCountElement.text(favoriteCount);
-
-            $.ajax({
-                url: '{{ route("favorite.toggle") }}',
-                type: 'POST',
-                data: {
-                    product_id: productId,
-                    _token: '{{ csrf_token() }}'
-                },
-
-                error: function(xhr, status, error) {
-                    alert('お気に入りの更新に失敗しました。');
-
-                    if (isFavorite) {
-                        iconElement.removeClass('fas text-black').addClass('far');
-                        favoriteCount--;
-                    } else {
-                        iconElement.addClass('fas text-black').removeClass('far');
-                        favoriteCount++;
-                    }
-                    favoriteCountElement.text(favoriteCount);
+                isFavorite = !isFavorite;
+                if (isFavorite) {
+                    iconElement.addClass('fas text-black').removeClass('far');
+                    favoriteCount++;
+                } else {
+                    iconElement.removeClass('fas text-black').addClass('far');
+                    favoriteCount--;
                 }
+                favoriteCountElement.text(favoriteCount);
+
+                $.ajax({
+                    url: '{{ route("favorite.toggle") }}',
+                    type: 'POST',
+                    data: {
+                        product_id: productId,
+                        _token: '{{ csrf_token() }}'
+                    },
+
+                    error: function(xhr, status, error) {
+                        alert('お気に入りの更新に失敗しました。');
+
+                        if (isFavorite) {
+                            iconElement.removeClass('fas text-black').addClass('far');
+                            favoriteCount--;
+                        } else {
+                            iconElement.addClass('fas text-black').removeClass('far');
+                            favoriteCount++;
+                        }
+                        favoriteCountElement.text(favoriteCount);
+                    }
+                });
             });
         });
-    });
     </script>
 @endsection

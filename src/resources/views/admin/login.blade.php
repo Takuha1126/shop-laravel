@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="main__ttl">
+    <div class="main">
         <div class="main__item">
             <p class="main__title">管理者のログイン</p>
         </div>

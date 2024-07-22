@@ -30,6 +30,4 @@ class Comment extends Model
     {
         return $this->belongsTo(Profile::class, 'profile_id');
     }
-
-
 }
