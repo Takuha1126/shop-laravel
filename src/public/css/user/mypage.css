@@ -68,7 +68,8 @@
 .item__ttl {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
+    column-gap: 150px;
+    row-gap: 80px;
     width: 100%;
 }
 
