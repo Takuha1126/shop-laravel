@@ -88,7 +88,7 @@
                                         </div>
                                     @endif
                                     <div class="user__comment" id="comment-{{ $comment->id }}">
-                                        <div class="user__comment-post">{{ $comment->content }}</div>
+                                        <div class="user__comment-post">{!! nl2br(e($comment->content)) !!}</div>
                                         @if($comment->user_id == Auth::id())
                                             <button class="comment__delete-button" onclick="deleteComment({{ $comment->id }})">削除</button>
                                         @endif

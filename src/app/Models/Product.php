@@ -43,7 +43,7 @@ class Product extends Model
 
     public function isFavoriteBy($userId)
     {
-        return $this->favorites()->where('user_id', $userId)->exists();
+    return $this->favoriteByUsers()->where('user_id', $userId)->exists();
     }
 
     public function purchase()
