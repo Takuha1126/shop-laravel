@@ -36,6 +36,8 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var stripe = Stripe('{{ env('STRIPE_KEY') }}');
+            console.log('Stripe Key:', stripeKey);
+            var stripe = Stripe(stripeKey);
             var elements = stripe.elements();
             var cardNumber = elements.create('cardNumber');
             cardNumber.mount('#card-number');
