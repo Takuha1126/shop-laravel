@@ -33,14 +33,20 @@
         </form>
     </div>
     <script src="https://js.stripe.com/v3/"></script>
-    <script>
-    document.addEventListener('DOMContentLoaded', function () {
+<script>
+document.addEventListener('DOMContentLoaded', function () {
     var stripeKey = '{{ env('STRIPE_KEY') }}';
     console.log('Stripe Key:', stripeKey);
 
-    var stripe = Stripe(stripeKey);
+    if (!stripeKey) {
+        console.error('Stripeキーが設定されていません。');
+        alert('Stripeキーが設定されていません。環境設定を確認してください。');
+        return;
+    }
 
+    var stripe = Stripe(stripeKey);
     var elements = stripe.elements();
+
     var cardNumber = elements.create('cardNumber');
     cardNumber.mount('#card-number');
 
@@ -76,9 +82,9 @@
             card: cardNumber,
             billing_details: { name: cardHolderName }
         }).then(function(result) {
-            console.log('Payment Method Result:', result); // デバッグ: 結果を表示
+            console.log('Payment Method Result:', result); // デバッグ用に結果を表示
             if (result.error) {
-                console.error('Error creating payment method:', result.error);
+                console.error('支払い方法の作成に失敗しました:', result.error);
                 alert('支払い方法の作成に失敗しました。エラー詳細: ' + result.error.message);
             } else {
                 console.log('Payment Method ID:', result.paymentMethod.id);
@@ -88,11 +94,15 @@
                 hiddenInput.setAttribute('name', 'payment_method_id');
                 hiddenInput.setAttribute('value', result.paymentMethod.id);
                 form.appendChild(hiddenInput);
+                
+                // フォームのアクションURLが正しいか確認
+                console.log('Form Action URL:', form.action);
+
                 form.submit();
             }
         });
     });
 });
+</script>
 
-    </script>
 @endsection
