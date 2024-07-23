@@ -13,6 +13,7 @@ class CommentController extends Controller
 {
     public function index($id) {
         $product = Product::findOrFail($id);
+        $isFavorite = false;
         $categories = Category::all();
 
         $comments = $product->comments()
@@ -20,7 +21,7 @@ class CommentController extends Controller
                         ->orderBy('created_at', 'desc')
                         ->paginate(3);
 
-        return view('comment', compact('product', 'comments','categories'));
+        return view('comment', compact('product', 'comments', 'isFavorite', 'categories'));
     }
 
     public function store(CommentRequest $request, $id) {
