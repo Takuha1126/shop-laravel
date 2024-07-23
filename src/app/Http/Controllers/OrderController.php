@@ -101,7 +101,7 @@ class OrderController extends Controller
 
             if ($paymentMethod === 'credit_card') {
                 $paymentIntent = \Stripe\PaymentIntent::create([
-                    'amount' => $amount * 100,
+                    'amount' => $amount,
                     'currency' => 'jpy',
                     'payment_method' => $paymentMethodId,
                     'customer' => $creditCard->customer_id,
