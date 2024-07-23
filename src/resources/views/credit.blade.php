@@ -34,61 +34,62 @@
     </div>
     <script src="https://js.stripe.com/v3/"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var stripeKey = Stripe('{{ env('STRIPE_KEY') }}');
-            console.log('Stripe Key:', stripeKey);
-            var stripe = Stripe(stripeKey);
-            var elements = stripe.elements();
-            var cardNumber = elements.create('cardNumber');
-            cardNumber.mount('#card-number');
+    document.addEventListener('DOMContentLoaded', function () {
+        var stripeKey = '{{ env('STRIPE_KEY') }}';
 
-            var cardExpiry = elements.create('cardExpiry');
-            cardExpiry.mount('#card-expiry');
+        var stripe = Stripe(stripeKey);
 
-            var cardCvc = elements.create('cardCvc');
-            cardCvc.mount('#card-cvc');
+        var elements = stripe.elements();
+        var cardNumber = elements.create('cardNumber');
+        cardNumber.mount('#card-number');
 
-            var form = document.getElementById('credit-card-form');
-            var submitButton = form.querySelector('#submit-btn');
-            var cardHolderNameInput = form.querySelector('#card-holder-name');
-            var cardNumberError = form.querySelector('#card-number-error');
-            var cardHolderNameError = form.querySelector('#card-holder-name-error');
+        var cardExpiry = elements.create('cardExpiry');
+        cardExpiry.mount('#card-expiry');
 
-            function clearErrorMessages() {
-                cardNumberError.textContent = '';
-                cardHolderNameError.textContent = '';
+        var cardCvc = elements.create('cardCvc');
+        cardCvc.mount('#card-cvc');
+
+        var form = document.getElementById('credit-card-form');
+        var submitButton = form.querySelector('#submit-btn');
+        var cardHolderNameInput = form.querySelector('#card-holder-name');
+        var cardNumberError = form.querySelector('#card-number-error');
+        var cardHolderNameError = form.querySelector('#card-holder-name-error');
+
+        function clearErrorMessages() {
+            cardNumberError.textContent = '';
+            cardHolderNameError.textContent = '';
+        }
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            clearErrorMessages();
+
+            var cardHolderName = cardHolderNameInput.value.trim();
+            if (cardHolderName === '') {
+                cardHolderNameError.textContent = '名義を入力してください。';
+                return;
             }
 
-            form.addEventListener('submit', function (event) {
-                event.preventDefault();
-                clearErrorMessages();
+            stripe.createPaymentMethod({
+                type: 'card',
+                card: cardNumber,
+                billing_details: { name: cardHolderName }
+            }).then(function(result) {
+                if (result.error) {
+                    console.error('Error creating payment method:', result.error);
+                    alert('支払い方法の作成に失敗しました。エラー詳細: ' + result.error.message);
+                } else {
+                    console.log('Payment Method ID:', result.paymentMethod.id);
 
-                var cardHolderName = cardHolderNameInput.value.trim();
-                if (cardHolderName === '') {
-                    cardHolderNameError.textContent = '名義を入力してください。';
-                    return;
+                    var hiddenInput = document.createElement('input');
+                    hiddenInput.setAttribute('type', 'hidden');
+                    hiddenInput.setAttribute('name', 'payment_method_id');
+                    hiddenInput.setAttribute('value', result.paymentMethod.id);
+                    form.appendChild(hiddenInput);
+                    form.submit();
                 }
-
-                stripe.createPaymentMethod({
-                    type: 'card',
-                    card: cardNumber,
-                    billing_details: { name: cardHolderName }
-                }).then(function(result) {
-                    if (result.error) {
-                        console.error('Error creating payment method:', result.error);
-                        alert('支払い方法の作成に失敗しました。エラー詳細: ' + result.error.message);
-                    } else {
-                        console.log('Payment Method ID:', result.paymentMethod.id);
-
-                        var hiddenInput = document.createElement('input');
-                        hiddenInput.setAttribute('type', 'hidden');
-                        hiddenInput.setAttribute('name', 'payment_method_id');
-                        hiddenInput.setAttribute('value', result.paymentMethod.id);
-                        form.appendChild(hiddenInput);
-                        form.submit();
-                    }
-                });
             });
         });
+    });
     </script>
 @endsection
