@@ -13,7 +13,8 @@ class CreditCard extends Model
         'user_id',
         'customer_id',
         'last_four',
-        'brand'
+        'brand',
+        'payment_method_id'
     ];
 
     public function user()

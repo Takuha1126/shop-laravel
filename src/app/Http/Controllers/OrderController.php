@@ -11,7 +11,6 @@ use App\Models\Product;
 use App\Models\Order;
 use App\Models\Category;
 use App\Http\Requests\SubmitOrderRequest;
-use Stripe\Charge;
 use Illuminate\Support\Facades\Session;
 
 class OrderController extends Controller
@@ -80,10 +79,6 @@ class OrderController extends Controller
                 return redirect()->back()->with('error', '購入する前に住所を設定してください。');
             }
 
-            $orderData = session('order_data');
-            if (!$orderData) {
-                throw new \Exception('注文データがセッションに見つかりません。');
-            }
 
             $product = Product::findOrFail($orderData['product_id']);
             $amount = $product->price;
@@ -122,9 +117,9 @@ class OrderController extends Controller
             }
 
         } catch (\Stripe\Exception\CardException $e) {
-            return redirect()->back()->with('error', '支払いに失敗しました。: ' . $e->getMessage());
+            return redirect()->back();
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'エラーが発生しました。: ' . $e->getMessage());
+            return redirect()->back();
         }
     }
 
