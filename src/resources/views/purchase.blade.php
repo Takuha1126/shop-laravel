@@ -69,7 +69,8 @@
                     <form id="payment-form" action="{{ route('order.submit') }}" method="POST">
                         @csrf
                         <input type="hidden" name="product_id" value="{{ $product->id }}">
-                        <input type="hidden" name="payment_method" value="{{ $orderData['payment_method'] ?? '' }}">
+                        <input type="hidden" name="payment_method_id" value="{{ session('order_data.payment_method_id', '') }}">
+                        <input type="hidden" name="payment_method" id="payment_method_field" value="{{ session('order_data.payment_method', '') }}">
                         <input type="hidden" name="address" value="{{ $user->profile }}">
                         <button type="submit" class="order__button">購入する</button>
                     </form>

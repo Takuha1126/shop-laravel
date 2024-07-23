@@ -60,8 +60,8 @@ Route::get('/item/{id}', [ItemController::class, 'detail'])->name('item.detail')
 Route::middleware(['auth.admin'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
     Route::get('/comments/{user}', [AdminController::class, 'comment'])->name('admin.comment');
-    Route::delete('/comments/{id}/remove', [AdminController::class, 'remove'])->name('comments.remove');
-    Route::delete('/admin/users/{id}', [AdminController::class, 'destroy'])->name('user.destroy');
+    Route::delete('/comments/{id}/remove', [AdminController::class, 'destroyComment'])->name('comments.remove');
+    Route::delete('/admin/users/{id}', [AdminController::class, 'destroyUser'])->name('user.destroy');
     Route::get('/email', [EmailController::class, 'show'])->name('email.show');
     Route::post('/send-mail', [EmailController::class, 'sendNotification'])->name('send.mail');
     Route::post('/send-all', [EmailController::class, 'sendAll'])->name('send.all');

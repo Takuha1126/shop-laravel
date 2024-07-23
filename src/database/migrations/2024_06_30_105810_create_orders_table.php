@@ -20,7 +20,6 @@ class CreateOrdersTable extends Migration
             $table->string('status')->default('pending');
             $table->integer('amount')->nullable();
             $table->string('payment_method');
-            $table->string('payment_intent_id')->nullable();
             $table->timestamps();
         });
     }

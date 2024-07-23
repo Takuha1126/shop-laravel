@@ -51,6 +51,8 @@ class UserController extends Controller
         $profile->address = $request->address;
         $profile->building_name = $request->building_name;
 
+        $profile = auth()->user()->profile;
+
 
         if ($request->hasFile('profile_image')) {
             if (App::environment('local')) {

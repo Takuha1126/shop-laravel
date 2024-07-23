@@ -24,7 +24,7 @@ class AdminController extends Controller
         return view('admin.comment', compact('user', 'comments'));
     }
 
-    public function destroy($id)
+    public function destroyUser($id)
     {
         $user = User::findOrFail($id);
         $products = Product::where('user_id', $user->id)->get();
@@ -42,7 +42,7 @@ class AdminController extends Controller
         return redirect()->route('admin.index')->with('success', 'ユーザーが削除されました');
     }
 
-    public function remove($id)
+    public function destroyComment($id)
     {
         $comment = Comment::findOrFail($id);
         $comment->delete();

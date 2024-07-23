@@ -7,26 +7,26 @@
 @section('content')
     <div class="main">
         <p class="main__title">クレジットカード情報の登録</p>
-        <form id="credit-card-form" action="{{ route('credit.save') }}" method="POST">
+            <form id="credit-card-form" action="{{ route('credit.save') }}" method="POST">
             @csrf
             <div class="main__group">
-                <label for="card_number" class="label">カード番号</label>
+                <label for="card-number" class="label">カード番号</label>
                 <div id="card-number" class="main__item"></div>
             </div>
             <div class="main__group">
-                <label for="expiry_date" class="label">有効期限 (MM/YY)</label>
+                <label for="card-expiry" class="label">有効期限 (MM/YY)</label>
                 <div id="card-expiry" class="main__item"></div>
             </div>
             <div class="main__group">
-                <label for="cvc" class="label">CVC</label>
+                <label for="card-cvc" class="label">CVC</label>
                 <div id="card-cvc" class="main__item"></div>
             </div>
             <div class="main__group">
-                <label for="card_holder_name" class="label">名義</label>
+                <label for="card-holder-name" class="label">名義</label>
                 <input type="text" name="card_holder_name" id="card-holder-name" class="main__item">
+                <p id="card-holder-name-error" class="error"></p>
+                <p id="card-number-error" class="error"></p>
             </div>
-            <p id="card-holder-name-error" class="error"></p>
-            <p id="card-number-error" class="error"></p>
             <div class="button">
                 <button type="submit" class="btn-primary" id="submit-btn">登録する</button>
             </div>
@@ -37,34 +37,23 @@
         document.addEventListener('DOMContentLoaded', function () {
             var stripe = Stripe('{{ env('STRIPE_KEY') }}');
             var elements = stripe.elements();
-
-            var style = {
-                base: {
-                    fontSize: '16px',
-                    color: '#32325d',
-                    fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-                    '::placeholder': {
-                        color: '#aab7c4'
-                    }
-                }
-            };
-
-            var cardNumber = elements.create('cardNumber', { style: style });
+            var cardNumber = elements.create('cardNumber');
             cardNumber.mount('#card-number');
 
-            var cardExpiry = elements.create('cardExpiry', { style: style });
+            var cardExpiry = elements.create('cardExpiry');
             cardExpiry.mount('#card-expiry');
 
-            var cardCvc = elements.create('cardCvc', { style: style });
+            var cardCvc = elements.create('cardCvc');
             cardCvc.mount('#card-cvc');
 
             var form = document.getElementById('credit-card-form');
             var submitButton = form.querySelector('#submit-btn');
             var cardHolderNameInput = form.querySelector('#card-holder-name');
+            var cardNumberError = form.querySelector('#card-number-error');
             var cardHolderNameError = form.querySelector('#card-holder-name-error');
 
             function clearErrorMessages() {
-                document.getElementById('card-number-error').textContent = '';
+                cardNumberError.textContent = '';
                 cardHolderNameError.textContent = '';
             }
 
@@ -72,30 +61,31 @@
                 event.preventDefault();
                 clearErrorMessages();
 
-                var cardholderName = cardHolderNameInput.value.trim();
-                if (cardholderName === '') {
+                var cardHolderName = cardHolderNameInput.value.trim();
+                if (cardHolderName === '') {
                     cardHolderNameError.textContent = '名義を入力してください。';
                     return;
                 }
 
-                stripe.createToken(cardNumber).then(function (result) {
+                stripe.createPaymentMethod({
+                    type: 'card',
+                    card: cardNumber,
+                    billing_details: { name: cardHolderName }
+                }).then(function(result) {
                     if (result.error) {
-                        document.getElementById('card-number-error').textContent = result.error.message;
-                        submitButton.disabled = false;
+                        console.error('Error creating payment method:', result.error);
+                        alert('支払い方法の作成に失敗しました。エラー詳細: ' + result.error.message);
                     } else {
+                        console.log('Payment Method ID:', result.paymentMethod.id);
+
                         var hiddenInput = document.createElement('input');
                         hiddenInput.setAttribute('type', 'hidden');
-                        hiddenInput.setAttribute('name', 'stripeToken');
-                        hiddenInput.setAttribute('value', result.token.id);
+                        hiddenInput.setAttribute('name', 'payment_method_id');
+                        hiddenInput.setAttribute('value', result.paymentMethod.id);
                         form.appendChild(hiddenInput);
-
                         form.submit();
                     }
                 });
-            });
-
-            form.addEventListener('input', function () {
-                submitButton.disabled = !form.checkValidity();
             });
         });
     </script>

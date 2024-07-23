@@ -19,6 +19,7 @@ class CreateCreditCardsTable extends Migration
             $table->string('customer_id')->nullable();
             $table->string('last_four')->nullable();
             $table->string('brand')->nullable();
+            $table->string('payment_method_id')->nullable();
             $table->timestamps();
         });
     }
