@@ -30,7 +30,7 @@ class SendEmail extends Mailable
      */
     public function build()
     {
-        return $this->subject('')
+        return $this->subject('フリマアプリからのお知らせメール')
                     ->view('admin.emails.send');
     }
 }
