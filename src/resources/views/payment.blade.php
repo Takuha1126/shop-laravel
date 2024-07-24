@@ -18,12 +18,12 @@
                     <option value="bank_transfer" {{ $order->payment_method == 'bank_transfer' ? 'selected' : '' }}>銀行振込</option>
                 </select>
             </div>
-            <button type="submit" id="update-payment-method" class="btn-primary">支払い方法を更新する</button>
+            <button type="button" id="update-payment-method" class="btn-primary">支払い方法を更新する</button>
         </form>
     </div>
     <script>
-        function handlePaymentUpdate(event) {
-        event.preventDefault();
+        document.getElementById('update-payment-method').addEventListener('click', function(event) {
+            event.preventDefault();
 
             var paymentMethod = document.getElementById('payment_method').value;
 
@@ -32,8 +32,6 @@
             } else {
                 document.getElementById('payment-selection-form').submit();
             }
-        }
-
-        document.getElementById('update-payment-method').addEventListener('click', handlePaymentUpdate);
+        });
     </script>
 @endsection

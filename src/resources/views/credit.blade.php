@@ -10,19 +10,19 @@
         <form id="credit-card-form" action="{{ route('credit.save') }}" method="POST">
             @csrf
             <div class="main__group">
-                <label for="card-number" class="label">カード番号</label>
+                <label class="label">カード番号</label>
                 <div id="card-number" class="main__item"></div>
             </div>
             <div class="main__group">
-                <label for="card-expiry" class="label">有効期限 (MM/YY)</label>
+                <label class="label">有効期限 (MM/YY)</label>
                 <div id="card-expiry" class="main__item"></div>
             </div>
             <div class="main__group">
-                <label for="card-cvc" class="label">CVC</label>
+                <label class="label">CVC</label>
                 <div id="card-cvc" class="main__item"></div>
             </div>
             <div class="main__group">
-                <label for="card-holder-name" class="label">名義</label>
+                <label class="label">名義</label>
                 <input type="text" name="card_holder_name" id="card-holder-name" class="main__item">
                 <p id="card-holder-name-error" class="error"></p>
                 <p id="card-number-error" class="error"></p>
