@@ -51,18 +51,20 @@ class ItemController extends Controller
 
     public function search(Request $request) {
         $categoryName = $request->input('category_name');
+        $productsQuery = Product::query();
 
-        $productsQuery = Product::whereHas('categories', function ($query) use ($categoryName) {
-            $query->where('name', 'like', "%{$categoryName}%");
-        });
+        if ($categoryName) {
+            $productsQuery->whereHas('categories', function ($query) use ($categoryName) {
+                $query->where('name', 'like', "%{$categoryName}%");
+            });
+        }
 
         if (Auth::check()) {
             $user = Auth::user();
-            $productsQuery = $productsQuery->where('user_id', '!=', $user->id);
+            $productsQuery->where('user_id', '!=', $user->id);
         }
 
         $productsQuery->whereDoesntHave('orders');
-
         $products = $productsQuery->paginate(10);
 
         $categories = Category::all();
@@ -71,15 +73,9 @@ class ItemController extends Controller
         if (Auth::check()) {
             $user = Auth::user();
             $sessionKey = 'user_' . $user->id . '_searched_products';
+            session([$sessionKey => ['products' => $products]]);
+        }
 
-            session([$sessionKey => [
-                'products' => $products,
-            ]]);
-            } else {
-                $favoriteProducts = collect();
-            }
-
-        return view('search', compact('products', 'recommendedProducts','categories'));
+        return view('search', compact('products', 'recommendedProducts', 'categories'));
     }
-
 }

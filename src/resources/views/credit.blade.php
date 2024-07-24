@@ -7,7 +7,7 @@
 @section('content')
     <div class="main">
         <p class="main__title">クレジットカード情報の登録</p>
-            <form id="credit-card-form" action="{{ route('credit.save') }}" method="POST">
+        <form id="credit-card-form" action="{{ route('credit.save') }}" method="POST">
             @csrf
             <div class="main__group">
                 <label for="card-number" class="label">カード番号</label>

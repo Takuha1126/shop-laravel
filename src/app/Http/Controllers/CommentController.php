@@ -13,7 +13,8 @@ class CommentController extends Controller
 {
     public function index($id) {
         $product = Product::findOrFail($id);
-        $isFavorite = false;
+        $user = Auth::user();
+        $isFavorite = $user ? $user->favoriteProducts()->where('product_id', $id)->exists() : false;
         $categories = Category::all();
 
         $comments = $product->comments()

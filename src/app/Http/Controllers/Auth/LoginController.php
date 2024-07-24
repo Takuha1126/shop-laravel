@@ -18,6 +18,8 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
             return redirect()->route('home.index');
         }
 
@@ -29,6 +31,10 @@ class LoginController extends Controller
     public function logout()
     {
         Auth::logout();
+
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
+
         return redirect()->route('login');
     }
 }
