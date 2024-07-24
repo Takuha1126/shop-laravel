@@ -50,7 +50,6 @@ html {
     border: 1px solid #fff;
     background-color: #fff;
     border-radius: 3px;
-
 }
 
 .main {
@@ -116,6 +115,10 @@ html {
     border-radius: 5px;
     margin-bottom: 10px;
     font-size: 14px;
+}
+
+.item__message {
+    white-space: nowrap;
 }
 
 @media (max-width: 768px) {
