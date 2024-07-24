@@ -14,7 +14,7 @@
 }
 
 .main__group {
-    margin-top: 50px;
+    margin-top: 30px;
 }
 
 .photo__about {
@@ -47,7 +47,7 @@
 }
 
 .edit__item {
-    margin: 40px;
+    margin: 30px;
 }
 
 .label {
@@ -63,11 +63,11 @@
 .edit__button {
     text-align: center;
     width: 100%;
-    margin: 70px 0;
+    margin: 50px 0;
 }
 
 .update__button {
-    width: 87%;
+    width: 90%;
     font-size: 18px;
     border: none;
     border-radius: 5px;
@@ -116,7 +116,7 @@
     }
 
     .update__button {
-        width: 85%;
+        width: 88%;
     }
 
     .edit__item input {
