@@ -72,6 +72,21 @@ stripeの設定
 STRIPE_KEY=your_stripe_public_key
 STRIPE_SECRET=your_stripe_secret_key
 
+手動でテストする
+gdをインストールする
+apt-get update
+apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev
+docker-php-ext-configure gd --with-freetype --with-jpeg
+docker-php-ext-install gd
+
+もしdemo_testというデータベースがなかったら作成する
+docker-compose exec mysql mysql -u root -p
+CREATE DATABASE demo_test;
+
+テストを実行する
+php artisan test
+何かを修正しテストでエラーが出たら速やかに修正をお願いします。
+
 アプリケーションキーを作成する
 php artisan key:generate
 
