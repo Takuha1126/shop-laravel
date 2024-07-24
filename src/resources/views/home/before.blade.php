@@ -52,7 +52,7 @@
             <div class="main__item">
                 <div class="item__ttl">
                     @if ($products->isEmpty())
-                        <p>現在、おすすめ商品はありません。</p>
+                        <p class="item__message">現在、おすすめ商品はありません。</p>
                     @else
                         @foreach($products as $product)
                             <a class="item__button" href="{{ route('item.detail', ['id' => $product->id]) }}">
