@@ -40,6 +40,12 @@ cd shop-laravel
 Dockerで開発環境構築
 docker-compose up -d --build
 
+gdをインストールする(テスト用にインストールしておく)
+apt-get update
+apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev
+docker-php-ext-configure gd --with-freetype --with-jpeg
+docker-php-ext-install gd
+
 Laravelパッケージをインストール
 docker-compose exec php bash
 
@@ -73,12 +79,6 @@ STRIPE_KEY=your_stripe_public_key
 STRIPE_SECRET=your_stripe_secret_key
 
 手動でテストする
-gdをインストールする
-apt-get update
-apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev
-docker-php-ext-configure gd --with-freetype --with-jpeg
-docker-php-ext-install gd
-
 もしdemo_testというデータベースがなかったら作成する
 docker-compose exec mysql mysql -u root -p
 CREATE DATABASE demo_test;
