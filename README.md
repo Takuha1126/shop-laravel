@@ -40,14 +40,14 @@ cd shop-laravel
 Dockerで開発環境構築
 docker-compose up -d --build
 
+Laravelパッケージをインストール
+docker-compose exec php bash
+
 gdをインストールする(テスト用にインストールしておく)
 apt-get update
 apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev
 docker-php-ext-configure gd --with-freetype --with-jpeg
 docker-php-ext-install gd
-
-Laravelパッケージをインストール
-docker-compose exec php bash
 
 composer install
 
@@ -78,6 +78,9 @@ stripeの設定
 STRIPE_KEY=your_stripe_public_key
 STRIPE_SECRET=your_stripe_secret_key
 
+アプリケーションキーを作成する
+php artisan key:generate
+
 手動でテストする
 もしdemo_testというデータベースがなかったら作成する
 docker-compose exec mysql mysql -u root -p
@@ -86,9 +89,6 @@ CREATE DATABASE demo_test;
 テストを実行する
 php artisan test
 何かを修正しテストでエラーが出たら速やかに修正をお願いします。
-
-アプリケーションキーを作成する
-php artisan key:generate
 
 ストレージ保存した画像を反映させるために、シンボリック作成
 php artisan storage:link
