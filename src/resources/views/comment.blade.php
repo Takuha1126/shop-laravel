@@ -207,7 +207,6 @@
                 }
             });
 
-
             $('.favorite-icon').each(function() {
                 var iconElement = $(this);
                 var productId = iconElement.data('product-id');

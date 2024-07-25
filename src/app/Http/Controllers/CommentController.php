@@ -42,6 +42,10 @@ class CommentController extends Controller
     public function destroy($id) {
         $comment = Comment::findOrFail($id);
 
+        if (Auth::id() !== $comment->user_id) {
+            return response()->json(['success' => false, 'message' => '権限がありません。'], 403);
+        }
+
         $comment->delete();
 
         return response()->json(['success' => true]);
