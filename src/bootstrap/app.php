@@ -15,6 +15,29 @@ $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
 
+if (env('APP_ENV') === 'testing') {
+    $app->loadEnvironmentFrom('.env.testing');
+} else {
+    $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+
+    switch ($host) {
+        case 'localhost':
+            $app->loadEnvironmentFrom('env/.env.dev');
+            break;
+
+        case 'staging.local':
+            $app->loadEnvironmentFrom('env/.env.stg');
+            break;
+
+        case '52.197.124.165':
+            $app->loadEnvironmentFrom('env/.env.prod');
+            break;
+
+        default:
+            $app->loadEnvironmentFrom('.env'); // デフォルトの環境設定
+            break;
+    }
+}
 
 /*
 |--------------------------------------------------------------------------
