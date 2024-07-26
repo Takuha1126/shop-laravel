@@ -28,6 +28,16 @@ jobs:
             sudo docker-php-ext-install pdo_mysql
 
       - run:
+          name: Create env directory and .env files
+          command: |
+            mkdir -p src/env
+            cp src/.env.example src/env/.env.dev
+            cp src/.env.example src/env/.env.stg
+            ls -la src/env
+            cat src/env/.env.dev
+            cat src/env/.env.stg
+
+      - run:
           name: Install gd extension and dependencies
           command: |
             sudo apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev
@@ -40,7 +50,6 @@ jobs:
             cd src
             composer install --no-interaction --prefer-dist --optimize-autoloader
             cp .env.example .env.testing
-            cp .env.example .env # Ensure .env file exists
             php artisan key:generate --ansi --env=testing
 
             # Update database configuration in .env.testing
@@ -50,27 +59,12 @@ jobs:
             sed -i "s/DB_USERNAME=.*/DB_USERNAME=root/" .env.testing
             sed -i "s/DB_PASSWORD=.*/DB_PASSWORD=root/" .env.testing
 
-            # Create env directory and .env.dev file
-            mkdir -p env
-            touch env/.env.dev
-            cp .env.example env/.env.dev
-
-            # Verify .env.dev file creation
-            echo "Files in src/env directory:"
-            ls -la env
-
             # Output current environment settings for debug
             echo "Current environment settings:"
             cat .env.testing
-            echo ".env.dev contents:"
-            cat env/.env.dev
 
-            # Clear configuration cache, route cache, and view cache
+            # Clear configuration cache, test MySQL connection, run migrations and tests
             php artisan config:clear --env=testing
-            php artisan route:clear
-            php artisan view:clear
-
-            # Clear and re-run migrations and tests
             php artisan migrate:fresh --seed --force --env=testing
             vendor/bin/phpunit
 
@@ -86,12 +80,12 @@ jobs:
             mkdir -p ~/.ssh
             echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
             chmod 600 ~/.ssh/id_rsa
-            ssh-keyscan -H ec2-52-197-124-165.ap-northeast-1.compute.amazonaws.com >> ~/.ssh/known_hosts
+            ssh-keyscan -H  ec2-52-197-124-165.ap-northeast-1.compute.amazonaws.com>> ~/.ssh/known_hosts
 
       - run:
           name: Deploy over SSH
           command: |
-            ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@ec2-52-197-124-165.ap-northeast-1.compute.amazonaws.com "\
+            ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa  ec2-user@ec2-52-197-124-165.ap-northeast-1.compute.amazonaws.com "\
               cd /var/www/shop-laravel && \
               git fetch origin && \
               git reset --hard origin/main && \
