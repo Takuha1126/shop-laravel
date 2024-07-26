@@ -26,6 +26,11 @@ jobs:
             sudo apt-get update
             sudo apt-get install -y default-mysql-client libmariadb-dev
             sudo docker-php-ext-install pdo_mysql
+      - run:
+          name: Copy .env.example to .env.dev
+          command:
+            cd src
+            cp .env.example env/.env.dev
 
       - run:
           name: Install gd extension and dependencies
@@ -49,6 +54,9 @@ jobs:
             sed -i "s/DB_USERNAME=.*/DB_USERNAME=root/" .env.testing
             sed -i "s/DB_PASSWORD=.*/DB_PASSWORD=root/" .env.testing
 
+            # Copy .env.example to .env.dev
+            cp .env.example env/.env.dev
+
             # Output current environment settings for debug
             echo "Current environment settings:"
             cat .env.testing
@@ -57,6 +65,7 @@ jobs:
             php artisan config:clear --env=testing
             php artisan migrate:fresh --seed --force --env=testing
             vendor/bin/phpunit
+
 
   deploy:
     docker:
