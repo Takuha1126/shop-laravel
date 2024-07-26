@@ -33,9 +33,6 @@ jobs:
             mkdir -p src/env
             cp src/.env.example src/env/.env.dev
             cp src/.env.example src/env/.env.stg
-            ls -la src/env
-            cat src/env/.env.dev
-            cat src/env/.env.stg
 
       - run:
           name: Install gd extension and dependencies
