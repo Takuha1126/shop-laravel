@@ -7,7 +7,7 @@ jobs:
         environment:
           PHP_EXTENSIONS: gd
           DB_CONNECTION: mysql
-          DB_HOST: mysql
+          DB_HOST: 127.0.0.1
           DB_PORT: 3306
           DB_DATABASE: demo_test
           DB_USERNAME: root
@@ -35,46 +35,28 @@ jobs:
             sudo docker-php-ext-install gd
 
       - run:
-          name: Create .env.testing file
-          command: |
-            mkdir -p src
-            cp src/.env.example src/.env.testing
-            echo "APP_ENV=testing" >> src/.env.testing
-            echo "APP_DEBUG=true" >> src/.env.testing
-            echo "APP_KEY=base64:dummyKey=" >> src/.env.testing
-
-      - run:
-          name: Wait for MySQL to be ready
-          command: |
-            wget https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh
-            chmod +x wait-for-it.sh
-            ./wait-for-it.sh mysql:3306 -- echo "MySQL is up"
-
-      - run:
           name: Install dependencies, configure environment, and run tests
           command: |
             cd src
             composer install --no-interaction --prefer-dist --optimize-autoloader
+            cp .env.example .env.testing
+            php artisan key:generate --ansi --env=testing
 
-            # Ensure .env.testing is properly configured
-            cp .env.testing .env
-            php artisan key:generate --ansi
-
-            # Update database configuration in .env
-            sed -i "s/DB_CONNECTION=.*/DB_CONNECTION=mysql/" .env
-            sed -i "s/DB_HOST=.*/DB_HOST=mysql/" .env
-            sed -i "s/DB_DATABASE=.*/DB_DATABASE=demo_test/" .env
-            sed -i "s/DB_USERNAME=.*/DB_USERNAME=root/" .env
-            sed -i "s/DB_PASSWORD=.*/DB_PASSWORD=root/" .env
+            # Update database configuration in .env.testing
+            sed -i "s/DB_CONNECTION=.*/DB_CONNECTION=mysql/" .env.testing
+            sed -i "s/DB_HOST=.*/DB_HOST=mysql/" .env.testing
+            sed -i "s/DB_DATABASE=.*/DB_DATABASE=demo_test/" .env.testing
+            sed -i "s/DB_USERNAME=.*/DB_USERNAME=root/" .env.testing
+            sed -i "s/DB_PASSWORD=.*/DB_PASSWORD=root/" .env.testing
 
             # Output current environment settings for debug
             echo "Current environment settings:"
-            cat .env
+            cat .env.testing
 
             # Clear configuration cache, test MySQL connection, run migrations and tests
-            php artisan config:clear
-            php artisan migrate:fresh --seed --force
-            vendor/bin/phpunit --env=testing
+            php artisan config:clear --env=testing
+            php artisan migrate:fresh --seed --force --env=testing
+            vendor/bin/phpunit
 
   deploy:
     docker:
@@ -88,12 +70,12 @@ jobs:
             mkdir -p ~/.ssh
             echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
             chmod 600 ~/.ssh/id_rsa
-            ssh-keyscan -H ec2-52-197-124-165.ap-northeast-1.compute.amazonaws.com >> ~/.ssh/known_hosts
+            ssh-keyscan -H  ec2-52-197-124-165.ap-northeast-1.compute.amazonaws.com>> ~/.ssh/known_hosts
 
       - run:
           name: Deploy over SSH
           command: |
-            ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@ec2-52-197-124-165.ap-northeast-1.compute.amazonaws.com "\
+            ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa  ec2-user@ec2-52-197-124-165.ap-northeast-1.compute.amazonaws.com "\
               cd /var/www/shop-laravel && \
               git fetch origin && \
               git reset --hard origin/main && \
