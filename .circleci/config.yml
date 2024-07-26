@@ -26,11 +26,6 @@ jobs:
             sudo apt-get update
             sudo apt-get install -y default-mysql-client libmariadb-dev
             sudo docker-php-ext-install pdo_mysql
-      - run:
-          name: Copy .env.example to .env.dev
-          command:
-            cd src
-            cp .env.example env/.env.dev
 
       - run:
           name: Install gd extension and dependencies
@@ -55,6 +50,7 @@ jobs:
             sed -i "s/DB_PASSWORD=.*/DB_PASSWORD=root/" .env.testing
 
             # Copy .env.example to .env.dev
+            mkdir -p env
             cp .env.example env/.env.dev
 
             # Output current environment settings for debug
@@ -65,7 +61,6 @@ jobs:
             php artisan config:clear --env=testing
             php artisan migrate:fresh --seed --force --env=testing
             vendor/bin/phpunit
-
 
   deploy:
     docker:
@@ -79,12 +74,12 @@ jobs:
             mkdir -p ~/.ssh
             echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
             chmod 600 ~/.ssh/id_rsa
-            ssh-keyscan -H  ec2-52-197-124-165.ap-northeast-1.compute.amazonaws.com>> ~/.ssh/known_hosts
+            ssh-keyscan -H ec2-52-197-124-165.ap-northeast-1.compute.amazonaws.com >> ~/.ssh/known_hosts
 
       - run:
           name: Deploy over SSH
           command: |
-            ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa  ec2-user@ec2-52-197-124-165.ap-northeast-1.compute.amazonaws.com "\
+            ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@ec2-52-197-124-165.ap-northeast-1.compute.amazonaws.com "\
               cd /var/www/shop-laravel && \
               git fetch origin && \
               git reset --hard origin/main && \
