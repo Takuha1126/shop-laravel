@@ -51,7 +51,9 @@ jobs:
 
             # Copy .env.example to .env.dev
             mkdir -p env
+            touch env/.env.dev
             cp .env.example env/.env.dev
+
 
             # Output current environment settings for debug
             echo "Current environment settings:"
