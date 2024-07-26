@@ -18,18 +18,18 @@ class RegisterTest extends TestCase
     }
 
     public function test_user_can_register()
-{
-    $userData = [
-        'email' => 'john@example.com',
-        'password' => 'password',
-        'password_confirmation' => 'password',
-    ];
+    {
+        $userData = [
+            'email' => 'john@example.com',
+            'password' => 'password',
+            'password_confirmation' => 'password',
+        ];
 
-    $response = $this->post(route('register'), $userData);
+        $response = $this->post(route('register'), $userData);
 
-    $response->assertStatus(302);
-    $response->assertRedirect('/email/verify');
-    $this->assertAuthenticated();
-}
+        $response->assertStatus(302);
+        $response->assertRedirect('/email/verify');
+        $this->assertAuthenticated();
+    }
 
 }

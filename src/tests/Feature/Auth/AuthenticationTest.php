@@ -18,25 +18,25 @@ class AuthenticationTest extends TestCase
     }
 
     public function test_users_can_authenticate_using_login_screen()
-{
-    $user = User::factory()->create([
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
-    ]);
+    {
+        $user = User::factory()->create([
+            'email' => 'test@example.com',
+            'password' => Hash::make('password'),
+        ]);
 
-    $userData = [
+        $userData = [
         'email' => 'test@example.com',
         'password' => 'password',
         '_token' => csrf_token(),
-    ];
+        ];
 
-    $this->flushSession();
+        $this->flushSession();
 
-    $response = $this->post(route('login'), $userData);
+        $response = $this->post(route('login'), $userData);
 
-    $response->assertRedirect(route('home.index'));
-    $this->assertAuthenticated();
-}
+        $response->assertRedirect(route('home.index'));
+        $this->assertAuthenticated();
+    }
 
     public function test_users_can_not_authenticate_with_invalid_password()
     {
