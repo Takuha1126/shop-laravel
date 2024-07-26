@@ -35,12 +35,13 @@ jobs:
             sudo docker-php-ext-install gd
 
       - run:
-          name: Create .env.dev file
+          name: Create .env.testing file
           command: |
             mkdir -p src/env
-            echo "APP_ENV=local" > src/env/.env.dev
-            echo "APP_DEBUG=true" >> src/env/.env.dev
-            echo "APP_KEY=base64:dummyKey=" >> src/env/.env.dev
+            cp .env.example src/.env.testing
+            echo "APP_ENV=testing" >> src/.env.testing
+            echo "APP_DEBUG=true" >> src/.env.testing
+            echo "APP_KEY=base64:dummyKey=" >> src/.env.testing
 
       - run:
           name: Wait for MySQL to be ready
