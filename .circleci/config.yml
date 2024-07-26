@@ -37,6 +37,7 @@ jobs:
       - run:
           name: Create .env.testing file
           command: |
+            mkdir -p src/env
             cp src/.env.example src/.env.testing
             echo "APP_ENV=testing" >> src/.env.testing
             echo "APP_DEBUG=true" >> src/.env.testing
@@ -54,24 +55,26 @@ jobs:
           command: |
             cd src
             composer install --no-interaction --prefer-dist --optimize-autoloader
-            cp .env.example .env.testing
-            php artisan key:generate --ansi --env=testing
 
-            # Update database configuration in .env.testing
-            sed -i "s/DB_CONNECTION=.*/DB_CONNECTION=mysql/" .env.testing
-            sed -i "s/DB_HOST=.*/DB_HOST=mysql/" .env.testing
-            sed -i "s/DB_DATABASE=.*/DB_DATABASE=demo_test/" .env.testing
-            sed -i "s/DB_USERNAME=.*/DB_USERNAME=root/" .env.testing
-            sed -i "s/DB_PASSWORD=.*/DB_PASSWORD=root/" .env.testing
+            # Make sure .env.testing is properly configured
+            cp .env.testing .env
+            php artisan key:generate --ansi
+
+            # Update database configuration in .env
+            sed -i "s/DB_CONNECTION=.*/DB_CONNECTION=mysql/" .env
+            sed -i "s/DB_HOST=.*/DB_HOST=mysql/" .env
+            sed -i "s/DB_DATABASE=.*/DB_DATABASE=demo_test/" .env
+            sed -i "s/DB_USERNAME=.*/DB_USERNAME=root/" .env
+            sed -i "s/DB_PASSWORD=.*/DB_PASSWORD=root/" .env
 
             # Output current environment settings for debug
             echo "Current environment settings:"
-            cat .env.testing
+            cat .env
 
             # Clear configuration cache, test MySQL connection, run migrations and tests
-            php artisan config:clear --env=testing
-            php artisan migrate:fresh --seed --force --env=testing
-            vendor/bin/phpunit
+            php artisan config:clear
+            php artisan migrate:fresh --seed --force
+            vendor/bin/phpunit --env=testing
 
   deploy:
     docker:
@@ -85,12 +88,12 @@ jobs:
             mkdir -p ~/.ssh
             echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
             chmod 600 ~/.ssh/id_rsa
-            ssh-keyscan -H  ec2-52-197-124-165.ap-northeast-1.compute.amazonaws.com >> ~/.ssh/known_hosts
+            ssh-keyscan -H ec2-52-197-124-165.ap-northeast-1.compute.amazonaws.com >> ~/.ssh/known_hosts
 
       - run:
           name: Deploy over SSH
           command: |
-            ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa  ec2-user@ec2-52-197-124-165.ap-northeast-1.compute.amazonaws.com "\
+            ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@ec2-52-197-124-165.ap-northeast-1.compute.amazonaws.com "\
               cd /var/www/shop-laravel && \
               git fetch origin && \
               git reset --hard origin/main && \
