@@ -37,7 +37,7 @@ jobs:
       - run:
           name: Create .env.testing file
           command: |
-            mkdir -p src/env
+            mkdir -p src
             cp src/.env.example src/.env.testing
             echo "APP_ENV=testing" >> src/.env.testing
             echo "APP_DEBUG=true" >> src/.env.testing
@@ -56,7 +56,7 @@ jobs:
             cd src
             composer install --no-interaction --prefer-dist --optimize-autoloader
 
-            # Make sure .env.testing is properly configured
+            # Ensure .env.testing is properly configured
             cp .env.testing .env
             php artisan key:generate --ansi
 
