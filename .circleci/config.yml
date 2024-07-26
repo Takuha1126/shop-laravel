@@ -40,6 +40,7 @@ jobs:
             cd src
             composer install --no-interaction --prefer-dist --optimize-autoloader
             cp .env.example .env.testing
+            cp .env.example .env # Ensure .env file exists
             php artisan key:generate --ansi --env=testing
 
             # Update database configuration in .env.testing
@@ -51,7 +52,6 @@ jobs:
 
             # Create env directory and .env.dev file
             mkdir -p env
-            ls -la  # Verify if env directory is created
             touch env/.env.dev
             cp .env.example env/.env.dev
 
@@ -65,8 +65,12 @@ jobs:
             echo ".env.dev contents:"
             cat env/.env.dev
 
-            # Clear configuration cache, test MySQL connection, run migrations and tests
+            # Clear configuration cache, route cache, and view cache
             php artisan config:clear --env=testing
+            php artisan route:clear
+            php artisan view:clear
+
+            # Clear and re-run migrations and tests
             php artisan migrate:fresh --seed --force --env=testing
             vendor/bin/phpunit
 
