@@ -16,25 +16,25 @@ $app = new Illuminate\Foundation\Application(
 );
 
 if (env('APP_ENV') === 'testing') {
-    $app->loadEnvironmentFrom(base_path('.env.testing'));
+    $app->loadEnvironmentFrom('.env.testing');
 } else {
     $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
 
     switch ($host) {
         case 'localhost':
-            $app->loadEnvironmentFrom(base_path('env/.env.dev'));
+            $app->loadEnvironmentFrom('env/.env.dev');
             break;
 
         case 'staging.local':
-            $app->loadEnvironmentFrom(base_path('env/.env.stg'));
+            $app->loadEnvironmentFrom('env/.env.stg');
             break;
 
         case '52.197.124.165':
-            $app->loadEnvironmentFrom(base_path('env/.env.prod'));
+            $app->loadEnvironmentFrom('env/.env.prod');
             break;
 
         default:
-            $app->loadEnvironmentFrom(base_path('.env'));
+            $app->loadEnvironmentFrom('.env'); // デフォルトの環境設定
             break;
     }
 }
