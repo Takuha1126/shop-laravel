@@ -37,8 +37,7 @@ jobs:
       - run:
           name: Create .env.testing file
           command: |
-            mkdir -p src/env
-            cp .env.example src/.env.testing
+            cp src/.env.example src/.env.testing
             echo "APP_ENV=testing" >> src/.env.testing
             echo "APP_DEBUG=true" >> src/.env.testing
             echo "APP_KEY=base64:dummyKey=" >> src/.env.testing
