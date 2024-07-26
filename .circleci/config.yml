@@ -51,6 +51,7 @@ jobs:
 
             # Create env directory and .env.dev file
             mkdir -p env
+            ls -la  # Verify if env directory is created
             touch env/.env.dev
             cp .env.example env/.env.dev
 
