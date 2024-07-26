@@ -49,15 +49,24 @@ jobs:
             sed -i "s/DB_USERNAME=.*/DB_USERNAME=root/" .env.testing
             sed -i "s/DB_PASSWORD=.*/DB_PASSWORD=root/" .env.testing
 
-            # Copy .env.example to .env.dev
+            # Create env directory and .env.dev file
             mkdir -p env
             touch env/.env.dev
             cp .env.example env/.env.dev
 
+            # Verify .env.dev file creation
+            if [ -f env/.env.dev ]; then
+              echo ".env.dev file created successfully."
+            else
+              echo "Error: .env.dev file not created!"
+              exit 1
+            fi
 
             # Output current environment settings for debug
             echo "Current environment settings:"
             cat .env.testing
+            echo ".env.dev contents:"
+            cat env/.env.dev
 
             # Clear configuration cache, test MySQL connection, run migrations and tests
             php artisan config:clear --env=testing
