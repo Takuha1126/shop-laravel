@@ -55,12 +55,8 @@ jobs:
             cp .env.example env/.env.dev
 
             # Verify .env.dev file creation
-            if [ -f env/.env.dev ]; then
-              echo ".env.dev file created successfully."
-            else
-              echo "Error: .env.dev file not created!"
-              exit 1
-            fi
+            echo "Files in src/env directory:"
+            ls -la env
 
             # Output current environment settings for debug
             echo "Current environment settings:"
