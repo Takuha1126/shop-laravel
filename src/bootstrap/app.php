@@ -16,7 +16,7 @@ $app = new Illuminate\Foundation\Application(
 );
 
 if (env('APP_ENV') === 'testing') {
-    $app->loadEnvironmentFrom('env/.env.testing');
+    $app->loadEnvironmentFrom('.env.testing');
 } else {
     switch ($_SERVER['HTTP_HOST'] ?? 'localhost') {
         case 'localhost':
