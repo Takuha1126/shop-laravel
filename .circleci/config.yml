@@ -17,7 +17,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: demo_test
 
-    working_directory: /home/circleci/project/src  # 作業ディレクトリの設定
+    working_directory: /home/circleci/project/src
 
     steps:
       - checkout
@@ -25,7 +25,7 @@ jobs:
       - run:
           name: Check directory contents
           command: |
-            ls -la
+            ls -la src/env
 
       - run:
           name: Copy environment files
