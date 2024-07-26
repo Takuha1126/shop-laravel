@@ -3,7 +3,6 @@
 /public/storage
 /storage/*.key
 /vendor
-.env
 .env.testing
 env/.env.dev
 env/.env.stg

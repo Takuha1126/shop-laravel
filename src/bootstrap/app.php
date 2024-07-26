@@ -15,6 +15,19 @@ $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
 
+switch ($_SERVER['HTTP_HOST'] ?? 'localhost') {
+    case 'localhost':
+        $app->loadEnvironmentFrom('env/.env.dev');
+        break;
+
+    case 'staging.local':
+        $app->loadEnvironmentFrom('env/.env.stg');
+        break;
+
+    case 'http://52.197.124.165':
+        $app->loadEnvironmentFrom('env/.env.prod');
+        break;
+}
 /*
 |--------------------------------------------------------------------------
 | Bind Important Interfaces
