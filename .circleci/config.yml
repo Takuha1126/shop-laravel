@@ -28,10 +28,10 @@ jobs:
             sudo docker-php-ext-install pdo_mysql
 
       - run:
-          name: List files in src/env
+          name: Copy environment files
           command: |
-            ls -la src/env
-
+            cp src/env/.env.dev src/.env
+            ls -la src
 
       - run:
           name: Install gd extension and dependencies
