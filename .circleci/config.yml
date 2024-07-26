@@ -28,6 +28,12 @@ jobs:
             sudo docker-php-ext-install pdo_mysql
 
       - run:
+          name: Copy environment file
+          command: |
+            mkdir -p /home/circleci/project/src/env
+            cp /home/circleci/project/src/.env.dev /home/circleci/project/src/env/.env.dev
+
+      - run:
           name: Install gd extension and dependencies
           command: |
             sudo apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev
