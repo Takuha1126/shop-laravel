@@ -31,7 +31,7 @@ jobs:
           name: Copy environment file
           command: |
             mkdir -p /home/circleci/project/src/env
-            cp /home/circleci/project/src/.env.dev /home/circleci/project/src/env/.env.dev
+            cp /home/circleci/shop-laravel/src/.env.dev /home/circleci/project/src/env/.env.dev
 
       - run:
           name: Install gd extension and dependencies
