@@ -28,10 +28,10 @@ jobs:
             sudo docker-php-ext-install pdo_mysql
 
       - run:
-          name: Copy environment file
+          name: List files in src/env
           command: |
-            mkdir -p /home/circleci/project/src/env
-            cp /home/circleci/shop-laravel/src/.env.dev /home/circleci/project/src/env/.env.dev
+            ls -la src/env
+
 
       - run:
           name: Install gd extension and dependencies
