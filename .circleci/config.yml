@@ -28,13 +28,6 @@ jobs:
             sudo docker-php-ext-install pdo_mysql
 
       - run:
-          name: Create env directory and .env files
-          command: |
-            mkdir -p src/env
-            cp src/.env.example src/env/.env.dev
-            cp src/.env.example src/env/.env.stg
-
-      - run:
           name: Install gd extension and dependencies
           command: |
             sudo apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev
