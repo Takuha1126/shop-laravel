@@ -5,6 +5,6 @@
     <title>メールの件名</title>
 </head>
 <body>
-    <p>{{ $messageContent }}</p>
+    <p>{!! nl2br(e($messageContent)) !!}</p>
 </body>
 </html>

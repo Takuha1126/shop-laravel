@@ -47,7 +47,7 @@
                         <tr class="about__tr">
                             <td class="about__td">{{ $comment->created_at->format('Y-m-d H:i:s') }}</td>
                             <td class="about__td">{{ $comment->product->productName }}</td>
-                            <td class="about__td">{{ $comment->content }}</td>
+                            <td class="about__td">{!! nl2br(e($comment->content)) !!}</td>
                             <td class="about__td">
                                 <form action="{{ route('comments.remove', ['id' => $comment->id]) }}" method="POST">
                                     @csrf
