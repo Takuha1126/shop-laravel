@@ -21,15 +21,15 @@ if (env('APP_ENV') === 'testing') {
     $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
 
     switch ($host) {
-        case 'localhost':
+        case 'local':
             $app->loadEnvironmentFrom('env/.env.dev');
             break;
 
-        case 'staging.local':
+        case 'staging':
             $app->loadEnvironmentFrom('env/.env.stg');
             break;
 
-        default:
+        case 'production':
             $app->loadEnvironmentFrom('env/.env.prod');
             break;
     }
