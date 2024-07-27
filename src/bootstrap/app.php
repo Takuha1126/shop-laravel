@@ -29,10 +29,6 @@ if (env('APP_ENV') === 'testing') {
             $app->loadEnvironmentFrom('env/.env.stg');
             break;
 
-        case '43.207.1.92':
-            $app->loadEnvironmentFrom('env/.env.prod');
-            break;
-
         default:
             $app->loadEnvironmentFrom('.env');
             break;
