@@ -77,18 +77,16 @@ jobs:
           name: Deploy over SSH
           command: |
             ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@ec2-43-207-1-92.ap-northeast-1.compute.amazonaws.com "\
-              cd /var/www/shop-laravel && \
-              git fetch origin && \
-              git reset --hard origin/main && \
-              cd src && \
-              echo 'DB_CONNECTION=mysql' > .env && \
-              echo 'DB_HOST=$DB_HOST' >> .env && \
-              echo 'DB_PORT=$DB_PORT' >> .env && \
-              echo 'DB_DATABASE=$DB_DATABASE' >> .env && \
-              echo 'DB_USERNAME=$DB_USERNAME' >> .env && \
-              echo 'DB_PASSWORD=$DB_PASSWORD' >> .env && \
-              composer install --no-interaction --prefer-dist --optimize-autoloader && \
-              php artisan migrate --force"
+            cd /var/www/shop-laravel && \
+            git fetch origin && \
+            git reset --hard origin/main && \
+            cd src && \
+            composer install --no-interaction --prefer-dist --optimize-autoloader && \
+            php artisan config:clear && \
+            php artisan cache:clear && \
+            php artisan config:cache && \
+            php artisan migrate --force"
+
 
 workflows:
   version: 2
