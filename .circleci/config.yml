@@ -59,6 +59,7 @@ jobs:
             php artisan migrate:fresh --seed --force --env=testing
             vendor/bin/phpunit
 
+
   deploy:
     docker:
       - image: circleci/php:8.0
