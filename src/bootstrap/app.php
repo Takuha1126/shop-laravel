@@ -15,6 +15,7 @@ $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
 
+
 $appEnv = env('APP_ENV', 'production');
 
 switch ($appEnv) {
@@ -34,9 +35,6 @@ switch ($appEnv) {
         $app->loadEnvironmentFrom('env/.env.prod');
         break;
 
-    default:
-        $app->loadEnvironmentFrom('.env');
-        break;
 }
 
 
