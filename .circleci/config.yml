@@ -69,11 +69,22 @@ jobs:
           name: Add SSH key
           command: |
             mkdir -p ~/.ssh
-            echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+            echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
             chmod 600 ~/.ssh/id_rsa
-            ssh-keyscan -H  ec2-13-231-127-247.ap-northeast-1.compute.amazonaws.com>> ~/.ssh/known_hosts
+            ssh-keyscan -H ec2-13-231-127-247.ap-northeast-1.compute.amazonaws.com >> ~/.ssh/known_hosts
 
+      - run:
+          name: Check SSH key permissions and content
+          command: |
+            ls -la ~/.ssh
+            cat ~/.ssh/id_rsa
+            cat ~/.ssh/known_hosts
 
+      - run:
+          name: Test SSH connection
+          command: |
+            ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@ec2-13-231-127-247.ap-northeast-1.compute.amazonaws.com "echo 'SSH connection successful!'"
+          
       - run:
           name: Deploy over SSH
           command: |
@@ -87,6 +98,7 @@ jobs:
             php artisan cache:clear && \
             php artisan config:cache && \
             php artisan migrate --force"
+
 
 workflows:
   version: 2
