@@ -30,6 +30,10 @@ switch ($appEnv) {
         $app->loadEnvironmentFrom('.env.testing');
         break;
 
+    case 'production':
+        $app->loadEnvironmentFrom('env/.env.prod');
+        break;
+
     default:
         $app->loadEnvironmentFrom('.env');
         break;
