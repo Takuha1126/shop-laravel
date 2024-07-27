@@ -15,6 +15,25 @@ $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
 
+$appEnv = env('APP_ENV', 'production');
+
+switch ($appEnv) {
+    case 'local':
+        $app->loadEnvironmentFrom('env/.env.dev');
+        break;
+
+    case 'staging':
+        $app->loadEnvironmentFrom('env/.env.stg');
+        break;
+
+    case 'testing':
+        $app->loadEnvironmentFrom('.env.testing');
+        break;
+
+    default:
+        $app->loadEnvironmentFrom('.env');
+        break;
+}
 
 
 /*
