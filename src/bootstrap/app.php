@@ -15,25 +15,7 @@ $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
 
-if (env('APP_ENV') === 'testing') {
-    $app->loadEnvironmentFrom('.env.testing');
-} else {
-    $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
 
-    switch ($host) {
-        case 'localhost':
-            $app->loadEnvironmentFrom('env/.env.dev');
-            break;
-
-        case 'staging.local':
-            $app->loadEnvironmentFrom('env/.env.stg');
-            break;
-
-        default:
-            $app->loadEnvironmentFrom('.env');
-            break;
-    }
-}
 
 /*
 |--------------------------------------------------------------------------
