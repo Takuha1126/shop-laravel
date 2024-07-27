@@ -6,12 +6,6 @@ jobs:
       - image: circleci/php:8.0-apache
         environment:
           PHP_EXTENSIONS: gd
-          DB_CONNECTION: mysql_test
-          DB_HOST: 127.0.0.1
-          DB_PORT: 3306
-          DB_DATABASE: demo_test
-          DB_USERNAME: root
-          DB_PASSWORD: root
           APP_ENV: testing
       - image: circleci/mysql:5.7
         environment:
@@ -57,7 +51,7 @@ jobs:
             # Clear configuration cache, test MySQL connection, run migrations and tests
             php artisan config:clear --env=testing
             php artisan migrate:fresh --seed --force --env=testing
-            vendor/bin/phpunit
+            vendor/bin/phpunit --configuration phpunit.xml
 
   deploy:
     docker:
