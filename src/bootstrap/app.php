@@ -15,28 +15,25 @@ $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
 
+if (env('APP_ENV') === 'testing') {
+    $app->loadEnvironmentFrom('.env.testing');
+} else {
+    $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
 
-$appEnv = env('APP_ENV', 'production');
+    switch ($host) {
+        case 'localhost':
+            $app->loadEnvironmentFrom('env/.env.dev');
+            break;
 
-switch ($appEnv) {
-    case 'local':
-        $app->loadEnvironmentFrom('env/.env.dev');
-        break;
+        case 'staging.local':
+            $app->loadEnvironmentFrom('env/.env.stg');
+            break;
 
-    case 'staging':
-        $app->loadEnvironmentFrom('env/.env.stg');
-        break;
-
-    case 'testing':
-        $app->loadEnvironmentFrom('.env.testing');
-        break;
-
-    case 'production':
-        $app->loadEnvironmentFrom('env/.env.prod');
-        break;
-
+        default:
+            $app->loadEnvironmentFrom('env/.env.prod');
+            break;
+    }
 }
-
 
 /*
 |--------------------------------------------------------------------------
