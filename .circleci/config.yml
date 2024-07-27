@@ -81,7 +81,6 @@ jobs:
             cd /var/www/shop-laravel/src && \
             git fetch origin && \
             git reset --hard origin/main && \
-            cd src && \
             composer install --no-interaction --prefer-dist --optimize-autoloader && \
             php artisan config:clear && \
             php artisan cache:clear && \
