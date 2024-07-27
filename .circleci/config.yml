@@ -71,6 +71,8 @@ jobs:
             mkdir -p ~/.ssh
             echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
             chmod 600 ~/.ssh/id_rsa
+            ls -la ~/.ssh
+            cat ~/.ssh/id_rsa
             ssh-keyscan -H ec2-13-231-127-247.ap-northeast-1.compute.amazonaws.com >> ~/.ssh/known_hosts
 
       - run:
