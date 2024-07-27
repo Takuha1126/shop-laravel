@@ -29,12 +29,12 @@ if (env('APP_ENV') === 'testing') {
             $app->loadEnvironmentFrom('env/.env.stg');
             break;
 
-        case '52.197.124.165':
+        case '43.207.1.92':
             $app->loadEnvironmentFrom('env/.env.prod');
             break;
 
         default:
-            $app->loadEnvironmentFrom('.env'); // デフォルトの環境設定
+            $app->loadEnvironmentFrom('.env');
             break;
     }
 }
