@@ -81,6 +81,12 @@ jobs:
               git fetch origin && \
               git reset --hard origin/main && \
               cd src && \
+              echo 'DB_CONNECTION=mysql' > .env && \
+              echo 'DB_HOST=$DB_HOST' >> .env && \
+              echo 'DB_PORT=$DB_PORT' >> .env && \
+              echo 'DB_DATABASE=$DB_DATABASE' >> .env && \
+              echo 'DB_USERNAME=$DB_USERNAME' >> .env && \
+              echo 'DB_PASSWORD=$DB_PASSWORD' >> .env && \
               composer install --no-interaction --prefer-dist --optimize-autoloader && \
               php artisan migrate --force"
 
