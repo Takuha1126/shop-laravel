@@ -69,10 +69,10 @@ jobs:
           name: Add SSH key
           command: |
             mkdir -p ~/.ssh
-            echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
-            chmod 600 ~/.ssh/id_rsa
+            echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa_new
+            chmod 600 ~/.ssh/id_rsa_new
             ls -la ~/.ssh
-            cat ~/.ssh/id_rsa
+            cat ~/.ssh/id_rsa_new
             ssh-keyscan -H ec2-13-231-17-55.ap-northeast-1.compute.amazonaws.com >> ~/.ssh/known_hosts
 
 
@@ -80,7 +80,7 @@ jobs:
       - run:
           name: Deploy over SSH
           command: |
-            ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@ec2-13-231-17-55.ap-northeast-1.compute.amazonaws.com "\
+            ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa_new ec2-user@ec2-13-231-17-55.ap-northeast-1.compute.amazonaws.com "\
             cd /var/www/shop-laravel && \
             git fetch origin && \
             git reset --hard origin/main && \
