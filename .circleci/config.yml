@@ -35,6 +35,7 @@ jobs:
             sudo docker-php-ext-configure gd --with-jpeg --with-freetype
             sudo docker-php-ext-install gd
 
+
       - run:
           name: Install dependencies, configure environment, and run tests
           command: |
