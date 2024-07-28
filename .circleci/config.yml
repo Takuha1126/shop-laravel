@@ -82,13 +82,7 @@ jobs:
             git fetch origin && \
             git reset --hard origin/main && \
             cd src && \
-            echo 'APP_ENV=production' >> .env && \
-            echo 'DB_CONNECTION=mysql' >> .env && \
-            echo 'DB_HOST=database-2.cjua0qayaefc.ap-northeast-1.rds.amazonaws.com' >> .env && \
-            echo 'DB_PORT=3306' >> .env && \
-            echo 'DB_DATABASE=laravel_db' >> .env && \
-            echo 'DB_USERNAME=admin' >> .env && \
-            echo 'DB_PASSWORD=Porvej-jyqrub-1zifku' >> .env && \
+            cp env/.env.prod .env && \
             composer install --no-interaction --prefer-dist --optimize-autoloader && \
             php artisan config:clear && \
             php artisan cache:clear && \
