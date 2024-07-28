@@ -72,8 +72,6 @@ jobs:
             mkdir -p ~/.ssh
             echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
             chmod 600 ~/.ssh/id_rsa
-            ls -la ~/.ssh
-            cat ~/.ssh/id_rsa
             ssh-keyscan -H ec2-13-231-17-55.ap-northeast-1.compute.amazonaws.com >> ~/.ssh/known_hosts
 
       - run:
@@ -84,6 +82,13 @@ jobs:
             git fetch origin && \
             git reset --hard origin/main && \
             cd src && \
+            echo 'APP_ENV=production' >> .env && \
+            echo 'DB_CONNECTION=mysql' >> .env && \
+            echo 'DB_HOST=database-2.cjua0qayaefc.ap-northeast-1.rds.amazonaws.com' >> .env && \
+            echo 'DB_PORT=3306' >> .env && \
+            echo 'DB_DATABASE=laravel_db' >> .env && \
+            echo 'DB_USERNAME=admin' >> .env && \
+            echo 'DB_PASSWORD=Porvej-jyqrub-1zifku' >> .env && \
             composer install --no-interaction --prefer-dist --optimize-autoloader && \
             php artisan config:clear && \
             php artisan cache:clear && \
