@@ -76,8 +76,6 @@ jobs:
             cat ~/.ssh/id_rsa_new
             ssh-keyscan -H ec2-13-231-17-55.ap-northeast-1.compute.amazonaws.com >> ~/.ssh/known_hosts
 
-
-
       - run:
           name: Deploy over SSH
           command: |
@@ -91,7 +89,6 @@ jobs:
             php artisan cache:clear && \
             php artisan config:cache && \
             php artisan migrate --force"
-
 
 workflows:
   version: 2
