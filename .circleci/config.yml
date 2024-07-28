@@ -61,10 +61,10 @@ jobs:
             vendor/bin/phpunit
 
   deploy:
-    docker:
-      - image: circleci/php:8.0
-    steps:
-      - checkout
+     docker:
+    - image: circleci/php:8.0
+  steps:
+    - checkout
 
     - run:
         name: Add SSH key
@@ -87,7 +87,6 @@ jobs:
           php artisan cache:clear && \
           php artisan config:cache && \
           php artisan migrate --force"
-
 
 
 workflows:
