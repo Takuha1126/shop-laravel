@@ -48,7 +48,6 @@ class ItemController extends Controller
         }
     }
 
-
     public function search(Request $request) {
         $categoryName = $request->input('category_name');
         $productsQuery = Product::query();
