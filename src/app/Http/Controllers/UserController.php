@@ -66,7 +66,7 @@ class UserController extends Controller
         $profile->save();
 
         return redirect()->route('user.show');
-     }
+    }
 
     public function editAddress()
     {
