@@ -28,7 +28,6 @@ class EmailController extends Controller
         return redirect()->back()->with('success', 'メールを送信しました。');
     }
 
-
     public function sendAll(SendAllRequest $request)
     {
         $messageContent = $request->message_all;
