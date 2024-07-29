@@ -34,8 +34,7 @@
     <script src="https://js.stripe.com/v3/"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            var stripeKey = "{{ env('STRIPE_KEY') }}";
-            console.log("Stripe Key:", stripeKey); 
+            var stripeKey = '{{ env('STRIPE_KEY') }}';
             var stripe = Stripe(stripeKey);
             var elements = stripe.elements();
 
