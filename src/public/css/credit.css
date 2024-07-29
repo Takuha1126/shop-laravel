@@ -45,7 +45,6 @@
     color: #ff0000;
 }
 
-
 @media (max-width: 768px) {
     .main {
         max-width: 300px;
