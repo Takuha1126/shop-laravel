@@ -32,6 +32,9 @@ if (env('APP_ENV') === 'testing') {
         case 'production':
             $app->loadEnvironmentFrom('env/.env.prod');
             break;
+        default:
+            $app->loadEnvironmentFrom('.env');
+            break;
     }
 }
 
