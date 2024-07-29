@@ -123,7 +123,6 @@ class OrderController extends Controller
         }
     }
 
-
     public function success($orderId)
     {
         $order = Order::find($orderId);
@@ -143,8 +142,6 @@ class OrderController extends Controller
 
         return view('payment', compact('order'));
     }
-
-
 
     public function update(Request $request)
     {

@@ -21,7 +21,6 @@ jobs:
     steps:
       - checkout
 
-
       - run:
           name: Install MySQL and PHP extensions
           command: |
