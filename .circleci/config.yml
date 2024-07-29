@@ -86,6 +86,7 @@ jobs:
             php artisan config:clear && \
             php artisan cache:clear && \
             php artisan config:cache && \
+            php artisan route:clear && \
             php artisan migrate --force"
 
 workflows:
