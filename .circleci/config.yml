@@ -82,8 +82,6 @@ jobs:
             git fetch origin && \
             git reset --hard origin/main && \
             cd src && \
-            mv .env .env.bak
-            cp env/.env.prod .env && \
             composer install --no-interaction --prefer-dist --optimize-autoloader && \
             php artisan config:clear && \
             php artisan cache:clear && \
