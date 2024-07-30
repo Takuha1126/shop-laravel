@@ -108,12 +108,12 @@ class OrderController extends Controller
                 if ($paymentIntent->status === 'succeeded') {
                     session()->forget('order_data');
 
-                    return redirect()->route('purchase.success', ['orderId' => $order->id])->with('status', '支払いが完了しました。');
+                    return redirect()->route('purchase.success', ['orderId' => $order->id]);
                 } else {
                     throw new \Exception('支払いに失敗しました。');
                 }
             } else {
-                return redirect()->route('purchase.success', ['orderId' => $order->id])->with('status', '注文が完了しました。');
+                return redirect()->route('purchase.success', ['orderId' => $order->id]);
             }
 
         } catch (\Stripe\Exception\CardException $e) {

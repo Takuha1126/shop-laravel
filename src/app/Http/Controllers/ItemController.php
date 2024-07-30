@@ -30,7 +30,6 @@ class ItemController extends Controller
         }
     }
 
-
     public function detail($id) {
 
         $product = Product::with('categories')->findOrFail($id);

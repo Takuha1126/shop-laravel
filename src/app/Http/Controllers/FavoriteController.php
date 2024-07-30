@@ -26,9 +26,7 @@ class FavoriteController extends Controller
                                 ->exists();
 
             return response()->json(['isFavorite' => $isFavorite]);
-
         } catch (\Exception $e) {
-
             return response()->json(['error' => '内部サーバーエラー'], 500);
         }
     }
