@@ -21,7 +21,7 @@ if (env('APP_ENV') === 'testing') {
     $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
 
     switch ($host) {
-        case 'local':
+        case 'localhost':
             $app->loadEnvironmentFrom('env/.env.dev');
             break;
 
