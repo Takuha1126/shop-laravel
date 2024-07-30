@@ -90,6 +90,7 @@ jobs:
             php artisan route:clear && \
             php artisan migrate --force"
 
+
 workflows:
   version: 2
   build_and_deploy:
