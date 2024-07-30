@@ -83,11 +83,13 @@ jobs:
             git reset --hard origin/main && \
             cd src && \
             composer install --no-interaction --prefer-dist --optimize-autoloader && \
-            php artisan config:clear && \
             php artisan cache:clear && \
-            php artisan config:cache && \
+            php artisan config:clear && \
             php artisan route:clear && \
-            php artisan migrate --force"
+            php artisan view:clear && \
+            php artisan optimize:clear && \
+            php artisan event:clear && \
+            php artisan migrate --force
 
 workflows:
   version: 2
