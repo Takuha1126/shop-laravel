@@ -89,7 +89,7 @@ jobs:
             php artisan view:clear && \
             php artisan optimize:clear && \
             php artisan event:clear && \
-            php artisan migrate --force
+            php artisan migrate --force"
 
 workflows:
   version: 2
