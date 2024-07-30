@@ -29,7 +29,7 @@ if (env('APP_ENV') === 'testing') {
             $app->loadEnvironmentFrom('env/.env.stg');
             break;
 
-        case '18.181.229.30':
+        case 'production':
             $app->loadEnvironmentFrom('env/.env.prod');
             break;
     }
