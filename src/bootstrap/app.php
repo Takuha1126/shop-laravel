@@ -18,12 +18,9 @@ $app = new Illuminate\Foundation\Application(
 
 if (env('APP_ENV') === 'testing') {
     $app->loadEnvironmentFrom('.env.testing');
-} elseif (env('APP_ENV') === 'local') {
-    $app->loadEnvironmentFrom('.env');
 } else {
     $app->loadEnvironmentFrom('env/.env.prod');
 }
-
 
 
 /*
