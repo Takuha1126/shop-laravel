@@ -53,6 +53,7 @@ composer install
 .envファイルの作成
 cp .env.example .env
 
+データベースの設定
 DB_CONNECTION=mysql
 DB_HOST=mysql
 DB_PORT=3306
@@ -80,6 +81,21 @@ STRIPE_SECRET=your_stripe_secret_key
 アプリケーションキーを作成する
 php artisan key:generate
 
+テスト用の.envを作る
+.env.testingの作成
+cp .env.example .env.testing
+
+テスト用のデータベースの設定
+DB_CONNECTION=mysql_test
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=demo_test
+DB_USERNAME=root
+DB_PASSWORD=root
+
+テスト用アプリケーションキーを作成する
+php artisan key:generate --env=testing
+
 手動でテストする
 もしdemo_testというデータベースがなかったら作成する
 docker-compose exec mysql mysql -u root -p
@@ -91,6 +107,28 @@ php artisan test
 
 ストレージ保存した画像を反映させるために、シンボリック作成
 php artisan storage:link
+
+シンボリックの中にディレクトリを作成
+mkdir  storage/app/public/images
+mkdir  storage/app/public/profile_images
+ls storage/app/public/
+
+OneDriveから画像をダウンロード
+https://onedrive.live.com/?authkey=%21AMtSQRNgrYE61v8&cid=176BB5CC4F0A2C2F&id=176BB5CC4F0A2C2F%21122&parId=176BB5CC4F0A2C2F%21114&o=OneUp
+
+これでコピー
+cd src
+cp ~/Downloads/logo.svg storage/app/public/images 
+
+画像をダウンロードし、profile_imagesフォルダにdefault.jpgとして保存
+https://assets.st-note.com/img/1676155437876-5NNUYKTjTE.png
+
+これをdefault.jpgという名前に変えて保存
+cp ~/Downloads/default.jpg storage/app/public/profile_images 
+
+画像があるか確認
+ls storage/app/public/profile_images
+ls storage/app/public/images
 
 テーブルの作成
 php artisan migrate:refresh
