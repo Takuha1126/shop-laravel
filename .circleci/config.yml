@@ -83,6 +83,7 @@ jobs:
             git reset --hard origin/main && \
             cd src && \
             composer install --no-interaction --prefer-dist --optimize-autoloader && \
+            cp env/.env.prod .env && \
             php artisan cache:clear && \
             php artisan config:clear && \
             php artisan route:clear && \

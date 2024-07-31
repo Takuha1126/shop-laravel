@@ -15,15 +15,11 @@ $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
 
-
 if (env('APP_ENV') === 'testing') {
     $app->loadEnvironmentFrom('.env.testing');
-} elseif (env('APP_ENV') === 'local') {
-    $app->loadEnvironmentFrom('.env');
 } else {
-    $app->loadEnvironmentFrom('env/.env.prod');
+    $app->loadEnvironmentFrom('.env');
 }
-
 
 
 /*
