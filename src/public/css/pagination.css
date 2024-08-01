@@ -7,6 +7,7 @@
 .Pagination {
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .Pagination-Item {
@@ -40,4 +41,10 @@
 
 .Pagination-Item-Link:not(.isActive):hover {
     opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+    .pagination {
+            margin-right: 40px;
+        }
 }

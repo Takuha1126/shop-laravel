@@ -81,6 +81,7 @@ html {
 
     .header__title img {
         height: 30px;
+        width: 150px;
     }
 
     .nav__home {
