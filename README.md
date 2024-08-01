@@ -110,8 +110,8 @@ php artisan test
 php artisan storage:link
 
 シンボリックの中にディレクトリを作成
-mkdir  storage/app/public/images
-mkdir  storage/app/public/profile_images
+mkdir storage/app/public/images
+mkdir storage/app/public/profile_images
 ls storage/app/public/
 
 OneDriveから画像をダウンロード
@@ -133,6 +133,7 @@ ls storage/app/public/profile_images
 ls storage/app/public/images
 
 テーブルの作成
+docker-compose exec php bash
 php artisan migrate:refresh
 
 シーダーで初期データを挿入
