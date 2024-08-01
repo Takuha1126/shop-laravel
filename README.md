@@ -48,6 +48,7 @@ apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev
 docker-php-ext-configure gd --with-freetype --with-jpeg
 docker-php-ext-install gd
 
+インストールを実行
 composer install
 
 .envファイルの作成
@@ -116,14 +117,15 @@ ls storage/app/public/
 OneDriveから画像をダウンロード
 https://onedrive.live.com/?authkey=%21AMtSQRNgrYE61v8&cid=176BB5CC4F0A2C2F&id=176BB5CC4F0A2C2F%21122&parId=176BB5CC4F0A2C2F%21114&o=OneUp
 
-これでコピー
+
+これでコピー(ここではローカルマシンで操作)
 cd src
 cp ~/Downloads/logo.svg storage/app/public/images 
 
-画像をダウンロードし、profile_imagesフォルダにdefault.jpgとして保存
-https://assets.st-note.com/img/1676155437876-5NNUYKTjTE.png
+画像をダウンロードし、profile_imagesフォルダにdefault.jpgとして保存(拡張子はjpgを使用)
+curl -o ~/Downloads/default.jpg https://assets.st-note.com/img/1676155437876-5NNUYKTjTE.png
 
-これをdefault.jpgという名前に変えて保存
+ここで画像名をdefault.jpgという名前に変えて保存
 cp ~/Downloads/default.jpg storage/app/public/profile_images 
 
 画像があるか確認
