@@ -15,7 +15,13 @@
                         @foreach ($products as $product)
                             <div class="container__about">
                                 <div class="group__card">
-                                    <a href="{{ route('item.detail', ['id' => $product->id]) }}"><img src="{{ Storage::url($product->image) }}" alt="{{ $product->productName }}"></a>
+                                    <a href="{{ route('item.detail', ['id' => $product->id]) }}">
+                                        @if (App::environment('local'))
+                                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->productName }}">
+                                        @else
+                                            <img src="{{ Storage::disk('s3')->url($product->image) }}" alt="{{ $product->productName }}">
+                                        @endif
+                                    </a>
                                 </div>
                             </div>
                         @endforeach

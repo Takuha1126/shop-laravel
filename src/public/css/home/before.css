@@ -81,15 +81,14 @@ html {
 .main__item {
     max-width: 1200px;
     margin: 30px auto;
-    display: grid;
-    gap: 20px;
 
 }
 
 .item__ttl {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 30px;
+    column-gap: 100px;
+    row-gap: 100px;
     width: 100%;
 }
 
@@ -162,7 +161,8 @@ html {
     .item__ttl {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 30px;
+        column-gap: 30px;
+        row-gap: 80px;
         text-align: center;
     }
 

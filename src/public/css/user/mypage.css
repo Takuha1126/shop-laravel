@@ -129,7 +129,8 @@
     .item__ttl {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 30px;
+        column-gap: 30px;
+        row-gap: 80px;
         text-align: center;
     }
 

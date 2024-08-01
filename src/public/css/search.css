@@ -11,7 +11,8 @@
 .container__group {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 20px;
+    column-gap: 100px;
+    row-gap: 100px;
 }
 
 .container__about img{
@@ -25,7 +26,8 @@
     .container__group{
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 30px;
+        column-gap: 30px;
+        row-gap: 80px;
         text-align: center;
     }
 
