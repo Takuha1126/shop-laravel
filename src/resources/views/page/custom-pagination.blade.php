@@ -16,12 +16,20 @@
         @endif
 
         @php
-            $startPage = max(1, $paginator->currentPage() - 1);
-            $endPage = min($paginator->lastPage(), $paginator->currentPage() + 1);
+            $currentPage = $paginator->currentPage();
+            $lastPage = $paginator->lastPage();
+
+            if ($currentPage == 1) {
+                $startPage = 1;
+                $endPage = min(3, $lastPage);
+            } else {
+                $startPage = max(1, $currentPage - 1);
+                $endPage = min($lastPage, $currentPage + 1);
+            }
         @endphp
 
         @for ($page = $startPage; $page <= $endPage; $page++)
-            @if ($page == $paginator->currentPage())
+            @if ($page == $currentPage)
                 <li class="Pagination-Item active"><span>{{ $page }}</span></li>
             @else
                 <li class="Pagination-Item"><a href="{{ $paginator->url($page) }}" class="Pagination-Item-Link">{{ $page }}</a></li>
