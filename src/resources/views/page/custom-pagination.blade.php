@@ -14,25 +14,20 @@
             @else
                 <li class="Pagination-Item"><a href="{{ $paginator->previousPageUrl() }}" class="Pagination-Item-Link" rel="prev">&laquo;</a></li>
             @endif
-            @php
-                if ($currentPage == 1) {
-                    $startPage = 1;
-                    $endPage = min(3, $lastPage);
-                } elseif ($currentPage == $lastPage) {
-                    $startPage = max(1, $lastPage - 2);
-                    $endPage = $lastPage;
-                } else {
-                    $startPage = max(1, $currentPage - 1);
-                    $endPage = min($lastPage, $currentPage + 1);
-                }
-            @endphp
-            @for ($page = $startPage; $page <= $endPage; $page++)
-                @if ($page == $currentPage)
-                    <li class="Pagination-Item active"><span>{{ $page }}</span></li>
-                @else
-                    <li class="Pagination-Item"><a href="{{ $paginator->url($page) }}" class="Pagination-Item-Link">{{ $page }}</a></li>
+            @foreach ($elements as $element)
+                @if (is_string($element))
+                    <li class="Pagination-Item disabled"><span>{{ $element }}</span></li>
                 @endif
-            @endfor
+                @if (is_array($element))
+                    @foreach ($element as $page => $url)
+                        @if ($page == $paginator->currentPage())
+                            <li class="Pagination-Item active"><span>{{ $page }}</span></li>
+                        @else
+                            <li class="Pagination-Item"><a href="{{ $url }}" class="Pagination-Item-Link">{{ $page }}</a></li>
+                        @endif
+                    @endforeach
+                @endif
+            @endforeach
             @if ($paginator->hasMorePages())
                 <li class="Pagination-Item"><a href="{{ $paginator->nextPageUrl() }}" class="Pagination-Item-Link" rel="next">&raquo;</a></li>
             @else
