@@ -16,8 +16,8 @@ class CreateCreditCardsTable extends Migration
         Schema::create('credit_cards', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('customer_id')->nullable();
-            $table->string('payment_method_id')->nullable();
+            $table->string('customer_id');
+            $table->string('payment_method_id');
             $table->timestamps();
         });
     }

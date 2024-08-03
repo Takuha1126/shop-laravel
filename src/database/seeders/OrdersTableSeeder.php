@@ -18,6 +18,7 @@ class OrdersTableSeeder extends Seeder
             'user_id' => 1,
             'product_id' => 1,
             'status' => 'pending',
+            'amount' => '1000',
             'payment_method' => 'credit_card',
         ];
         DB::table('orders')->insert($param);
@@ -25,6 +26,7 @@ class OrdersTableSeeder extends Seeder
             'user_id' => 2,
             'product_id' => 2,
             'status' => 'processing',
+            'amount' => '2000',
             'payment_method' => 'convenience_store',
         ];
         DB::table('orders')->insert($param);
@@ -32,6 +34,7 @@ class OrdersTableSeeder extends Seeder
             'user_id' => 3,
             'product_id' => 3,
             'status' => 'completed',
+            'amount' => '1500',
             'payment_method' => 'bank_transfer',
         ];
         DB::table('orders')->insert($param);
@@ -39,6 +42,7 @@ class OrdersTableSeeder extends Seeder
             'user_id' => 4,
             'product_id' => 1,
             'status' => 'cancelled',
+            'amount' => '10000',
             'payment_method' => 'credit_card',
         ];
         DB::table('orders')->insert($param);
@@ -46,6 +50,7 @@ class OrdersTableSeeder extends Seeder
             'user_id' => 2,
             'product_id' => 3,
             'status' => 'pending',
+            'amount' => '45000',
             'payment_method' => 'convenience_store',
         ];
         DB::table('orders')->insert($param);

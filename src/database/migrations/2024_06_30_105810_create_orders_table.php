@@ -18,7 +18,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('product_id');
             $table->string('status')->default('pending');
-            $table->integer('amount')->nullable();
+            $table->integer('amount');
             $table->string('payment_method');
             $table->timestamps();
         });

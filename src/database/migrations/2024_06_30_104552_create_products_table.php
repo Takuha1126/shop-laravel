@@ -22,7 +22,6 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('price');
             $table->string('image');
             $table->string('status');
-            $table->boolean('is_recommended')->default(1);
             $table->timestamps();
         });
     }

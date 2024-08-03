@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class CreditCardSeeder extends Seeder
 {
@@ -16,37 +17,32 @@ class CreditCardSeeder extends Seeder
     {
         $param = [
             'user_id' => 1,
-            'customer_id' => uniqid(),
-            'last_four' => substr(strval(rand(1000, 9999)), -4),
-            'brand' => $this->getRandomBrand(),
+            'customer_id' => Str::random(10),
+            'payment_method_id' => Str::random(10),
         ];
         DB::table('credit_cards')->insert($param);
         $param = [
             'user_id' => 2,
-            'customer_id' => uniqid(),
-            'last_four' => substr(strval(rand(1000, 9999)), -4),
-            'brand' => $this->getRandomBrand(),
+            'customer_id' => Str::random(10),
+            'payment_method_id' => Str::random(10)
         ];
         DB::table('credit_cards')->insert($param);
         $param = [
             'user_id' => 3,
-            'customer_id' => uniqid(),
-            'last_four' => substr(strval(rand(1000, 9999)), -4),
-            'brand' => $this->getRandomBrand(),
+            'customer_id' => Str::random(10),
+            'payment_method_id' => Str::random(10),
         ];
         DB::table('credit_cards')->insert($param);
         $param = [
             'user_id' => 4,
-            'customer_id' => uniqid(),
-            'last_four' => substr(strval(rand(1000, 9999)), -4),
-            'brand' => $this->getRandomBrand(),
+            'customer_id' => Str::random(10),
+            'payment_method_id' => Str::random(10),
         ];
         DB::table('credit_cards')->insert($param);
         $param = [
             'user_id' => 5,
-            'customer_id' => uniqid(),
-            'last_four' => substr(strval(rand(1000, 9999)), -4),
-            'brand' => $this->getRandomBrand(),
+            'customer_id' => Str::random(10),
+            'payment_method_id' => Str::random(10),
         ];
         DB::table('credit_cards')->insert($param);
     }
