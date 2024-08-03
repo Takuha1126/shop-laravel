@@ -131,6 +131,8 @@ cp ~/Downloads/default.jpg storage/app/public/profile_images
 ls storage/app/public/profile_images
 ls storage/app/public/images
 
+ここでprofile_imagesこれにはdefault.jpgこれがあり、imagesこれにはlogo.svgこれがあれば良い
+
 テーブルの作成
 docker-compose exec php bash
 php artisan migrate:refresh
