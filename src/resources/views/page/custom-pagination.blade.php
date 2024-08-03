@@ -9,27 +9,33 @@
 <body>
     <div class="pagination">
         <ul class="Pagination">
-            @if ($paginator->onFirstPage())
+            @if ($products->onFirstPage())
                 <li class="Pagination-Item disabled"><span>&laquo;</span></li>
             @else
-                <li class="Pagination-Item"><a href="{{ $paginator->previousPageUrl() }}" class="Pagination-Item-Link" rel="prev">&laquo;</a></li>
+                <li class="Pagination-Item"><a href="{{ $products->previousPageUrl() }}" class="Pagination-Item-Link" rel="prev">&laquo;</a></li>
             @endif
-            @foreach ($elements as $element)
-                @if (is_string($element))
-                    <li class="Pagination-Item disabled"><span>{{ $element }}</span></li>
+            @php
+                $currentPage = $products->currentPage();
+                $lastPage = $products->lastPage();
+
+                $startPage = max(1, $currentPage - 1);
+                $endPage = min($lastPage, $currentPage + 1);
+
+                if ($currentPage == 1) {
+                    $endPage = min(3, $lastPage);
+                } elseif ($currentPage == $lastPage) {
+                    $startPage = max(1, $lastPage - 2);
+                }
+            @endphp
+            @for ($page = $startPage; $page <= $endPage; $page++)
+                @if ($page == $currentPage)
+                    <li class="Pagination-Item active"><span>{{ $page }}</span></li>
+                @else
+                    <li class="Pagination-Item"><a href="{{ $products->url($page) }}" class="Pagination-Item-Link">{{ $page }}</a></li>
                 @endif
-                @if (is_array($element))
-                    @foreach ($element as $page => $url)
-                        @if ($page == $paginator->currentPage())
-                            <li class="Pagination-Item active"><span>{{ $page }}</span></li>
-                        @else
-                            <li class="Pagination-Item"><a href="{{ $url }}" class="Pagination-Item-Link">{{ $page }}</a></li>
-                        @endif
-                    @endforeach
-                @endif
-            @endforeach
-            @if ($paginator->hasMorePages())
-                <li class="Pagination-Item"><a href="{{ $paginator->nextPageUrl() }}" class="Pagination-Item-Link" rel="next">&raquo;</a></li>
+            @endfor
+            @if ($products->hasMorePages())
+                <li class="Pagination-Item"><a href="{{ $products->nextPageUrl() }}" class="Pagination-Item-Link" rel="next">&raquo;</a></li>
             @else
                 <li class="Pagination-Item disabled"><span>&raquo;</span></li>
             @endif
@@ -37,4 +43,5 @@
     </div>
 </body>
 </html>
+
 
