@@ -47,7 +47,6 @@ html {
     align-items: center;
 }
 
-
 .custom__button {
     border: 1px solid #FF6666;
     background-color: #fff;
@@ -108,7 +107,6 @@ html {
     border: 1px solid #aaaaaa;
     border-radius: 3px;
 }
-
 
 .input__container {
     position: relative;
