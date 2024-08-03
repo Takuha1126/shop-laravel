@@ -18,15 +18,14 @@
 Laravel,php
 
 ##テーブル設計
-<img width="1440" alt="スクリーンショット 2024-07-24 21 29 49" src="https://github.com/user-attachments/assets/4088a66b-244d-480b-9ca5-db7d908d8bf3">
-<img width="1440" alt="スクリーンショット 2024-07-24 21 29 58" src="https://github.com/user-attachments/assets/394d63ad-aa5c-4a55-a90d-13104b244a80">
-<img width="1440" alt="スクリーンショット 2024-07-24 21 30 07" src="https://github.com/user-attachments/assets/33c6fa06-049f-45de-b959-fc0504668dd4">
-<img width="1440" alt="スクリーンショット 2024-07-24 21 30 15" src="https://github.com/user-attachments/assets/3774a6bc-bbce-4955-8eed-0ce2235d91a6">
+<img width="1440" alt="スクリーンショット 2024-08-03 16 34 14" src="https://github.com/user-attachments/assets/2e7ec331-79e5-4469-960c-0d9fa225d3f8">
+<img width="1440" alt="スクリーンショット 2024-08-03 16 34 23" src="https://github.com/user-attachments/assets/6725668b-0deb-4dfc-a725-6b798d3a012a">
+<img width="1440" alt="スクリーンショット 2024-08-03 16 34 31" src="https://github.com/user-attachments/assets/0127e9f6-95af-427a-9521-68525a060dfe">
+<img width="1440" alt="スクリーンショット 2024-08-03 16 34 38" src="https://github.com/user-attachments/assets/d30696bc-382f-4ffe-99e1-971c51c8201d">
 
 
 ##ER図
-<img width="1440" alt="スクリーンショット 2024-07-24 21 32 08" src="https://github.com/user-attachments/assets/408e7d6e-4a23-443c-bb3e-85a1499008b0">
-
+<img width="1440" alt="スクリーンショット 2024-08-03 16 34 49" src="https://github.com/user-attachments/assets/9ec6e4c1-d075-4a52-915f-e9926eb6a55d">
 
 
 #環境構築
@@ -131,6 +130,8 @@ cp ~/Downloads/default.jpg storage/app/public/profile_images
 画像があるか確認
 ls storage/app/public/profile_images
 ls storage/app/public/images
+
+ここでprofile_imagesこれにはdefault.jpgこれがあり、imagesこれにはlogo.svgこれがあれば良い
 
 テーブルの作成
 docker-compose exec php bash
