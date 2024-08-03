@@ -9,14 +9,14 @@
 <body>
     <div class="pagination">
         <ul class="Pagination">
-            @if ($products->onFirstPage())
+            @if ($paginator->onFirstPage())
                 <li class="Pagination-Item disabled"><span>&laquo;</span></li>
             @else
-                <li class="Pagination-Item"><a href="{{ $products->previousPageUrl() }}" class="Pagination-Item-Link" rel="prev">&laquo;</a></li>
+                <li class="Pagination-Item"><a href="{{ $paginator->previousPageUrl() }}" class="Pagination-Item-Link" rel="prev">&laquo;</a></li>
             @endif
             @php
-                $currentPage = $products->currentPage();
-                $lastPage = $products->lastPage();
+                $currentPage = $paginator->currentPage();
+                $lastPage = $paginator->lastPage();
 
                 $startPage = max(1, $currentPage - 1);
                 $endPage = min($lastPage, $currentPage + 1);
@@ -31,11 +31,11 @@
                 @if ($page == $currentPage)
                     <li class="Pagination-Item active"><span>{{ $page }}</span></li>
                 @else
-                    <li class="Pagination-Item"><a href="{{ $products->url($page) }}" class="Pagination-Item-Link">{{ $page }}</a></li>
+                    <li class="Pagination-Item"><a href="{{ $paginator->url($page) }}" class="Pagination-Item-Link">{{ $page }}</a></li>
                 @endif
             @endfor
-            @if ($products->hasMorePages())
-                <li class="Pagination-Item"><a href="{{ $products->nextPageUrl() }}" class="Pagination-Item-Link" rel="next">&raquo;</a></li>
+            @if ($paginator->hasMorePages())
+                <li class="Pagination-Item"><a href="{{ $paginator->nextPageUrl() }}" class="Pagination-Item-Link" rel="next">&raquo;</a></li>
             @else
                 <li class="Pagination-Item disabled"><span>&raquo;</span></li>
             @endif
