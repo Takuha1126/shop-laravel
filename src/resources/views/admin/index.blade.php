@@ -58,7 +58,7 @@
                                     <form action="{{route('user.destroy',$user->id) }}" method="post">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="button__delete">削除</button>
+                                        <button type="submit" class="button__delete">削除</button>
                                     </form>
                                 </td>
                             </tr>
