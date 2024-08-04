@@ -318,23 +318,9 @@ html {
         margin-bottom: 50px;
     }
 
-    .category__item {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-    }
-
-    .category__title,
-    .status__title,
-    .category__type,
-    .status__type {
-        display: block;
-        text-align: center;
-    }
-
     .about__description,
     .about__information {
-        width: 80%;
+        width: 100%;
         margin: 0 auto;
         }
 
@@ -355,6 +341,12 @@ html {
         padding-left: 20px;
         font-size: 13px;
         white-space: nowrap;
+    }
+
+    .category__item {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
     }
 
     .category__type {
