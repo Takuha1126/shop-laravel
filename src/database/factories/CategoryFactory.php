@@ -12,7 +12,7 @@ class CategoryFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->word, // ランダムな単語を生成する例
+            'name' => $this->faker->word,
         ];
     }
 }
