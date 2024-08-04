@@ -32,7 +32,7 @@ class Product extends Model
 
     public function favoriteByUsers()
     {
-    return $this->belongsToMany(User::class, 'favorites', 'product_id', 'user_id')->withTimestamps();
+        return $this->belongsToMany(User::class, 'favorites', 'product_id', 'user_id')->withTimestamps();
     }
 
     public function orders()
@@ -43,7 +43,7 @@ class Product extends Model
 
     public function isFavoriteBy($userId)
     {
-    return $this->favoriteByUsers()->where('user_id', $userId)->exists();
+        return $this->favoriteByUsers()->where('user_id', $userId)->exists();
     }
 
     public function purchase()
