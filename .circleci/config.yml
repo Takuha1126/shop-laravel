@@ -16,6 +16,7 @@ jobs:
         environment:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: demo_test
+        timeout: 60m
     steps:
       - checkout
       - run:
