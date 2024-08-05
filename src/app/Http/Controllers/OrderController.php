@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Stripe\Stripe;
+use Stripe\PaymentIntent;
 use App\Models\Product;
 use App\Models\Order;
 use App\Models\Category;
@@ -95,7 +96,7 @@ class OrderController extends Controller
             Stripe::setApiKey(env('STRIPE_SECRET'));
 
             if ($paymentMethod === 'credit_card') {
-                $paymentIntent = \Stripe\PaymentIntent::create([
+                $paymentIntent = PaymentIntent::create([
                     'amount' => $amount,
                     'currency' => 'jpy',
                     'payment_method' => $paymentMethodId,
