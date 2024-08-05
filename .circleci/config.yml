@@ -15,7 +15,7 @@ jobs:
         name: mysql
         environment:
           MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: demo_test
+          MYSQL_DATABASE: laravel_db
     steps:
       - checkout
       - run:
