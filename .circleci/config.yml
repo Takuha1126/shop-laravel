@@ -14,7 +14,7 @@ jobs:
           DB_USERNAME: root
           DB_PASSWORD: root
           APP_ENV: testing
-      - image: circleci/mysql:5.7
+      - image: circleci/php:8.0-apache
         environment:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: demo_test
