@@ -26,10 +26,11 @@ jobs:
           command: |
             docker-compose -f docker-compose.yml up -d
             # Wait for MySQL to be ready
-            while ! docker-compose exec -T mysql mysqladmin ping -h"mysql" --silent; do
-              echo "Waiting for MySQL to be ready..."
-              sleep 1
+            until docker-compose exec -T mysql mysql -u root -proot -e "SHOW DATABASES;" > /dev/null 2>&1; do
+            echo "Waiting for MySQL to be ready..."
+            sleep 1
             done
+            echo "MySQL is ready."
       - run:
           name: Install dependencies, configure environment, and run tests
           command: |
