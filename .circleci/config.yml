@@ -1,12 +1,13 @@
 version: 2.1
 
+
 jobs:
   build:
     docker:
       - image: circleci/php:8.0-apache
         environment:
           PHP_EXTENSIONS: gd
-          DB_CONNECTION: mysql_test
+          DB_CONNECTION: mysql
           DB_HOST: mysql
           DB_PORT: 3306
           DB_DATABASE: demo_test
@@ -17,19 +18,21 @@ jobs:
         environment:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: demo_test
-        # Expose MySQL port to allow PHP container to connect
-        ports:
-          - 3306:3306
 
     steps:
       - checkout
 
       - run:
-          name: Install MySQL client and PHP extensions
+          name: Install MySQL and PHP extensions
           command: |
             sudo apt-get update
-            sudo apt-get install -y default-mysql-client libmariadb-dev libpng-dev libjpeg-dev libfreetype6-dev
+            sudo apt-get install -y default-mysql-client libmariadb-dev
             sudo docker-php-ext-install pdo_mysql
+
+      - run:
+          name: Install gd extension and dependencies
+          command: |
+            sudo apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev
             sudo docker-php-ext-configure gd --with-jpeg --with-freetype
             sudo docker-php-ext-install gd
 
@@ -43,7 +46,7 @@ jobs:
 
             # Update database configuration in .env.testing
             sed -i "s/DB_CONNECTION=.*/DB_CONNECTION=mysql_test/" .env.testing
-            sed -i "s/DB_HOST=.*/DB_HOST=mysql/" .env.testing
+            sed -i "s/DB_HOST=.*/DB_HOST=127.0.0.1/" .env.testing
             sed -i "s/DB_DATABASE=.*/DB_DATABASE=demo_test/" .env.testing
             sed -i "s/DB_USERNAME=.*/DB_USERNAME=root/" .env.testing
             sed -i "s/DB_PASSWORD=.*/DB_PASSWORD=root/" .env.testing
