@@ -9,8 +9,8 @@ jobs:
           DB_HOST: mysql
           DB_PORT: 3306
           DB_DATABASE: laravel_db
-          DB_USERNAME: laravel_user
-          DB_PASSWORD: laravel_pass
+          DB_USERNAME: root
+          DB_PASSWORD: root
       - image: circleci/mysql:8.0
         name: mysql
         environment:
@@ -41,8 +41,8 @@ jobs:
             sed -i "s/DB_CONNECTION=.*/DB_CONNECTION=mysql/" .env.testing
             sed -i "s/DB_HOST=.*/DB_HOST=mysql/" .env.testing
             sed -i "s/DB_DATABASE=.*/DB_DATABASE=laravel_db/" .env.testing
-            sed -i "s/DB_USERNAME=.*/DB_USERNAME=laravel_user/" .env.testing
-            sed -i "s/DB_PASSWORD=.*/DB_PASSWORD=laravel_pass/" .env.testing
+            sed -i "s/DB_USERNAME=.*/DB_USERNAME=root/" .env.testing
+            sed -i "s/DB_PASSWORD=.*/DB_PASSWORD=root/" .env.testing
             echo "Current environment settings:"
             cat .env.testing
             php artisan config:clear --env=testing
