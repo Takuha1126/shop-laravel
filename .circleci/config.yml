@@ -11,13 +11,11 @@ jobs:
           DB_DATABASE: demo_test
           DB_USERNAME: root
           DB_PASSWORD: root
-      - image: circleci/mysql:8.0
-        name: mysql
-        environment:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: demo_test
     steps:
       - checkout
+      - setup_remote_docker:
+          version: 20.10.7
+          docker_layer_caching: true
       - run:
           name: Install Docker Compose
           command: |
@@ -28,7 +26,10 @@ jobs:
           command: |
             docker-compose -f docker-compose.yml up -d
             # Wait for MySQL to be ready
-            docker-compose exec -T php bash -c "while ! nc -z mysql 3306; do sleep 1; done"
+            while ! docker-compose exec -T mysql mysqladmin ping -h"mysql" --silent; do
+              echo "Waiting for MySQL to be ready..."
+              sleep 1
+            done
       - run:
           name: Install dependencies, configure environment, and run tests
           command: |
