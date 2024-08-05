@@ -43,7 +43,7 @@ jobs:
             cd src
             composer install --no-interaction --prefer-dist --optimize-autoloader
             cp .env.example .env.testing
-            php artisan key:generate --ansi
+            php artisan key:generate --ansi --env=testing
 
             # Update database configuration in .env.testing
             sed -i "s/DB_CONNECTION=.*/DB_CONNECTION=mysql/" .env.testing
