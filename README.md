@@ -25,7 +25,7 @@ Laravel,php
 
 
 ##ER図
-<img width="1440" alt="スクリーンショット 2024-08-03 16 34 49" src="https://github.com/user-attachments/assets/9ec6e4c1-d075-4a52-915f-e9926eb6a55d">
+<img width="1440" alt="スクリーンショット 2024-08-05 17 50 07" src="https://github.com/user-attachments/assets/fe36ab59-d841-4b5b-bdd5-552631bc8bbf">
 
 
 #環境構築
