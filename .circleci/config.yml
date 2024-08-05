@@ -16,26 +16,38 @@ jobs:
         environment:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: laravel_db
+
     steps:
       - checkout
       - run:
-          name: Install Docker Compose
+          name: Install MySQL and PHP extensions
           command: |
-            sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-            sudo chmod +x /usr/local/bin/docker-compose
+            sudo apt-get update
+            sudo apt-get install -y default-mysql-client libmariadb-dev
+            sudo docker-php-ext-install pdo_mysql
       - run:
-          name: Start services
+          name: Install gd extension and dependencies
           command: |
-            docker-compose -f docker-compose.yml up -d
-            # Wait for MySQL to be ready
-            docker-compose exec -T php bash -c "while ! nc -z mysql 3306; do sleep 1; done"
+            sudo apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev
+            sudo docker-php-ext-configure gd --with-jpeg --with-freetype
+            sudo docker-php-ext-install gd
       - run:
           name: Install dependencies, configure environment, and run tests
           command: |
-            docker-compose exec -T php bash -c "composer install --no-interaction --prefer-dist --optimize-autoloader"
-            docker-compose exec -T php bash -c "php artisan key:generate --ansi --env=testing"
-            docker-compose exec -T php bash -c "php artisan migrate:fresh --seed --force --env=testing"
-            docker-compose exec -T php bash -c "vendor/bin/phpunit"
+            cd src
+            composer install --no-interaction --prefer-dist --optimize-autoloader
+            cp .env.example .env.testing
+            php artisan key:generate --ansi --env=testing
+            sed -i "s/DB_CONNECTION=.*/DB_CONNECTION=mysql/" .env.testing
+            sed -i "s/DB_HOST=.*/DB_HOST=mysql/" .env.testing
+            sed -i "s/DB_DATABASE=.*/DB_DATABASE=demo_test/" .env.testing
+            sed -i "s/DB_USERNAME=.*/DB_USERNAME=root/" .env.testing
+            sed -i "s/DB_PASSWORD=.*/DB_PASSWORD=root/" .env.testing
+            echo "Current environment settings:"
+            cat .env.testing
+            php artisan config:clear --env=testing
+            php artisan migrate:fresh --seed --force --env=testing
+            vendor/bin/phpunit
 
   deploy:
     docker:
