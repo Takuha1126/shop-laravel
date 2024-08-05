@@ -74,6 +74,7 @@ jobs:
             chmod 600 ~/.ssh/id_rsa
             ssh-keyscan -H ec2-18-181-249-51.ap-northeast-1.compute.amazonaws.com >> ~/.ssh/known_hosts
 
+
       - run:
           name: Deploy over SSH
           command: |
