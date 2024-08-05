@@ -36,24 +36,19 @@ jobs:
           command: |
             cd src
             composer install --no-interaction --prefer-dist --optimize-autoloader
-            cp .env.example .env.testing
-            php artisan key:generate --ansi
 
-            # Update database configuration in .env.testing
-            sed -i "s/DB_CONNECTION=.*/DB_CONNECTION=mysql/" .env.testing
-            sed -i "s/DB_HOST=.*/DB_HOST=mysql/" .env.testing
-            sed -i "s/DB_DATABASE=.*/DB_DATABASE=demo_test/" .env.testing
-            sed -i "s/DB_USERNAME=.*/DB_USERNAME=root/" .env.testing
-            sed -i "s/DB_PASSWORD=.*/DB_PASSWORD=root/" .env.testing
+            # Use .env.testing for the test environment
+            cp .env.testing .env
 
             # Output current environment settings for debug
             echo "Current environment settings:"
-            cat .env.testing
+            cat .env
 
             # Clear configuration cache, test MySQL connection, run migrations and tests
             php artisan config:clear
             php artisan migrate:fresh --seed --force
             vendor/bin/phpunit
+
 
   deploy:
     docker:
