@@ -1,23 +1,18 @@
 version: 2.1
 
-
 jobs:
   build:
     docker:
       - image: circleci/php:8.0-apache
         environment:
           PHP_EXTENSIONS: gd
-          DB_CONNECTION: mysql_test
-          DB_HOST: mysql
-          DB_PORT: 3306
-          DB_DATABASE: demo_test
-          DB_USERNAME: root
-          DB_PASSWORD: root
           APP_ENV: testing
       - image: circleci/mysql:5.7
         environment:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: demo_test
+          MYSQL_USER: root
+          MYSQL_PASSWORD: root
 
     steps:
       - checkout
@@ -42,10 +37,10 @@ jobs:
             cd src
             composer install --no-interaction --prefer-dist --optimize-autoloader
             cp .env.example .env.testing
-            php artisan key:generate --ansi --env=testing
+            php artisan key:generate --ansi
 
             # Update database configuration in .env.testing
-            sed -i "s/DB_CONNECTION=.*/DB_CONNECTION=mysql_test/" .env.testing
+            sed -i "s/DB_CONNECTION=.*/DB_CONNECTION=mysql/" .env.testing
             sed -i "s/DB_HOST=.*/DB_HOST=mysql/" .env.testing
             sed -i "s/DB_DATABASE=.*/DB_DATABASE=demo_test/" .env.testing
             sed -i "s/DB_USERNAME=.*/DB_USERNAME=root/" .env.testing
@@ -56,8 +51,8 @@ jobs:
             cat .env.testing
 
             # Clear configuration cache, test MySQL connection, run migrations and tests
-            php artisan config:clear --env=testing
-            php artisan migrate:fresh --seed --force --env=testing
+            php artisan config:clear
+            php artisan migrate:fresh --seed --force
             vendor/bin/phpunit
 
   deploy:
