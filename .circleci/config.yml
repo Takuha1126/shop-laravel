@@ -11,11 +11,6 @@ jobs:
           DB_DATABASE: demo_test
           DB_USERNAME: root
           DB_PASSWORD: root
-      - image: circleci/mysql:5.7
-        name: mysql
-        environment:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: demo_test
 
     steps:
       - checkout
