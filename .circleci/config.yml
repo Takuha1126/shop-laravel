@@ -18,6 +18,8 @@ jobs:
           name: Start services
           command: |
             docker-compose -f docker-compose.yml up -d
+            # Wait for MySQL to be ready
+            docker-compose exec -T php bash -c "while ! nc -z mysql 3306; do sleep 1; done"
       - run:
           name: Install dependencies, configure environment, and run tests
           command: |
