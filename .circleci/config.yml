@@ -4,23 +4,9 @@ jobs:
   build:
     docker:
       - image: circleci/php:8.0-apache
-        environment:
-          PHP_EXTENSIONS: gd
-          DB_CONNECTION: mysql
-          DB_HOST: 192.168.32.3
-          DB_PORT: 3306
-          DB_DATABASE: demo_test
-          DB_USERNAME: root
-          DB_PASSWORD: root
-          APP_ENV: testing
       - image: circleci/mysql:5.7
-        environment:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: demo_test
-
     steps:
       - checkout
-
       - run:
           name: Install MySQL and PHP extensions
           command: |
@@ -40,33 +26,17 @@ jobs:
           command: |
             cd src
             composer install --no-interaction --prefer-dist --optimize-autoloader
-
-            # Create .env.testing from .env.example if it doesn't exist
-            if [ ! -f .env.testing ]; then
-              cp .env.example .env.testing
-            fi
-
-            # Update database configuration in .env.testing
+            cp .env.example .env.testing
+            php artisan key:generate --ansi --env=testing
             sed -i "s/DB_CONNECTION=.*/DB_CONNECTION=mysql/" .env.testing
-            sed -i "s/DB_HOST=.*/DB_HOST=mysql/" .env.testing  # 修正: MySQLコンテナのホスト名
+            sed -i "s/DB_HOST=.*/DB_HOST=127.0.0.1/" .env.testing
             sed -i "s/DB_DATABASE=.*/DB_DATABASE=demo_test/" .env.testing
             sed -i "s/DB_USERNAME=.*/DB_USERNAME=root/" .env.testing
             sed -i "s/DB_PASSWORD=.*/DB_PASSWORD=root/" .env.testing
-
-            # Copy .env.testing to .env
-            cp .env.testing .env
-
-            # Generate application key
-            php artisan key:generate --ansi
-
-            # Output current environment settings for debug
             echo "Current environment settings:"
-            cat .env
-
-            # Clear configuration cache, test MySQL connection, run migrations and tests
-            php artisan config:clear
-            php artisan config:cache
-            php artisan migrate:fresh --seed --force
+            cat .env.testing
+            php artisan config:clear --env=testing
+            php artisan migrate:fresh --seed --force --env=testing
             vendor/bin/phpunit
 
   deploy:
@@ -74,7 +44,6 @@ jobs:
       - image: circleci/php:8.0
     steps:
       - checkout
-
       - run:
           name: Add SSH key
           command: |
@@ -82,7 +51,6 @@ jobs:
             echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
             chmod 600 ~/.ssh/id_rsa
             ssh-keyscan -H ec2-18-181-249-51.ap-northeast-1.compute.amazonaws.com >> ~/.ssh/known_hosts
-
       - run:
           name: Deploy over SSH
           command: |
