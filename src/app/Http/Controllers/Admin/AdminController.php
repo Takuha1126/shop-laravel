@@ -38,7 +38,7 @@ class AdminController extends Controller
         $products = Product::where('user_id', $user->id)->get();
 
         foreach ($products as $product) {
-            if (!$product->orders()->exists()) {
+            if (!$product->order()->exists()) {
                 $product->delete();
             }
         }
