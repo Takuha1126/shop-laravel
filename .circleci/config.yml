@@ -8,14 +8,16 @@ jobs:
           DB_CONNECTION: mysql
           DB_HOST: mysql
           DB_PORT: 3306
-          DB_DATABASE: demo_test
-          DB_USERNAME: root
-          DB_PASSWORD: root
+          DB_DATABASE: laravel_db
+          DB_USERNAME: laravel_user
+          DB_PASSWORD: laravel_pass
+      - image: circleci/mysql:8.0
+        name: mysql
+        environment:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: laravel_db
     steps:
       - checkout
-      - setup_remote_docker:
-          version: 20.10.7
-          docker_layer_caching: true
       - run:
           name: Install Docker Compose
           command: |
@@ -26,11 +28,7 @@ jobs:
           command: |
             docker-compose -f docker-compose.yml up -d
             # Wait for MySQL to be ready
-            until docker-compose exec -T mysql mysql -u root -proot -e "SHOW DATABASES;" > /dev/null 2>&1; do
-            echo "Waiting for MySQL to be ready..."
-            sleep 1
-            done
-            echo "MySQL is ready."
+            docker-compose exec -T php bash -c "while ! nc -z mysql 3306; do sleep 1; done"
       - run:
           name: Install dependencies, configure environment, and run tests
           command: |
