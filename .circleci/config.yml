@@ -11,6 +11,8 @@ jobs:
           DB_DATABASE: demo_test
           DB_USERNAME: root
           DB_PASSWORD: root
+    services:
+      - mysql
     steps:
       - checkout
       - run:
