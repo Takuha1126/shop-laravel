@@ -17,7 +17,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: demo_test
   timeout: 60m
-  steps:
+    steps:
       - checkout
       - run:
           name: Install MySQL and PHP extensions
