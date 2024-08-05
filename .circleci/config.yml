@@ -11,24 +11,25 @@ jobs:
           DB_DATABASE: demo_test
           DB_USERNAME: root
           DB_PASSWORD: root
-
+      - image: circleci/mysql:8.0
+        name: mysql
+        environment:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: demo_test
     steps:
       - checkout
-
       - run:
           name: Install MySQL and PHP extensions
           command: |
             sudo apt-get update
             sudo apt-get install -y default-mysql-client libmariadb-dev
             sudo docker-php-ext-install pdo_mysql
-
       - run:
           name: Install gd extension and dependencies
           command: |
             sudo apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev
             sudo docker-php-ext-configure gd --with-jpeg --with-freetype
             sudo docker-php-ext-install gd
-
       - run:
           name: Install dependencies, configure environment, and run tests
           command: |
