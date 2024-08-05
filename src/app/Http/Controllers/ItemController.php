@@ -17,7 +17,7 @@ class ItemController extends Controller
         if (Auth::check()) {
             $user = Auth::user();
             $recommendedProducts = Product::where('user_id', '!=', $user->id)
-                                            ->whereDoesntHave('orders')
+                                            ->whereDoesntHave('order')
                                             ->inRandomOrder()
                                             ->take(10)
                                             ->get();
@@ -64,7 +64,7 @@ class ItemController extends Controller
             $productsQuery->where('user_id', '!=', $user->id);
         }
 
-        $productsQuery->whereDoesntHave('orders');
+        $productsQuery->whereDoesntHave('order');
         $products = $productsQuery->paginate(10);
 
         $categories = Category::all();

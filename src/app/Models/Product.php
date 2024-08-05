@@ -11,19 +11,23 @@ class Product extends Model
 
     protected $fillable = [
         'user_id',
-        'status',
         'productName',
         'brand',
         'description',
         'price',
-        'image'
+        'image',
+        'status'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function comments()
     {
         return $this->hasMany(Comment::class);
     }
-
 
     public function categories()
     {
@@ -35,11 +39,10 @@ class Product extends Model
         return $this->belongsToMany(User::class, 'favorites', 'product_id', 'user_id')->withTimestamps();
     }
 
-    public function orders()
+    public function order()
     {
-        return $this->hasMany(Order::class);
+        return $this->hasOne(Order::class);
     }
-
 
     public function isFavoriteBy($userId)
     {
