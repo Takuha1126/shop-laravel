@@ -11,7 +11,8 @@ use App\Http\Requests\CommentRequest;
 
 class CommentController extends Controller
 {
-    public function index($id) {
+    public function index($id)
+    {
         $product = Product::findOrFail($id);
         $user = Auth::user();
         $isFavorite = $user ? $user->favoriteProducts()->where('product_id', $id)->exists() : false;
@@ -25,7 +26,8 @@ class CommentController extends Controller
         return view('comment', compact('product', 'comments', 'isFavorite', 'categories'));
     }
 
-    public function store(CommentRequest $request, $id) {
+    public function store(CommentRequest $request, $id)
+    {
         $product = Product::findOrFail($id);
         $user = Auth::user();
 
@@ -39,7 +41,8 @@ class CommentController extends Controller
         return redirect()->route('comment.index', ['id' => $id]);
     }
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
         $comment = Comment::findOrFail($id);
 
         if (Auth::id() !== $comment->user_id) {

@@ -12,7 +12,8 @@ use App\Models\Order;
 
 class ItemController extends Controller
 {
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
         if (Auth::check()) {
             $user = Auth::user();
             $recommendedProducts = Product::where('user_id', '!=', $user->id)
@@ -30,8 +31,8 @@ class ItemController extends Controller
         }
     }
 
-    public function detail($id) {
-
+    public function detail($id)
+    {
         $product = Product::with('categories')->findOrFail($id);
         $categories = Category::all();
 
@@ -47,7 +48,8 @@ class ItemController extends Controller
         }
     }
 
-    public function search(Request $request) {
+    public function search(Request $request)
+    {
         $categoryName = $request->input('category_name');
         $productsQuery = Product::query();
 
