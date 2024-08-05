@@ -12,7 +12,10 @@ jobs:
           DB_USERNAME: root
           DB_PASSWORD: root
     services:
-      - mysql
+      - name: circleci/mysql:8.0
+        environment:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: demo_test
     steps:
       - checkout
       - run:
@@ -74,13 +77,6 @@ jobs:
             php artisan optimize:clear && \
             php artisan event:clear && \
             php artisan migrate --force"
-
-services:
-  mysql:
-    image: mysql:8.0
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: demo_test
 
 workflows:
   version: 2
