@@ -32,10 +32,6 @@ jobs:
             sudo docker-php-ext-configure gd --with-jpeg --with-freetype
             sudo docker-php-ext-install gd
       - run:
-          name: Wait for MySQL to be ready
-          command: |
-            ./wait-for-it.sh mysql:3306 --timeout=60 -- echo "MySQL is up"
-      - run:
           name: Install dependencies, configure environment, and run tests
           command: |
             cd src
