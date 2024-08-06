@@ -18,14 +18,16 @@
 Laravel,php
 
 ##テーブル設計
-<img width="1440" alt="スクリーンショット 2024-08-03 16 34 14" src="https://github.com/user-attachments/assets/2e7ec331-79e5-4469-960c-0d9fa225d3f8">
-<img width="1440" alt="スクリーンショット 2024-08-03 16 34 23" src="https://github.com/user-attachments/assets/6725668b-0deb-4dfc-a725-6b798d3a012a">
-<img width="1440" alt="スクリーンショット 2024-08-03 16 34 31" src="https://github.com/user-attachments/assets/0127e9f6-95af-427a-9521-68525a060dfe">
-<img width="1440" alt="スクリーンショット 2024-08-03 16 34 38" src="https://github.com/user-attachments/assets/d30696bc-382f-4ffe-99e1-971c51c8201d">
+<img width="1440" alt="スクリーンショット 2024-08-06 17 04 52" src="https://github.com/user-attachments/assets/43940da5-37cf-46bd-93e7-7114a12f5763">
+<img width="1440" alt="スクリーンショット 2024-08-06 17 05 00" src="https://github.com/user-attachments/assets/6e35ea64-0001-498f-be19-93bcb7460693">
+<img width="1440" alt="スクリーンショット 2024-08-06 17 05 09" src="https://github.com/user-attachments/assets/44b0722e-8956-4b42-808b-012f0a096003">
+<img width="1440" alt="スクリーンショット 2024-08-06 17 05 17" src="https://github.com/user-attachments/assets/bc59d09b-fd16-4faa-b2cc-b3d700b56d38">
+<img width="1440" alt="スクリーンショット 2024-08-06 17 05 23" src="https://github.com/user-attachments/assets/a102202d-b15a-47c1-aca0-a2a4039b13ae">
+
 
 
 ##ER図
-<img width="1440" alt="スクリーンショット 2024-08-05 17 50 07" src="https://github.com/user-attachments/assets/fe36ab59-d841-4b5b-bdd5-552631bc8bbf">
+<img width="1440" alt="スクリーンショット 2024-08-06 16 59 26" src="https://github.com/user-attachments/assets/16264bde-f24c-48b1-8f20-00987396f88e">
 
 
 #環境構築
