@@ -45,8 +45,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/order/store', [OrderController::class, 'storeTemporaryOrder'])->name('order.storeTemporary');
     Route::post('/order/submit', [OrderController::class, 'submitOrder'])->name('order.submit');
     Route::get('/purchase/success/{orderId}', [OrderController::class, 'success'])->name('purchase.success');
-    Route::get('/orders/{order}/editPayment', [OrderController::class, 'edit'])->name('payment.edit');
-    Route::put('/orders/{order}/updatePayment', [OrderController::class, 'update'])->name('payment.update');
+    Route::get('/order/{order}/editPayment', [OrderController::class, 'edit'])->name('payment.edit');
+    Route::put('/order/{order}/updatePayment', [OrderController::class, 'update'])->name('payment.update');
     Route::get('/credit',[PaymentController::class, 'showCreditRegistrationForm'])->name('credit.show');
     Route::post('/credit/save', [PaymentController::class, 'saveCreditCard'])->name('credit.save');
     Route::get('/email/verify', [RegisterController::class, 'showVerifyForm'])->name('auth.verify');
