@@ -11,15 +11,15 @@
         <div class="main__ttl">
             <div class="main__item">
                 @if (App::environment('local'))
-                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->productName }}">
+                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->product_name }}">
                 @else
-                    <img src="{{ Storage::disk('s3')->url($product->image) }}" alt="{{ $product->productName }}">
+                    <img src="{{ Storage::disk('s3')->url($product->image) }}" alt="{{ $product->product_name }}">
                 @endif
             </div>
             <div class="main__about">
                 <div class="about__group">
                     <div class="about__ttl">
-                        <p class="about__title">{{ $product->productName }}</p>
+                        <p class="about__title">{{ $product->product_name }}</p>
                         <p class="about__brand">{{ $product->brand }}</p>
                     </div>
                     <div class="about__price">

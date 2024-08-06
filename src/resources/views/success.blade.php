@@ -10,7 +10,7 @@
             <p class="group__title">購入完了</p>
             <div class="group__item">
                 @if ($order)
-                    <p class="group__item-about">商品の名前: {{ $order->product->productName }}</p>
+                    <p class="group__item-about">商品の名前: {{ $order->product->product_name }}</p>
                     <p class="group__item-about">支払い方法:
                         @if ($order->payment_method === 'credit_card')
                             クレジットカード払い

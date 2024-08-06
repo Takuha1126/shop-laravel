@@ -16,7 +16,7 @@ class ProductsTableSeeder extends Seeder
     {
         $param = [
             'user_id' => 1,
-            'productName' => 'Laptop X1',
+            'product_name' => 'Laptop X1',
             'brand' => 'Brand X',
             'description' => 'Powerful laptop with latest features.',
             'price' => 120000,
@@ -26,7 +26,7 @@ class ProductsTableSeeder extends Seeder
         DB::table('products')->insert($param);
         $param = [
             'user_id' => 1,
-            'productName' => 'Laptop X1',
+            'product_name' => 'Laptop X1',
             'brand' => 'Brand X',
             'description' => 'Powerful laptop with latest features.',
             'price' => 120000,
@@ -36,7 +36,7 @@ class ProductsTableSeeder extends Seeder
         DB::table('products')->insert($param);
         $param = [
             'user_id' => 1,
-            'productName' => 'Headphones H3',
+            'product_name' => 'Headphones H3',
             'brand' => 'Brand H',
             'description' => 'Noise-canceling headphones for immersive experience.',
             'price' => 15000,
@@ -46,7 +46,7 @@ class ProductsTableSeeder extends Seeder
         DB::table('products')->insert($param);
         $param = [
             'user_id' => 3,
-            'productName' => 'Camera C1',
+            'product_name' => 'Camera C1',
             'brand' => 'Brand C',
             'description' => 'Professional camera for stunning photography.',
             'price' => 200000,
@@ -56,7 +56,7 @@ class ProductsTableSeeder extends Seeder
         DB::table('products')->insert($param);
         $param = [
             'user_id' => 2,
-            'productName' => 'Gaming Console G1',
+            'product_name' => 'Gaming Console G1',
             'brand' => 'Brand G',
             'description' => 'Next-gen gaming console for ultimate gaming experience.',
             'price' => 50000,

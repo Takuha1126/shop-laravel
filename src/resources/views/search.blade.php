@@ -17,9 +17,9 @@
                                 <div class="group__card">
                                     <a href="{{ route('item.detail', ['id' => $product->id]) }}">
                                         @if (App::environment('local'))
-                                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->productName }}">
+                                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product-product_name }}">
                                         @else
-                                            <img src="{{ Storage::disk('s3')->url($product->image) }}" alt="{{ $product->productName }}">
+                                            <img src="{{ Storage::disk('s3')->url($product->image) }}" alt="{{ $product->product_name }}">
                                         @endif
                                     </a>
                                 </div>

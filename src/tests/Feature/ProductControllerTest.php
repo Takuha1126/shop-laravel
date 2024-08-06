@@ -35,7 +35,7 @@ class ProductControllerTest extends TestCase
         $dummyImage = UploadedFile::fake()->image('sample.jpg');
 
         $requestData = [
-            'productName' => 'Sample Product',
+            'product_name' => 'Sample Product',
             'brand' => 'Sample Brand',
             'description' => 'This is a sample product description.',
             'price' => 1000,
@@ -55,7 +55,7 @@ class ProductControllerTest extends TestCase
         $this->assertDatabaseHas('products', [
             'user_id' => $user->id,
             'status' => 'available',
-            'productName' => 'Sample Product',
+            'product_name' => 'Sample Product',
             'brand' => 'Sample Brand',
             'description' => 'This is a sample product description.',
             'price' => 1000,

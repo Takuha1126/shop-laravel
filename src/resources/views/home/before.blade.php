@@ -57,9 +57,9 @@
                         @foreach($products as $product)
                             <a class="item__button" href="{{ route('item.detail', ['id' => $product->id]) }}">
                                 @if (App::environment('local'))
-                                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->productName }}">
+                                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->product_name }}">
                                 @else
-                                    <img src="{{ Storage::disk('s3')->url($product->image) }}" alt="{{ $product->productName }}">
+                                    <img src="{{ Storage::disk('s3')->url($product->image) }}" alt="{{ $product->product_name }}">
                                 @endif
                             </a>
                         @endforeach
@@ -89,7 +89,7 @@
                             $.each(response, function(index, product) {
                                 var productLink = '/item/' + product.id;
                                 results += '<a class="item__button" href="' + productLink + '">';
-                                results += '<img src="/storage/' + product.image + '" alt="' + product.productName + '">';
+                                results += '<img src="/storage/' + product.image + '" alt="' + product.product_name + '">';
                                 results += '</a>';
                             });
                             $('#search-results').html(results);

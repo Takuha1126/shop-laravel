@@ -23,7 +23,7 @@ class ProductController extends Controller
 
         $product = new Product();
         $product->user_id = $user->id;
-        $product->productName = $request->productName;
+        $product->product_name = $request->product_name;
         $product->brand = $request->brand;
         $product->description = $request->description;
         $product->price = $request->price;

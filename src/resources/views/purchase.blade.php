@@ -10,12 +10,12 @@
             <div class="main__ttl">
                 <div class="main__item">
                     @if (App::environment('local'))
-                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->productName }}">
+                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->product_name }}">
                     @else
-                        <img src="{{ Storage::disk('s3')->url($product->image) }}" alt="{{ $product->productName }}">
+                        <img src="{{ Storage::disk('s3')->url($product->image) }}" alt="{{ $product->product_name }}">
                     @endif
                     <div class="item__ttl">
-                        <p class="item__title">{{ $product->productName }}</p>
+                        <p class="item__title">{{ $product->product_name }}</p>
                         <p class="item__price">¥{{ $product->price }}</p>
                     </div>
                 </div>

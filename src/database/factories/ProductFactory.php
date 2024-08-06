@@ -14,7 +14,7 @@ class ProductFactory extends Factory
         return [
             'user_id' => \App\Models\User::factory(),
             'status' => 'available',
-            'productName' => $this->faker->word,
+            'product_name' => $this->faker->word,
             'brand' => $this->faker->company,
             'description' => $this->faker->sentence,
             'price' => $this->faker->numberBetween(100, 10000),

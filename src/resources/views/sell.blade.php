@@ -71,9 +71,9 @@
                         <div class="detail__about">
                             <div class="detail__text">
                                 <label class="label">商品名</label>
-                                <input type="text" name="productName">
+                                <input type="text" name="product_name">
                             </div>
-                            @error('productName')
+                            @error('product_name')
                                 <p class="error">{{ $message }}</p>
                             @enderror
                             <div class="detail__text">

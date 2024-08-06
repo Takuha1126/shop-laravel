@@ -22,9 +22,9 @@
                             <div class="recommended-product">
                                 <a class="item__button" href="{{ route('item.detail', ['id' => $product->id]) }}">
                                     @if (App::environment('local'))
-                                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->productName }}">
+                                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->product_name }}">
                                     @else
-                                        <img src="{{ Storage::disk('s3')->url($product->image) }}" alt="{{ $product->productName }}">
+                                        <img src="{{ Storage::disk('s3')->url($product->image) }}" alt="{{ $product->product_name }}">
                                     @endif
                                 </a>
                             </div>
@@ -39,9 +39,9 @@
                             <div class="favorite-product" data-product-id="{{ $product->id }}">
                                 <a class="item__button" href="{{ route('item.detail', ['id' => $product->id]) }}">
                                     @if (App::environment('local'))
-                                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->productName }}">
+                                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->product_name }}">
                                     @else
-                                        <img src="{{ Storage::disk('s3')->url($product->image) }}" alt="{{ $product->productName }}">
+                                        <img src="{{ Storage::disk('s3')->url($product->image) }}" alt="{{ $product->product_name }}">
                                     @endif
                                 </a>
                             </div>

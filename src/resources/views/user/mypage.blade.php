@@ -40,16 +40,16 @@
                         @foreach($productsForSale as $product)
                             <a class="item__button listing" href="{{ route('item.detail', ['id' => $product->id]) }}">
                                 @if (App::environment('local'))
-                                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->productName }}">
+                                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->product_name }}">
                                 @else
-                                    <img src="{{ Storage::disk('s3')->url($product->image) }}" alt="{{ $product->productName }}">
+                                    <img src="{{ Storage::disk('s3')->url($product->image) }}" alt="{{ $product->product_name }}">
                                 @endif
                             </a>
                         @endforeach
                         @foreach($purchasedProducts as $product)
                             <a class="item__button buy" href="{{ route('item.detail', ['id' => $product->product->id]) }}">
                                 @if (App::environment('local'))
-                                    <img src="{{ asset('storage/' . $product->product->image) }}" alt="{{ $product->product->productName }}の写真">
+                                    <img src="{{ asset('storage/' . $product->product->image) }}" alt="{{ $product->product->product_name }}の写真">
                                 @else
                                     <img src="{{ Storage::disk('s3')->url($product->product->image) }}" alt="{{ $product->product->image}}">
                                 @endif
