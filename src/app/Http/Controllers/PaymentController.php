@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Stripe\Stripe;
 use Stripe\Customer;
+use Stripe\PaymentMethod;
 use App\Models\CreditCard;
 
 
@@ -30,16 +31,16 @@ class PaymentController extends Controller
         $creditCard = $user->creditCard()->first();
         $customerId = $creditCard ? $creditCard->customer_id : null;
 
-        $paymentMethod = \Stripe\PaymentMethod::retrieve($paymentMethodId);
+        $paymentMethod = PaymentMethod::retrieve($paymentMethodId);
 
         if (!$customerId) {
-            $customer = \Stripe\Customer::create([
+            $customer = Customer::create([
                 'email' => $user->email,
             ]);
             $customerId = $customer->id;
             $paymentMethod->attach(['customer' => $customerId]);
 
-            \Stripe\Customer::update($customerId, [
+            Customer::update($customerId, [
                 'invoice_settings' => ['default_payment_method' => $paymentMethodId],
             ]);
 
@@ -51,7 +52,7 @@ class PaymentController extends Controller
         } else {
             $paymentMethod->attach(['customer' => $customerId]);
 
-            \Stripe\Customer::update($customerId, [
+            Customer::update($customerId, [
                 'invoice_settings' => ['default_payment_method' => $paymentMethodId],
             ]);
 
