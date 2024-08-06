@@ -16,7 +16,7 @@ jobs:
         environment:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: demo_test
-    resource_class: large
+
     steps:
       - checkout
       - run:
