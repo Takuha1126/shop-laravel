@@ -13,6 +13,7 @@ use App\Models\Order;
 use App\Models\Category;
 use App\Http\Requests\SubmitOrderRequest;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -54,7 +55,7 @@ class OrderController extends Controller
         return redirect()->route('order.details');
     }
 
-    public function submitOrder(SubmitOrderRequest  $request)
+    public function submitOrder(SubmitOrderRequest $request)
     {
         try {
             $paymentMethod = $request->input('payment_method');
@@ -80,18 +81,7 @@ class OrderController extends Controller
                 return redirect()->back()->with('error', '購入する前に住所を設定してください。');
             }
 
-
-            $product = Product::findOrFail($orderData['product_id']);
             $amount = $product->price;
-
-            $order = new Order();
-            $order->user_id = auth()->user()->id;
-            $order->product_id = $orderData['product_id'];
-            $order->payment_method = $paymentMethod;
-            $order->amount = $amount;
-            $order->save();
-
-            $product->purchase();
 
             Stripe::setApiKey(env('STRIPE_SECRET'));
 
@@ -103,26 +93,43 @@ class OrderController extends Controller
                     'customer' => $creditCard->customer_id,
                     'confirmation_method' => 'manual',
                     'confirm' => true,
-                    'return_url' => route('purchase.success', ['orderId' => $order->id]),
+                    'return_url' => route('purchase.success', ['orderId' => 'temp']),
                 ]);
 
                 if ($paymentIntent->status === 'succeeded') {
-                    session()->forget('order_data');
+                    $order = new Order();
+                    $order->user_id = auth()->user()->id;
+                    $order->product_id = $orderData['product_id'];
+                    $order->payment_method = $paymentMethod;
+                    $order->amount = $amount;
+                    $order->save();
 
+                    $product->purchase();
+                    session()->forget('order_data');
                     return redirect()->route('purchase.success', ['orderId' => $order->id]);
                 } else {
                     throw new \Exception('支払いに失敗しました。');
                 }
             } else {
+                $order = new Order();
+                $order->user_id = auth()->user()->id;
+                $order->product_id = $orderData['product_id'];
+                $order->payment_method = $paymentMethod;
+                $order->amount = $amount;
+                $order->save();
+
+                $product->purchase();
+                session()->forget('order_data');
                 return redirect()->route('purchase.success', ['orderId' => $order->id]);
             }
-
         } catch (\Stripe\Exception\CardException $e) {
-            return redirect()->back();
+            return redirect()->back()->with('error', 'カード決済に失敗しました。');
         } catch (\Exception $e) {
-            return redirect()->back();
+            return redirect()->back()->with('error', '注文処理中にエラーが発生しました。');
         }
     }
+
+
 
     public function success($orderId)
     {
