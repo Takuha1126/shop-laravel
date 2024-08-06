@@ -13,7 +13,7 @@ use App\Models\Order;
 use App\Models\Category;
 use App\Http\Requests\SubmitOrderRequest;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\DB;
+
 
 class OrderController extends Controller
 {
