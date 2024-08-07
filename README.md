@@ -64,6 +64,10 @@ DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
 このように書き換える
 
+もしlaravel_dbというデータベースがなかったら作成する
+docker-compose exec mysql mysql -u root -p
+CREATE DATABASE laravel_db;
+
 メール設定
 各自でしてください
 MAIL_MAILER=smtp
