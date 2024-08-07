@@ -38,6 +38,7 @@ class RegisterController extends Controller
 
 
         Auth::login($user);
+        $request->session()->regenerate();
 
         return redirect()->route('auth.verify');
     }

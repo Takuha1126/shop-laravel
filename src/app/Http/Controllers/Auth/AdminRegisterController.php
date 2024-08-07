@@ -29,6 +29,7 @@ class AdminRegisterController extends Controller
 
 
         Auth::guard('admin')->login($admin);
+        $request->session()->regenerate();
 
         return redirect()->route('admin.verify');
     }
