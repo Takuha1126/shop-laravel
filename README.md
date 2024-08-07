@@ -7,6 +7,11 @@
 
 ##アプリケーションURL
 
+注意事項
+商品を出品したら誤解で自分のを買わないように出品者のホームと検索欄には自分の商品は出ませんのでご注意ください。
+商品を購入したらその商品はどのユーザーのホーム画面と検索ページには表示されなくなり、購入した人の購入欄だけにしか表示されないでご注意ください。
+管理画面でユーザーを削除した場合、他のユーザーに購入をされていない商品とその削除したユーザーがしたコメントが削除されるのでご注意ください。
+
 ##機能一覧
 利用者
 ログイン、会員登録、認証メール送信、ログアウト、商品一覧取得、商品一覧取得、商品詳細取得、商品お気に入り一覧取得、ユーザー情報取得、ユーザー出品商品取得、プロフィール変更、商品お気に入り追加、商品お気に入り削除、商品コメント追加、商品コメント削除、出品機能、カテゴリーでの検索、購入機能、配送先変更機能、支払い方法の選択・変更機能、ページネーション
@@ -18,19 +23,19 @@
 Laravel,php
 
 ##テーブル設計
-<img width="1440" alt="スクリーンショット 2024-08-06 17 04 52" src="https://github.com/user-attachments/assets/43940da5-37cf-46bd-93e7-7114a12f5763">
-<img width="1440" alt="スクリーンショット 2024-08-06 17 05 00" src="https://github.com/user-attachments/assets/6e35ea64-0001-498f-be19-93bcb7460693">
-<img width="1440" alt="スクリーンショット 2024-08-06 17 05 09" src="https://github.com/user-attachments/assets/44b0722e-8956-4b42-808b-012f0a096003">
-<img width="1440" alt="スクリーンショット 2024-08-06 17 05 17" src="https://github.com/user-attachments/assets/bc59d09b-fd16-4faa-b2cc-b3d700b56d38">
-<img width="1440" alt="スクリーンショット 2024-08-06 17 05 23" src="https://github.com/user-attachments/assets/a102202d-b15a-47c1-aca0-a2a4039b13ae">
-
+<img width="1440" alt="スクリーンショット 2024-08-07 18 14 09" src="https://github.com/user-attachments/assets/3f80a3b9-b3d0-45bc-9f1d-7ddc85897280">
+<img width="1440" alt="スクリーンショット 2024-08-07 18 14 19" src="https://github.com/user-attachments/assets/bc5411c1-2524-4e49-9775-695973654ad5">
+<img width="1440" alt="スクリーンショット 2024-08-07 18 14 27" src="https://github.com/user-attachments/assets/1d4e0e41-4a74-45c0-a6bf-9cf41efd00f9">
+<img width="1440" alt="スクリーンショット 2024-08-07 18 14 36" src="https://github.com/user-attachments/assets/56d26123-8fcf-438b-8ca6-552dbbfd35cb">
+<img width="1440" alt="スクリーンショット 2024-08-07 18 14 42" src="https://github.com/user-attachments/assets/b0b51acf-ca5b-4a0e-9d28-4f7cf40ef94b">
 
 
 ##ER図
-<img width="1440" alt="スクリーンショット 2024-08-06 16 59 26" src="https://github.com/user-attachments/assets/16264bde-f24c-48b1-8f20-00987396f88e">
+<img width="1440" alt="スクリーンショット 2024-08-07 18 15 10" src="https://github.com/user-attachments/assets/b3bf1a55-3cb2-4a19-8842-b808b3ab987f">
 
 
 #環境構築
+このプロジェクトは、初心者が簡単に環境設定を行えるように設計されています。デフォルトでは、.envファイルを使用して設定を行います。以下の手順に従って、環境を構築してください。
 開発環境を以下のGithubURLからクローンする
 git clone git@github.com:Takuha1126/shop-laravel.git
 
