@@ -35,6 +35,7 @@ Laravel,php
 
 
 #環境構築
+このプロジェクトは、初心者が簡単に環境設定を行えるように設計されています。デフォルトでは、.envファイルを使用して設定を行います。以下の手順に従って、環境を構築してください。
 開発環境を以下のGithubURLからクローンする
 git clone git@github.com:Takuha1126/shop-laravel.git
 
