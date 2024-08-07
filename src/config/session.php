@@ -127,10 +127,9 @@ return [
     */
 
     'cookie' => env(
-        'SESSION_COOKIE_' . strtoupper(config('auth.defaults.guard')),
+        'SESSION_COOKIE',
         Str::slug(env('APP_NAME', 'laravel'), '_').'_session'
     ),
-
 
     /*
     |--------------------------------------------------------------------------
