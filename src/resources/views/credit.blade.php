@@ -34,66 +34,70 @@
     <script src="https://js.stripe.com/v3/"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            var stripeKey = "{{ config('services.stripe.key') }}";
-            var stripe = Stripe(stripeKey);
-            var elements = stripe.elements();
+    var stripeKey = "{{ config('services.stripe.key') }}";
+    var stripe = Stripe(stripeKey);
+    var elements = stripe.elements();
 
-            var cardNumber = elements.create('cardNumber');
-            cardNumber.mount('#card-number');
+    var cardNumber = elements.create('cardNumber');
+    cardNumber.mount('#card-number');
 
-            var cardExpiry = elements.create('cardExpiry');
-            cardExpiry.mount('#card-expiry');
+    var cardExpiry = elements.create('cardExpiry');
+    cardExpiry.mount('#card-expiry');
 
-            var cardCvc = elements.create('cardCvc');
-            cardCvc.mount('#card-cvc');
+    var cardCvc = elements.create('cardCvc');
+    cardCvc.mount('#card-cvc');
 
-            var form = document.getElementById('credit-card-form');
-            var submitButton = form.querySelector('#submit-btn');
-            var cardHolderNameInput = form.querySelector('#card-holder-name');
-            var allErrors = form.querySelector('#all-errors');
+    function removeAriaHiddenFromFocusedElement() {
+        var focusedElement = document.activeElement;
+        if (focusedElement && focusedElement.hasAttribute('aria-hidden')) {
+            focusedElement.removeAttribute('aria-hidden');
+        }
+    }
 
-            function clearErrorMessages() {
-                allErrors.textContent = '';
+    document.addEventListener('focusin', removeAriaHiddenFromFocusedElement);
+
+    var form = document.getElementById('credit-card-form');
+    var submitButton = form.querySelector('#submit-btn');
+    var cardHolderNameInput = form.querySelector('#card-holder-name');
+    var allErrors = form.querySelector('#all-errors');
+
+    function clearErrorMessages() {
+        allErrors.textContent = '';
+    }
+
+    function showError(message) {
+        allErrors.textContent = message;
+    }
+
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        clearErrorMessages();
+
+        var cardHolderName = cardHolderNameInput.value.trim();
+        if (cardHolderName === '') {
+            showError('名義を入力してください。');
+            return;
+        }
+
+        stripe.createPaymentMethod({
+            type: 'card',
+            card: cardNumber,
+            billing_details: { name: cardHolderName }
+        }).then(function(result) {
+            if (result.error) {
+                showError(result.error.message);
+            } else {
+                var hiddenInput = document.createElement('input');
+                hiddenInput.setAttribute('type', 'hidden');
+                hiddenInput.setAttribute('name', 'payment_method_id');
+                hiddenInput.setAttribute('value', result.paymentMethod.id);
+                form.appendChild(hiddenInput);
+
+                form.submit();
             }
-
-            function showError(message) {
-                allErrors.textContent = message;
-            }
-
-            form.addEventListener('submit', function (event) {
-                event.preventDefault();
-                clearErrorMessages();
-
-                var cardHolderName = cardHolderNameInput.value.trim();
-                if (cardHolderName === '') {
-                    showError('名義を入力してください。');
-                    return;
-                }
-
-                stripe.createPaymentMethod({
-                    type: 'card',
-                    card: cardNumber,
-                    billing_details: { name: cardHolderName }
-                }).then(function(result) {
-                    if (result.error) {
-                        showError(result.error.message);
-                    } else {
-
-                        var hiddenInputs = form.querySelectorAll('[aria-hidden="true"]');
-                            hiddenInputs.forEach(function(input) {
-                            input.removeAttribute('aria-hidden');
-                        });
-
-                        var hiddenInput = document.createElement('input');
-                        hiddenInput.setAttribute('type', 'hidden');
-                        hiddenInput.setAttribute('name', 'payment_method_id');
-                        hiddenInput.setAttribute('value', result.paymentMethod.id);
-                        form.appendChild(hiddenInput);
-
-                        form.submit();
-                    }
-                });
-            });
         });
+    });
+});
+
     </script>
 @endsection
