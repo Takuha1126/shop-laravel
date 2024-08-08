@@ -87,6 +87,7 @@ MAIL_FROM_NAME="${APP_NAME}"
 
 stripeの設定
 各自でしてください
+本プロジェクトはHTTPを使用しているため、テストキーを使用してください
 STRIPE_KEY=your_stripe_public_key
 STRIPE_SECRET=your_stripe_secret_key
 
