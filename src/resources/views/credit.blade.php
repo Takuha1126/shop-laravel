@@ -78,6 +78,12 @@
                     if (result.error) {
                         showError(result.error.message);
                     } else {
+
+                        var hiddenInputs = form.querySelectorAll('[aria-hidden="true"]');
+                            hiddenInputs.forEach(function(input) {
+                            input.removeAttribute('aria-hidden');
+                        });
+
                         var hiddenInput = document.createElement('input');
                         hiddenInput.setAttribute('type', 'hidden');
                         hiddenInput.setAttribute('name', 'payment_method_id');
