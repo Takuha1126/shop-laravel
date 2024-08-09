@@ -352,6 +352,7 @@ html {
     .category__type {
         font-size: 10px;
         padding: 0 10px;
+        text-align: center;
     }
 
 }
