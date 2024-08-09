@@ -28,7 +28,7 @@
                 </div>
                 <div class="main__password">
                     <label class="label">パスワード</label>
-                    <input type="password" name="password">
+                    <input type="password" name="password" autocomplete="current-password">
                     @error('password')
                         <p class="error">{{ $message }}</p>
                     @enderror
