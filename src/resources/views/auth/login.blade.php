@@ -21,13 +21,13 @@
                 </div>
                 <div class="main__password">
                     <label class="label">パスワード</label>
-                    <input type="password" name="password" autocomplete="current-password">
+                    <input type="password" name="password">
                     @error('password')
                         <p class="error">{{ $message }}</p>
                     @enderror
                 </div>
                 <div class="button">
-                    <button class="button__ttl">ログインする</button>
+                    <button type="submit" class="button__ttl">ログインする</button>
                 </div>
             </form>
         </div>
