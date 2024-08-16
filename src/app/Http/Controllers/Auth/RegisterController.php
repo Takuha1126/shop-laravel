@@ -56,20 +56,19 @@ class RegisterController extends Controller
     }
 
     public function verifyEmail($id, $token)
-{
-    $user = User::find($id);
+    {
+        $user = User::find($id);
 
-    if ($user && sha1($user->email) === $token) {
-        $user->email_verified_at = now();
-        $user->save();
+        if ($user && sha1($user->email) === $token) {
+            $user->email_verified_at = now();
+            $user->save();
 
-        Auth::login($user);
+            Auth::login($user);
 
-        return redirect()->route('home.index')->with('verified', true);
+            return redirect()->route('home.index')->with('verified', true);
+        }
+
+        return redirect()->route('home.index')->with('verification_failed', true);
     }
-
-    return redirect()->route('home.index')->with('verification_failed', true);
-}
-
 
 }
