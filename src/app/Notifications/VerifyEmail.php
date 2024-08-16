@@ -5,51 +5,35 @@ namespace App\Notifications;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Carbon;
 
 class VerifyEmail extends Notification
 {
     use Queueable;
 
-    /**
-     * Create a new notification instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    protected $user;
+
+    public function __construct($user)
     {
-        //
+        $this->user = $user;
     }
 
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
     public function via($notifiable)
     {
         return ['mail'];
     }
 
-    /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
     public function toMail($notifiable)
     {
+        $verifyUrl = url('/email/verify/' . $this->user->id . '/' . sha1($this->user->email));
+
         return (new MailMessage)
-                    ->action('アクションを実行する', url('/'))
-                    ->line('アプリをご利用いただき、ありがとうございます！');
+            ->subject('メールアドレスの確認')
+            ->line('このメールは、アカウントのメールアドレス確認のために送信されています。')
+            ->action('メールアドレスを確認する', $verifyUrl);
     }
 
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
     public function toArray($notifiable)
     {
         return [

@@ -18,15 +18,13 @@ class AdminRegisterController extends Controller
 
     public function register(AdminRegisterRequest $request)
     {
-
         $admin = Admin::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        $admin->notify(new AdminVerifyEmail());
-
+        $admin->notify(new AdminVerifyEmail($admin));
 
         Auth::guard('admin')->login($admin);
 
@@ -41,9 +39,24 @@ class AdminRegisterController extends Controller
     public function resendVerificationEmail()
     {
         $admin = Auth::guard('admin')->user();
-        $admin->notify(new AdminVerifyEmail());
+        $admin->notify(new AdminVerifyEmail($admin));
 
         return redirect()->route('admin.verify')->with('resent', true);
     }
 
+    public function verifyEmail($id, $token)
+    {
+        $admin = Admin::find($id);
+
+        if ($admin && sha1($admin->email) === $token) {
+            $admin->email_verified_at = now();
+            $admin->save();
+
+            Auth::guard('admin')->login($admin);
+
+            return redirect()->route('admin.index')->with('verified', true);
+        }
+
+        return redirect()->route('admin.index')->with('verification_failed', true);
+    }
 }

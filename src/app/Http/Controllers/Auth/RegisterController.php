@@ -34,8 +34,7 @@ class RegisterController extends Controller
             'profile_image' => 'default.jpg',
         ]);
 
-        $user->notify(new VerifyEmail());
-
+        $user->notify(new VerifyEmail($user));
 
         Auth::login($user);
 
@@ -50,9 +49,27 @@ class RegisterController extends Controller
     public function resendVerificationEmail(Request $request)
     {
         $user = $request->user();
-        $user->notify(new VerifyEmail());
+        $user->notify(new VerifyEmail($user));
 
 
         return redirect()->route('auth.verify')->with('resent', true);
     }
+
+    public function verifyEmail($id, $token)
+{
+    $user = User::find($id);
+
+    if ($user && sha1($user->email) === $token) {
+        $user->email_verified_at = now();
+        $user->save();
+
+        Auth::login($user);
+
+        return redirect()->route('home.index')->with('verified', true);
+    }
+
+    return redirect()->route('home.index')->with('verification_failed', true);
+}
+
+
 }

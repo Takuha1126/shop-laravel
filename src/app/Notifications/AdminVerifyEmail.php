@@ -5,19 +5,23 @@ namespace App\Notifications;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\URL;
 
 class AdminVerifyEmail extends Notification
 {
     use Queueable;
 
+    protected $admin;
+
     /**
      * Create a new notification instance.
      *
+     * @param  \App\Models\Admin  $admin
      * @return void
      */
-    public function __construct()
+    public function __construct($admin)
     {
-        //
+        $this->admin = $admin;
     }
 
     /**
@@ -39,9 +43,12 @@ class AdminVerifyEmail extends Notification
      */
     public function toMail($notifiable)
     {
+        $verifyUrl = url('/admin/verify-email/' . $this->admin->id . '/' . sha1($this->admin->email));
+
         return (new MailMessage)
-                    ->action('アクションを実行する', url('/admin'))
-                    ->line('アプリをご利用いただき、ありがとうございます！');
+            ->subject('メールアドレスの確認')
+            ->line('このメールは、アカウントのメールアドレス確認のために送信されています。')
+            ->action('メールアドレスを確認する', $verifyUrl);
     }
 
     /**

@@ -73,6 +73,7 @@ Route::middleware(['auth.admin'])->group(function () {
 
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
+Route::get('/email/verify/{id}/{token}', [RegisterController::class, 'verifyEmail'])->name('verify.email');
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
@@ -80,6 +81,8 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/admin/register', [AdminRegisterController::class, 'showRegisterForm'])->name('admin.register');
 Route::post('/admin/register', [AdminRegisterController::class, 'register']);
+Route::get('/admin/verify-email/{id}/{token}', [AdminRegisterController::class, 'verifyEmail'])
+    ->name('admin.verify.email');
 Route::get('/admin/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
 Route::post('/admin/login', [AdminLoginController::class, 'login']);
 Route::post('/admin/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
