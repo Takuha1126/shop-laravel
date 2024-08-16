@@ -27,7 +27,7 @@ use App\Http\Controllers\PaymentController;
 |
 */
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['web'])->group(function () {
     Route::get('/search', [ItemController::class, 'search'])->name('products.search');
     Route::get('/favorite/get', [FavoriteController::class, 'getFavorite'])->name('favorite.get');
     Route::post('/toggle',[FavoriteController::class, 'toggleFavorite'])->name('favorite.toggle');
