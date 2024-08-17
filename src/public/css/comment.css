@@ -227,16 +227,15 @@
 
     .about__title {
         font-size: 20px;
-        width: 290px;
     }
 
     .about__ttl {
         text-align: center;
+        width: 200px;
     }
 
     .about__brand {
         font-size: 16px;
-        width: 290px;
     }
 
     .price__ttl {
