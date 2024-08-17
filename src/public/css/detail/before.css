@@ -209,6 +209,7 @@ html {
 .category__title {
     font-weight: 700;
     margin-right: 30px;
+    margin-left: 20px;
     white-space: nowrap;
 }
 
@@ -229,6 +230,7 @@ html {
 .status__title {
     font-weight: 700;
     margin-right: 35px;
+    margin-left: 20px;
 
 }
 
