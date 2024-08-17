@@ -131,7 +131,10 @@
         margin-left: 50px;
     }
 
-    .item__title,
+    .item__title {
+        font-size: 10px;
+    }
+
     .item__price {
         white-space: nowrap;
     }
