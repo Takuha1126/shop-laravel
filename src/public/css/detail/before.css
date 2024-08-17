@@ -322,7 +322,7 @@ html {
     .about__information {
         width: 100%;
         margin: 0 auto;
-        }
+    }
 
 
     .about__title {
@@ -335,24 +335,33 @@ html {
         font-size: 13px;
     }
 
-    .about__category,
-    .about__status {
+    .about__category {
         width: 100%;
-        padding-left: 20px;
+        padding-left: 30px;
         font-size: 13px;
         white-space: nowrap;
     }
 
     .category__item {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
     }
 
     .category__type {
-        font-size: 10px;
-        padding: 0 10px;
+        font-size: 8px;
+        padding: 0 5px;
         text-align: center;
+    }
+
+    .about__status {
+        width: 100%;
+        padding-left: 30px;
+        font-size: 13px;
+    }
+
+    .status__title {
+        white-space: nowrap;
     }
 
 }
