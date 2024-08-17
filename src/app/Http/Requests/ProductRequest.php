@@ -30,7 +30,7 @@ class ProductRequest extends FormRequest
             'product_name' => 'required|string|max:50',
             'brand' => 'required|string|max:30',
             'description' => 'required|string|max:255',
-            'price' => 'required|numeric|min:100',
+            'price' => 'required|numeric|integer|min:100',
         ];
     }
 
@@ -56,6 +56,7 @@ class ProductRequest extends FormRequest
             'description.max' => '商品の説明は255文字以内で入力してください。',
             'price.required' => '販売価格を入力してください。',
             'price.numeric' => '販売価格は数値で入力してください。',
+            'price.integer' => '販売価格は整数で入力してください。',
             'price.min' => '販売価格は100円以上で入力してください。',
         ];
     }
