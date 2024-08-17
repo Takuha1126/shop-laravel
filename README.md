@@ -6,7 +6,7 @@
 機能をわかりやすく誰でも使えるアプリを作成するため
 
 ##アプリケーションURL
-http://35.77.216.198//
+http:/35.77.216.198/
 
 注意事項
 商品を出品したら誤解で自分のを買わないように出品者のホームと検索欄には自分の商品は出ませんのでご注意ください。
@@ -129,7 +129,7 @@ mkdir storage/app/public/profile_images
 ls storage/app/public/
 
 ここにアクセスしOneDriveから画像をダウンロード
-https://onedrive.live.com/?authkey=%21AMtSQRNgrYE61v8&cid=176BB5CC4F0A2C2F&id=176BB5CC4F0A2C2F%21122&parId=176BB5CC4F0A2C2F%21114&o=OneUp
+https://1drv.ms/f/s!Ai8sCk_MtWsXbstSQRNgrYE61v8?e=JvjU1t
 
 
 これでコピー(ここではローカルマシンで操作)
