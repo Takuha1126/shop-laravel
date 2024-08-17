@@ -21,6 +21,7 @@
 .about__title {
     font-size: 25px;
     font-weight: bold;
+    width: 300px;
 }
 
 .about__title,
@@ -32,6 +33,7 @@
 .about__brand {
     display: inline-block;
     margin-left: 5px;
+    width: 300px;
 }
 
 .price__ttl {
@@ -225,6 +227,7 @@
 
     .about__title {
         font-size: 20px;
+        width: 290px;
     }
 
     .about__ttl {
@@ -233,6 +236,7 @@
 
     .about__brand {
         font-size: 16px;
+        width: 290px;
     }
 
     .price__ttl {
