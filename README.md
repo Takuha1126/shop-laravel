@@ -129,7 +129,7 @@ mkdir storage/app/public/profile_images
 ls storage/app/public/
 
 ここにアクセスしOneDriveから画像をダウンロード
-https://onedrive.live.com/?authkey=%21AMtSQRNgrYE61v8&cid=176BB5CC4F0A2C2F&id=176BB5CC4F0A2C2F%21122&parId=176BB5CC4F0A2C2F%21114&o=OneUp
+https://1drv.ms/f/s!Ai8sCk_MtWsXbstSQRNgrYE61v8?e=JvjU1t
 
 
 これでコピー(ここではローカルマシンで操作)
