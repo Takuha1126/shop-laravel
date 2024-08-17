@@ -14,14 +14,14 @@
                 @csrf
                 <div class="main__email">
                     <label class="label">メールアドレス</label>
-                    <input type="email" name="email">
+                    <input type="email" name="email" autocomplete="username">
                     @error('email')
                         <p class="error">{{ $message }}</p>
                     @enderror
                 </div>
                 <div class="main__password">
                     <label class="label">パスワード</label>
-                    <input type="password" name="password">
+                    <input type="password" name="password" autocomplete="current-password">
                     @error('password')
                         <p class="error">{{ $message }}</p>
                     @enderror
