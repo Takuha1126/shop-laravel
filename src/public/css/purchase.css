@@ -132,7 +132,8 @@
     }
 
     .item__title {
-        font-size: 10px;
+        width: 100px;
+        font-size: 11px;
     }
 
     .item__price {
