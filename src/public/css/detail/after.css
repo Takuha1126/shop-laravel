@@ -181,6 +181,18 @@
         margin: 0 auto;
     }
 
+    .about__title {
+        font-size: 15px;
+        width: 100%;
+        margin-left: 3px;
+
+    }
+
+    .about__brand {
+        font-size: 12px;
+        width: 100%;
+    }
+
     .about__group {
         width: 100%;
         text-align: center;
@@ -212,9 +224,6 @@
         margin: 0 auto;
     }
 
-    .about__title {
-        font-size: 20px;
-    }
 
     .about__detail {
         width: 100%;
