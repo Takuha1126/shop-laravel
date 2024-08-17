@@ -224,14 +224,15 @@
         width: 60%;
     }
 
-    .about__title {
-        font-size: 15px;
-        width: 100%;
-    }
-
     .about__ttl {
         text-align: center;
         width: 280px;
+    }
+
+    .about__title {
+        font-size: 15px;
+        width: 100%;
+        margin-left: 3px;
     }
 
     .about__brand {
